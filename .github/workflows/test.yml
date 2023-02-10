@@ -35,12 +35,9 @@ jobs:
         with:
           python-version: ${{ matrix.python }}
           architecture: x64
-      - name: Build sdist and bdist_wheel
+    
+      - name: Test package with unittest 
         run: |
-          pip install setuptools pip wheel
-          python3 setup.py sdist bdist_wheel
-      - name: Test package with pytest
-        run: |
-          pip install pytest
-          python setup.py install
-          pytest
+          pip install poetry
+          poetry install --with test, dev
+          python -m unittest discover
