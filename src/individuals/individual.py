@@ -5,21 +5,21 @@ class Individual(ABC):
     """
     Abstract class for an individual in a population. Implements common traits between all individuals.
     An individual is a KERAS model.
-    Genes are passed down from parents, or instantiated randomly. 
+    Genes are passed down from parents, or instantiated randomly.
     Individual is a base class that implements the basic functionality of an individual.
     Child classes hold specific information for different types of models.
     """
 
-    fitness = 0 
-    
+    fitness = 0
+
     def __init__(self, parents=None, population=None):
         need_new_genes = self._check_individual_inputs(parents, population)
         self.population = population
         self.parents = parents
         self.genes = self._random_genes() if need_new_genes else self._crossover()
         # Check inputs
-    
-    def _check_individual_inputs(self, parents, population) -> bool:  
+
+    def _check_individual_inputs(self, parents, population) -> bool:
         """
         1. Population can not be None
         2. If parents are not None, they must be a list of individuals.
@@ -33,10 +33,10 @@ class Individual(ABC):
             if not all(isinstance(parent, Individual) for parent in parents):
                 raise ValueError("Parents must be a list of individuals.")
 
-        if parents is None: 
+        if parents is None:
             return True
         return False
-    
+
     @abstractmethod
     def _random_genes(self):
         """

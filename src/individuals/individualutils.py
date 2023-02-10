@@ -2,7 +2,8 @@
 Utils for individuals.
 """
 
-import random 
+import random
+
 
 def get_min_length_chromosome(chromosomes):
     """
@@ -10,7 +11,9 @@ def get_min_length_chromosome(chromosomes):
     """
     if len(chromosomes) == 0:
         raise ValueError("Chromosomes can not be empty.")
-    return min(chromosomes, key=lambda chromosome: len(chromosomes[chromosome].keys()))
+    return min(chromosomes, key=lambda chromosome: len(
+        chromosomes[chromosome].keys()))
+
 
 def get_crossover_points_from_num_parents(num_parents, chromosome_length):
     """
@@ -20,10 +23,10 @@ def get_crossover_points_from_num_parents(num_parents, chromosome_length):
     crossover_points = []
     index_chromosome_list = 0
 
-    while num_crossover_points <= num_parents: 
+    while num_crossover_points <= num_parents:
         index = random.randint(index_chromosome_list, chromosome_length - 2)
         crossover_points.append(index)
         index_chromosome_list = index + 1
         num_crossover_points += 1
-    
+
     return crossover_points

@@ -1,7 +1,7 @@
 import random
 import tensorflow as tf
-from tensorflow import keras 
-import numpy as np 
+from tensorflow import keras
+import numpy as np
 import pandas as pd
 
 
@@ -28,7 +28,7 @@ class individual:
         self.fitness = 0
         self.chromosomeone = None
         self.chromosometwo = None
-        if parentOne == None and parentTwo == None:
+        if parentOne is None and parentTwo is None:
             self.chromosomeone = {}
             initiallen = random.randint(1, 13)
             for elem in range(initiallen):
@@ -49,7 +49,10 @@ class individual:
             self.mutation()
 
         self.train_features, self.train_labels, self.test_features, self.test_labels, self.val_features, self.val_labels = self.population.goal.grabneuralnetdata()
-        self.model = self.make_model(output_bias=None, layerdef=self.chromosomeone, train_features=self.train_features)
+        self.model = self.make_model(
+            output_bias=None,
+            layerdef=self.chromosomeone,
+            train_features=self.train_features)
 
     def make_model(self, output_bias=None, layerdef=None, train_features=None):
         """
@@ -68,8 +71,8 @@ class individual:
         else:
             layerlist = [tf.keras.layers.Dense(train_features.shape[-1], activation='relu',
                                                input_shape=(train_features.shape[-1],))] + [
-                            tf.keras.layers.Dense(i, activation=layerdef.get(i)) for i in layerdef.keys()] + [
-                            keras.layers.Dense(1, activation='sigmoid')]
+                tf.keras.layers.Dense(i, activation=layerdef.get(i)) for i in layerdef.keys()] + [
+                keras.layers.Dense(1, activation='sigmoid')]
             model = keras.Sequential(layerlist)
             model.compile(
                 optimizer=keras.optimizers.Adam(lr=1e-3),
@@ -137,12 +140,18 @@ class individual:
         :return:
         """
 
-        crossover_point = np.uint8(np.random.randint(0, len(self.chromosomeone.keys())))
-        # Recombinant one is the result of parental gene 1 + parental gene 2's crossover point
+        crossover_point = np.uint8(
+            np.random.randint(
+                0, len(
+                    self.chromosomeone.keys())))
+        # Recombinant one is the result of parental gene 1 + parental gene 2's
+        # crossover point
         recombinant_one = {}
         recombinant_two = {}
-        base_for_recombinant_one = list(self.chromosomeone.keys())[0:crossover_point]
-        link_for_recombinant_one = list(self.chromosometwo.keys())[(crossover_point % len(self.chromosometwo.keys())):]
+        base_for_recombinant_one = list(self.chromosomeone.keys())[
+            0:crossover_point]
+        link_for_recombinant_one = list(self.chromosometwo.keys())[
+            (crossover_point % len(self.chromosometwo.keys())):]
 
         for key in base_for_recombinant_one:
             recombinant_one[key] = self.chromosomeone[key]
@@ -152,7 +161,8 @@ class individual:
 
         # TODO: make it choose based on previous knowledge.
 
-        # TODO: this needs some work, I think that one way to do this is to sample proportions between the two groups using numpy? ? ?
+        # TODO: this needs some work, I think that one way to do this is to
+        # sample proportions between the two groups using numpy? ? ?
         recombinant_chance_1_list = list(
             ('A',) * int((len(link_for_recombinant_one) / len(self.chromosomeone.keys())) * 100))
         recombinant_chance_2_list = list(
@@ -162,7 +172,8 @@ class individual:
         parental_chance_2_list = list(
             ('D',) * int((100 - ((len(link_for_recombinant_one) / len(self.chromosomeone.keys())) * 100) / 2)))
 
-        genome_chances = recombinant_chance_1_list + recombinant_chance_2_list + parental_chance_1_list + parental_chance_2_list
+        genome_chances = recombinant_chance_1_list + recombinant_chance_2_list + \
+            parental_chance_1_list + parental_chance_2_list
 
         picked_genome = np.random.choice(genome_chances)
 
@@ -224,7 +235,12 @@ class individual:
                        validation_data=(self.val_features, self.val_labels), verbose=0)
         # trainresults = self.model.predict(train_features, batch_size=BATCH_SIZE, verbose=0)
         # testrestuls = self.model.predict(test_features, batch_size=BATCH_SIZE, verbose=0)
-        results = self.model.evaluate(self.test_features, self.test_labels, batch_size=BATCH_SIZE, verbose=0)
-        fitness = results[-1]  # the auc value for this run is used as a metric.
+        results = self.model.evaluate(
+            self.test_features,
+            self.test_labels,
+            batch_size=BATCH_SIZE,
+            verbose=0)
+        # the auc value for this run is used as a metric.
+        fitness = results[-1]
         self.fitness = fitness
         return fitness

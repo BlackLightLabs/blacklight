@@ -18,11 +18,9 @@ class DataLoader:
 
         :param args: Location of data source, with other args depending on source.
         """
-        self.data = args[0] 
-        self.dataType = args[1] 
+        self.data = args[0]
+        self.dataType = args[1]
         pass
-
-    
 
 
 class FileDataLoader(DataLoader):
@@ -31,7 +29,7 @@ class FileDataLoader(DataLoader):
     """
 
     def __init__(self, data_location, data_type, **kwargs):
-        self.data = read_data_from_file(data_location, data_type, **kwargs) 
+        self.data = read_data_from_file(data_location, data_type, **kwargs)
         self.dataType = data_type
 
     def extractData(self):
@@ -45,7 +43,6 @@ class FileDataLoader(DataLoader):
             if str(column).lower() in possible_prediction_columns:
                 y_column_name = column
                 break
-        
 
         y = np.array(self.data.pop(y_column_name))
         X = np.array(self.data)
