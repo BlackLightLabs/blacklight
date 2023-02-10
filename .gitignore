@@ -1,2 +1,6 @@
 .idea/
 blacklight_env/
+blacklightenv_macair/
+.obsidian/ 
+.vscode/ 
+.pytest_cache/
