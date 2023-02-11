@@ -39,5 +39,5 @@ jobs:
       - name: Test package with unittest 
         run: |
           pip install poetry
-          poetry install --with test
+          poetry install --with test --without dev
           python -m unittest discover
