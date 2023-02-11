@@ -28,6 +28,6 @@ class TestCrossoverPoints(unittest.TestCase):
         crossover_points = get_crossover_points_from_num_parents(
             num_parents, chromosome_length)
         self.assertEqual(len(crossover_points), num_parents)
-        self.assertTrue(all(point < chromosome_length -
+        self.assertTrue(all(point <= chromosome_length -
                         1 for point in crossover_points))
         return

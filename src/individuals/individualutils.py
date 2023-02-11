@@ -23,10 +23,10 @@ def get_crossover_points_from_num_parents(num_parents, chromosome_length):
     crossover_points = []
     index_chromosome_list = 0
 
-    while num_crossover_points <= num_parents:
-        index = random.randint(index_chromosome_list, chromosome_length - 2)
+    while num_crossover_points < num_parents:
+        index = random.randint(index_chromosome_list, chromosome_length - 1)
         crossover_points.append(index)
-        index_chromosome_list = index + 1
+        index_chromosome_list = index
         num_crossover_points += 1
 
     return crossover_points

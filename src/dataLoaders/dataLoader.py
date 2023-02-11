@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-from blacklight.dataLoaders.utils import read_data_from_file
+from src.dataLoaders.utils import read_data_from_file
 
 from abc import ABC, abstractmethod
 
