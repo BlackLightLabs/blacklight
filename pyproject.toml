@@ -22,7 +22,7 @@ flake8 = "*"
 autopep8 = "*"
 tensorflow_macos = {version = "*", markers = "platform_machine == 'arm64'"}
 tensorflow_metal = {version = "*", markers = "platform_machine == 'arm64'"}
-tensorflow = {version = "*", markers = "platform_machine != 'arm64'"}
+tensorflow = {version = "<2.11", markers = "platform_machine != 'arm64'"}
 
 
 [build-system]
