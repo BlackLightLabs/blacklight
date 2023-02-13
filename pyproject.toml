@@ -6,7 +6,7 @@ authors = ["Cole Agard <ctagard19@gmail.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.9"
+python = ">=3.9,<3.11"
 numpy = "^1.24.2"
 pandas = "^1.5.3"
 tensorflow_macos = {version = "*", markers = "platform_machine == 'arm64'"}

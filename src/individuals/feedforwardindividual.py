@@ -87,11 +87,6 @@ class FeedForwardIndividual(Individual):
         # Define recombined genes
         recombinants = []
 
-
-
-
-
-
         pass
 
     def _mutate(self):
