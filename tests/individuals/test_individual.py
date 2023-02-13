@@ -20,4 +20,4 @@ class TestIndividual(unittest.TestCase):
         self.assertEqual(len(this_individual.genes.keys()), 2)
 
         three_parent = FeedForwardIndividual(None, "a random population", NUM_PARENTS=3)
-        self.assertEqual(len(three_parent.genes.keys()), 3)
+        self.assertEqual(len(three_parent.genes.keys()), 2)

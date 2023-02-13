@@ -29,9 +29,9 @@ class FeedForwardIndividual(Individual):
         Feed Forward Neural Networks are made up of layers. Each layer has a number of neurons and an activation function.
         Initialize genes as a list of dictionaries. Each dictionary represents a layer.
         """
-        genes = {f"gene_ranking_initialization{i}": {random.randint(1, self.MAX_NEURONS): random.choice(["relu", "sigmoid", "tanh"])
+        genes = {f"gene_{i}": {random.randint(1, self.MAX_NEURONS): random.choice(["relu", "sigmoid", "tanh"])
                     for _ in range(self.MAX_LAYERS)} 
-                    for i in range(self.NUM_PARENTS)}
+                    for i in range(2)}
         return genes
 
     def _crossover(self):
