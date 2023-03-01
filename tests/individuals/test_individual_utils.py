@@ -1,6 +1,6 @@
 import unittest
 from src.individuals.individualutils import *
-
+import numpy as np
 
 class TestMinLengthChromosome(unittest.TestCase):
     # Test get_min_length_chromosome
