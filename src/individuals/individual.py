@@ -1,12 +1,11 @@
 from abc import ABC, abstractmethod
-from collections import OrderedDict
 
 
 class Individual(ABC):
     """
     Abstract class for an individual in a population. Implements common traits between all individuals.
     An individual is a KERAS model.
-    Genes are passed down from parents, or instantiated randomly. 
+    Genes are passed down from parents, or instantiated randomly.
     Individual is a base class that implements the basic functionality of an individual.
     Child classes hold specific information for different types of models.
     """
@@ -14,7 +13,8 @@ class Individual(ABC):
     fitness = 0
 
     def __init__(self, parents_genes=None, population=None):
-        self.need_new_genes = self._check_individual_inputs(parents_genes, population)
+        self.need_new_genes = self._check_individual_inputs(
+            parents_genes, population)
         self.population = population
         self.parents_genes = parents_genes
         self.genes = None

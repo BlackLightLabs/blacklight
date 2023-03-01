@@ -1,8 +1,5 @@
-import pandas as pd
 import numpy as np
 from src.dataLoaders.utils import read_data_from_file
-
-from abc import ABC, abstractmethod
 
 
 class DataLoader:
@@ -45,7 +42,7 @@ class FileDataLoader(DataLoader):
     """
 
     def __init__(self, data_location, data_type):
-        self.data = read_data_from_file(data_location, data_type, **kwargs)
+        self.data = read_data_from_file(data_location, data_type)
         super().__init__(self.data)
         self.X, self.y = self.extractData()
 
