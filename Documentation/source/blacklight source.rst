@@ -1,0 +1,16 @@
+blacklight methods
+==================
+.. toctree::
+   :maxdepth: 4
+
+   src.dataLoaders
+   src.individuals
+   src.populations
+
+Module contents
+---------------
+
+.. automodule:: src
+   :members:
+   :undoc-members:
+   :show-inheritance:

@@ -1,0 +1,318 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+    <title>src.individuals package &#8212; Blacklight 0.1.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="src.populations package" href="src.populations.html" />
+    <link rel="prev" title="src.dataLoaders package" href="src.dataLoaders.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="src-individuals-package">
+<h1>src.individuals package<a class="headerlink" href="#src-individuals-package" title="Permalink to this heading">¶</a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading">¶</a></h2>
+</section>
+<section id="module-src.individuals.feedforwardindividual">
+<span id="src-individuals-feedforwardindividual-module"></span><h2>src.individuals.feedforwardindividual module<a class="headerlink" href="#module-src.individuals.feedforwardindividual" title="Permalink to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="src.individuals.feedforwardindividual.FeedForwardIndividual">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.individuals.feedforwardindividual.</span></span><span class="sig-name descname"><span class="pre">FeedForwardIndividual</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parents_genes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">population</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">MAX_NEURONS</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">64</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">MAX_LAYERS</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">NUM_PARENTS</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/individuals/feedforwardindividual.html#FeedForwardIndividual"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.individuals.feedforwardindividual.FeedForwardIndividual" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#src.individuals.individual.Individual" title="src.individuals.individual.Individual"><code class="xref py py-class docutils literal notranslate"><span class="pre">Individual</span></code></a></p>
+<p>Individual for a feed forward neural network.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="src.individuals.feedforwardindividual.FeedForwardIndividual._abc_impl">
+<span class="sig-name descname"><span class="pre">_abc_impl</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;_abc._abc_data</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#src.individuals.feedforwardindividual.FeedForwardIndividual._abc_impl" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.individuals.feedforwardindividual.FeedForwardIndividual._crossover">
+<span class="sig-name descname"><span class="pre">_crossover</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/individuals/feedforwardindividual.html#FeedForwardIndividual._crossover"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.individuals.feedforwardindividual.FeedForwardIndividual._crossover" title="Permalink to this definition">¶</a></dt>
+<dd><p>Utilizes parents genes (a list of genes) and returns a new set of genes
+for this individual.
+Models real crossover, see merge_genes for details.
+:param None:</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dictionary of genes</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>genes (dict)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.individuals.feedforwardindividual.FeedForwardIndividual._evaluate_model">
+<span class="sig-name descname"><span class="pre">_evaluate_model</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/individuals/feedforwardindividual.html#FeedForwardIndividual._evaluate_model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.individuals.feedforwardindividual.FeedForwardIndividual._evaluate_model" title="Permalink to this definition">¶</a></dt>
+<dd><p>Evaluate the model.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.individuals.feedforwardindividual.FeedForwardIndividual._make_model">
+<span class="sig-name descname"><span class="pre">_make_model</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/individuals/feedforwardindividual.html#FeedForwardIndividual._make_model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.individuals.feedforwardindividual.FeedForwardIndividual._make_model" title="Permalink to this definition">¶</a></dt>
+<dd><p>Make a keras model from the genes.
+Implementing Forward-Forward Neural Networks to save on computation time
+during the architecture search.
+:return:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.individuals.feedforwardindividual.FeedForwardIndividual._mutate">
+<span class="sig-name descname"><span class="pre">_mutate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/individuals/feedforwardindividual.html#FeedForwardIndividual._mutate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.individuals.feedforwardindividual.FeedForwardIndividual._mutate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Mutate the genes of the individual.
+:return:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.individuals.feedforwardindividual.FeedForwardIndividual._random_genes">
+<span class="sig-name descname"><span class="pre">_random_genes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/individuals/feedforwardindividual.html#FeedForwardIndividual._random_genes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.individuals.feedforwardindividual.FeedForwardIndividual._random_genes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Randomly initialize genes for each type of individual if there are no parents.
+Feed Forward Neural Networks are made up of layers. Each layer has a number of neurons and an activation function.
+Initialize genes as a dictionary of dictionaries. Each sub_dictionary entry represents a layer.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong> – </p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>dictionary of randomly generated genes</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>genes (dict)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.individuals.feedforwardindividual.FeedForwardIndividual._train_model">
+<span class="sig-name descname"><span class="pre">_train_model</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/individuals/feedforwardindividual.html#FeedForwardIndividual._train_model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.individuals.feedforwardindividual.FeedForwardIndividual._train_model" title="Permalink to this definition">¶</a></dt>
+<dd><p>Train the model.
+:return:</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.individuals.feedforwardindividual.FeedForwardIndividual.get_fitness">
+<span class="sig-name descname"><span class="pre">get_fitness</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/individuals/feedforwardindividual.html#FeedForwardIndividual.get_fitness"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.individuals.feedforwardindividual.FeedForwardIndividual.get_fitness" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the fitness of the individual.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.individuals.feedforwardindividual.FeedForwardIndividual.mate">
+<span class="sig-name descname"><span class="pre">mate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other_individual</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/individuals/feedforwardindividual.html#FeedForwardIndividual.mate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.individuals.feedforwardindividual.FeedForwardIndividual.mate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Mate with another individual.
+:param other_individual: Individual to mate with.
+:return:</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-src.individuals.individual">
+<span id="src-individuals-individual-module"></span><h2>src.individuals.individual module<a class="headerlink" href="#module-src.individuals.individual" title="Permalink to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="src.individuals.individual.Individual">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.individuals.individual.</span></span><span class="sig-name descname"><span class="pre">Individual</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parents_genes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">population</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/individuals/individual.html#Individual"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.individuals.individual.Individual" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></p>
+<p>Abstract class for an individual in a population. Implements common traits between all individuals.
+An individual is a KERAS model.
+Genes are passed down from parents, or instantiated randomly.
+Individual is a base class that implements the basic functionality of an individual.
+Child classes hold specific information for different types of models.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="src.individuals.individual.Individual._abc_impl">
+<span class="sig-name descname"><span class="pre">_abc_impl</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">&lt;_abc._abc_data</span> <span class="pre">object&gt;</span></em><a class="headerlink" href="#src.individuals.individual.Individual._abc_impl" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.individuals.individual.Individual._check_individual_inputs">
+<span class="sig-name descname"><span class="pre">_check_individual_inputs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parents</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">population</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/src/individuals/individual.html#Individual._check_individual_inputs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.individuals.individual.Individual._check_individual_inputs" title="Permalink to this definition">¶</a></dt>
+<dd><ol class="arabic simple">
+<li><p>Population can not be None</p></li>
+<li><p>If parents are not None, they must be a list of individuals.</p></li>
+</ol>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.individuals.individual.Individual._crossover">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_crossover</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/individuals/individual.html#Individual._crossover"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.individuals.individual.Individual._crossover" title="Permalink to this definition">¶</a></dt>
+<dd><p>Crossover genes from parents to create new genes.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.individuals.individual.Individual._make_model">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_make_model</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/individuals/individual.html#Individual._make_model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.individuals.individual.Individual._make_model" title="Permalink to this definition">¶</a></dt>
+<dd><p>Make a Keras model from this individual’s genes.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.individuals.individual.Individual._mutate">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_mutate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/individuals/individual.html#Individual._mutate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.individuals.individual.Individual._mutate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Mutate genes of this individual.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.individuals.individual.Individual._random_genes">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_random_genes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/individuals/individual.html#Individual._random_genes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.individuals.individual.Individual._random_genes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Randomly initialize genes for each type of individual if there are no parents.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="src.individuals.individual.Individual.fitness">
+<span class="sig-name descname"><span class="pre">fitness</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#src.individuals.individual.Individual.fitness" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.individuals.individual.Individual.get_fitness">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_fitness</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/individuals/individual.html#Individual.get_fitness"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.individuals.individual.Individual.get_fitness" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get fitness of this individual.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-src.individuals.individualutils">
+<span id="src-individuals-individualutils-module"></span><h2>src.individuals.individualutils module<a class="headerlink" href="#module-src.individuals.individualutils" title="Permalink to this heading">¶</a></h2>
+<p>Utils for individuals.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="src.individuals.individualutils.FeedForwardConstants">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">src.individuals.individualutils.</span></span><span class="sig-name descname"><span class="pre">FeedForwardConstants</span></span><a class="reference internal" href="_modules/src/individuals/individualutils.html#FeedForwardConstants"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.individuals.individualutils.FeedForwardConstants" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Constants for FeedForward NeuralNetorks</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="src.individuals.individualutils.FeedForwardConstants.default_metrics">
+<span class="sig-name descname"><span class="pre">default_metrics</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[tensorflow.keras.metrics.TruePositives,</span> <span class="pre">tensorflow.keras.metrics.FalsePositives,</span> <span class="pre">tensorflow.keras.metrics.TrueNegatives,</span> <span class="pre">tensorflow.keras.metrics.FalseNegatives,</span> <span class="pre">tensorflow.keras.metrics.CategoricalAccuracy,</span> <span class="pre">tensorflow.keras.metrics.Precision,</span> <span class="pre">tensorflow.keras.metrics.Recall,</span> <span class="pre">tensorflow.keras.metrics.AUC]</span></em><a class="headerlink" href="#src.individuals.individualutils.FeedForwardConstants.default_metrics" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.individuals.individualutils.get_crossover_points_from_num_parents">
+<span class="sig-prename descclassname"><span class="pre">src.individuals.individualutils.</span></span><span class="sig-name descname"><span class="pre">get_crossover_points_from_num_parents</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_parents</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">chromosome_length</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/individuals/individualutils.html#get_crossover_points_from_num_parents"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.individuals.individualutils.get_crossover_points_from_num_parents" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a list of crossover points for a given number of parents and chromosome length.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.individuals.individualutils.get_min_length_chromosome">
+<span class="sig-prename descclassname"><span class="pre">src.individuals.individualutils.</span></span><span class="sig-name descname"><span class="pre">get_min_length_chromosome</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parents_chromosomes</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/individuals/individualutils.html#get_min_length_chromosome"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.individuals.individualutils.get_min_length_chromosome" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the chromosome with the minimum length.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.individuals.individualutils.merge_genes">
+<span class="sig-prename descclassname"><span class="pre">src.individuals.individualutils.</span></span><span class="sig-name descname"><span class="pre">merge_genes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent_one_genes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parent_two_genes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">points</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/individuals/individualutils.html#merge_genes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.individuals.individualutils.merge_genes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Merge two genes together.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.individuals.individualutils.mutate_dominant_gene">
+<span class="sig-prename descclassname"><span class="pre">src.individuals.individualutils.</span></span><span class="sig-name descname"><span class="pre">mutate_dominant_gene</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dominant_gene</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">MAX_LAYER_SIZE</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/individuals/individualutils.html#mutate_dominant_gene"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.individuals.individualutils.mutate_dominant_gene" title="Permalink to this definition">¶</a></dt>
+<dd><p>Mutate the dominant gene.</p>
+</dd></dl>
+
+</section>
+<section id="module-src.individuals">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-src.individuals" title="Permalink to this heading">¶</a></h2>
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">Blacklight</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">src</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="src.html">src package</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="modules.html">src</a><ul>
+  <li><a href="src.html">src package</a><ul>
+      <li>Previous: <a href="src.dataLoaders.html" title="previous chapter">src.dataLoaders package</a></li>
+      <li>Next: <a href="src.populations.html" title="next chapter">src.populations package</a></li>
+  </ul></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2023, Cole Agard.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 6.1.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/src.individuals.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

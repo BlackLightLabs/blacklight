@@ -1,6 +1,5 @@
 import tensorflow as tf
 from tensorflow import keras
-
 from src.individuals.individual import Individual
 from src.individuals.individualutils import get_crossover_points_from_num_parents, get_min_length_chromosome, merge_genes, FeedForwardConstants, mutate_dominant_gene
 from collections import OrderedDict
@@ -10,9 +9,17 @@ import random
 class FeedForwardIndividual(Individual):
     """
     Individual for a feed forward neural network.
-    Description of genes:
-     - Dictionary of layers.
-        {number of layers: int, layer_activation: str}
+
+    Parameters:
+            parents_genes: list of genes from parents
+            population: population object that this individual belongs to
+            MAX_NEURONS: maximum number of neurons allowed
+            MAX_LAYERS: maximum number of layers allowed
+            NUM_PARENTS: number of parents used for crossover
+            **kwargs: arguments to be passed to Keras
+
+    Returns:
+        None
     """
 
     def __init__(
@@ -23,6 +30,9 @@ class FeedForwardIndividual(Individual):
             MAX_LAYERS=10,
             NUM_PARENTS=2,
             **kwargs):
+        """
+        Initializes a FeedForwardIndividual.
+        """
         super().__init__(parents_genes, population)
         # Feed Forward Neural Network parameters
         self.MAX_LAYERS = MAX_LAYERS
@@ -60,6 +70,12 @@ class FeedForwardIndividual(Individual):
         Randomly initialize genes for each type of individual if there are no parents.
         Feed Forward Neural Networks are made up of layers. Each layer has a number of neurons and an activation function.
         Initialize genes as a dictionary of dictionaries. Each sub_dictionary entry represents a layer.
+
+        Parameters:
+            None
+
+        Returns:
+            genes (dict): dictionary of randomly generated genes
         """
         genes = {f"gene_{i}": OrderedDict({random.randint(1, self.MAX_NEURONS): random.choice(
             ["relu", "sigmoid", "tanh"]) for _ in range(self.MAX_LAYERS)}) for i in range(2)}
@@ -69,11 +85,13 @@ class FeedForwardIndividual(Individual):
 
     def _crossover(self):
         """
-        Takes in a list of genes and returns a new set of genes
+        Utilizes parents genes (a list of genes) and returns a new set of genes
         for this individual.
         Models real crossover, see merge_genes for details.
-        :param parents_genes: list of genes
-        :return:
+        Parameters:
+            None
+        Returns:
+            genes (dict): dictionary of genes
         """
 
         # Get crossover points
