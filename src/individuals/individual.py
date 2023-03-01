@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+from collections import OrderedDict
 
 
 class Individual(ABC):
@@ -10,8 +11,8 @@ class Individual(ABC):
     Child classes hold specific information for different types of models.
     """
 
-    fitness = 0 
-    
+    fitness = 0
+
     def __init__(self, parents_genes=None, population=None):
         self.need_new_genes = self._check_individual_inputs(parents_genes, population)
         self.population = population
@@ -19,8 +20,8 @@ class Individual(ABC):
         self.genes = None
         # Check inputs
         self.NUM_PARENTS = None
-    
-    def _check_individual_inputs(self, parents, population) -> bool:  
+
+    def _check_individual_inputs(self, parents, population) -> bool:
         """
         1. Population can not be None
         2. If parents are not None, they must be a list of individuals.
@@ -31,13 +32,13 @@ class Individual(ABC):
         if parents is not None:
             if not isinstance(parents, list):
                 raise ValueError("Parents must be a list of individuals.")
-            if not all(isinstance(parent, Individual) for parent in parents):
+            if not all(isinstance(genes, dict) for genes in parents):
                 raise ValueError("Parents must be a list of individuals.")
 
-        if parents is None: 
+        if parents is None:
             return True
         return False
-    
+
     @abstractmethod
     def _random_genes(self):
         """
@@ -60,7 +61,7 @@ class Individual(ABC):
         pass
 
     @abstractmethod
-    def make_model(self):
+    def _make_model(self):
         """
         Make a Keras model from this individual's genes.
         """
