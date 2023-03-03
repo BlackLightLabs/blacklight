@@ -4,7 +4,7 @@ import numpy as np
 
 class Population:
     """
-    A population of DNN topologies that can be evaluated. Their GOAL is the current dataset that this population wants to work on.
+    An abstract class representing a population of Neural Network topologies that can be evaluated. Their GOAL is the current dataset that this population wants to work on.
     """
 
     def __init__(
