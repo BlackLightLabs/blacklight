@@ -38,6 +38,6 @@ jobs:
       - name: Test package with unittest 
         run: |
           pip install setuptools>=42.0.0
-          pip install pandas numpy pyarrow fastparquet openpyxl sklearn
+          pip install pandas numpy pyarrow fastparquet openpyxl scikit-learn
           pip install tensorflow 
           python -m unittest discover
