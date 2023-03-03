@@ -153,15 +153,21 @@
   <input type="hidden" name="area" value="default">
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
-  <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+  <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../generated/blacklight.autoML.FeedForward.html"><code class="docutils literal notranslate"><span class="pre">FeedForward</span></code></a></li>
+</ul>
 <ul>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../../blacklight%20source.html">blacklight methods</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../blacklight.dataLoaders.html">dataLoaders</a></li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../../../blacklight.autoML.html">autoML methods</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="simple">
+<li class="toctree-l1"><a class="reference internal" href="../../../generated/blacklight.autoML.populations.Population.html"><code class="docutils literal notranslate"><span class="pre">Population</span></code></a></li>
 </ul>
-</li>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../generated/blacklight.autoML.individuals.Individual.html"><code class="docutils literal notranslate"><span class="pre">Individual</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../generated/blacklight.autoML.individuals.FeedForwardIndividual.html"><code class="docutils literal notranslate"><span class="pre">FeedForwardIndividual</span></code></a></li>
 </ul>
-</li>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../generated/blacklight.autoML.individuals.get_min_length_chromosome.html"><code class="docutils literal notranslate"><span class="pre">get_min_length_chromosome()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../generated/blacklight.autoML.individuals.get_crossover_points_from_num_parents.html"><code class="docutils literal notranslate"><span class="pre">get_crossover_points_from_num_parents()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../generated/blacklight.autoML.individuals.merge_genes.html"><code class="docutils literal notranslate"><span class="pre">merge_genes()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../generated/blacklight.autoML.individuals.mutate_dominant_gene.html"><code class="docutils literal notranslate"><span class="pre">mutate_dominant_gene()</span></code></a></li>
 </ul>
 
 </div>
@@ -203,9 +209,15 @@
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
 
-<div class="viewcode-block" id="FeedForward"><a class="viewcode-back" href="../../../blacklight.autoML.html#blacklight.autoML.FeedForward">[docs]</a><span class="k">class</span> <span class="nc">FeedForward</span><span class="p">(</span><span class="n">Population</span><span class="p">):</span>
+<div class="viewcode-block" id="FeedForward"><a class="viewcode-back" href="../../../generated/blacklight.autoML.FeedForward.html#blacklight.autoML.FeedForward">[docs]</a><span class="k">class</span> <span class="nc">FeedForward</span><span class="p">(</span><span class="n">Population</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    A population of DNN topologies that can be evaluated. Their GOAL is the current dataset that this population wants to work on.</span>
+<span class="sd">    A population of Feed Forward DNN topologies that will be evaluated utilizing a genetic search.</span>
+
+<span class="sd">    Parameters:</span>
+<span class="sd">            number_of_individuals (int): The number of individuals that the user wants in the population.</span>
+<span class="sd">            num_parents_mating (int): The number of parents that will be used to mate and create the next generation.</span>
+<span class="sd">            death_percentage (float): The percentage of individuals that will die off each generation.</span>
+<span class="sd">            number_of_generations (int): The number of generations that the population will be simulated for.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
@@ -227,12 +239,20 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">num_parents_mating</span> <span class="o">=</span> <span class="n">num_parents_mating</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">num_generations</span> <span class="o">=</span> <span class="n">number_of_generations</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">death_percentage</span> <span class="o">=</span> <span class="n">death_percentage</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span> <span class="o">=</span> <span class="n">kwargs</span>
 
-<div class="viewcode-block" id="FeedForward._initialize_individuals"><a class="viewcode-back" href="../../../blacklight.autoML.html#blacklight.autoML.FeedForward._initialize_individuals">[docs]</a>    <span class="k">def</span> <span class="nf">_initialize_individuals</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_initialize_individuals</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">individuals</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">({</span><span class="n">FeedForwardIndividual</span><span class="p">(</span>
-            <span class="kc">None</span><span class="p">,</span> <span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_individuals</span><span class="p">)})</span></div>
+            <span class="kc">None</span><span class="p">,</span> <span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_individuals</span><span class="p">)})</span>
 
-<div class="viewcode-block" id="FeedForward.fit"><a class="viewcode-back" href="../../../blacklight.autoML.html#blacklight.autoML.FeedForward.fit">[docs]</a>    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="FeedForward.fit"><a class="viewcode-back" href="../../../generated/blacklight.autoML.FeedForward.html#blacklight.autoML.FeedForward.fit">[docs]</a>    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Fit this population of FeedForward Individuals to the given data, and return the best model.</span>
+
+<span class="sd">        Parameters:</span>
+<span class="sd">                data: The data to fit this population to. Has to be either a pandas dataframe with columns: [feature1, feature2, ..., featureN, label] or a file path to a file of formats specified in `ref: dataLoaders.dataLoader.choose_data_loader` that have the same layout.</span>
+<span class="sd">                **kwargs: Any additional arguments to pass to each :class:`~blacklight.autoML.individuals.FeedForwardIndividual` which is a Keras model.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">choose_data_loader</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="o">.</span><span class="n">get_dataset</span><span class="p">(</span>
             <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;BATCH_SIZE&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">))</span> <span class="k">if</span> <span class="n">data</span> <span class="k">else</span> <span class="kc">None</span>
         <span class="c1"># Initialize individuals</span>
@@ -240,14 +260,26 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_simulate</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">individuals</span><span class="o">.</span><span class="n">keys</span><span class="p">())[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">model</span></div>
 
-<div class="viewcode-block" id="FeedForward.predict"><a class="viewcode-back" href="../../../blacklight.autoML.html#blacklight.autoML.FeedForward.predict">[docs]</a>    <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
+<div class="viewcode-block" id="FeedForward.predict"><a class="viewcode-back" href="../../../generated/blacklight.autoML.FeedForward.html#blacklight.autoML.FeedForward.predict">[docs]</a>    <span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Predict the labels of the given data, utilizing the best found model.</span>
+
+<span class="sd">        Parameters:</span>
+<span class="sd">                X: The data to predict the labels of. Has to be either a pandas dataframe with columns: [feature1, feature2, ..., featureN] or a file path to a file of formats specified in `ref: dataLoaders.dataLoader.choose_data_loader` that have the same layout.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="FeedForward.fit_predict"><a class="viewcode-back" href="../../../blacklight.autoML.html#blacklight.autoML.FeedForward.fit_predict">[docs]</a>    <span class="k">def</span> <span class="nf">fit_predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="FeedForward.fit_predict"><a class="viewcode-back" href="../../../generated/blacklight.autoML.FeedForward.html#blacklight.autoML.FeedForward.fit_predict">[docs]</a>    <span class="k">def</span> <span class="nf">fit_predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Fit this population of FeedForward Individuals to the given data, and return the predictions of the best model.</span>
+
+<span class="sd">        Parameters:</span>
+<span class="sd">                data: The data to fit this population to. Has to be either a pandas dataframe with columns: [feature1, feature2, ..., featureN, label] or a file path to a file of formats specified in `ref: dataLoaders.dataLoader.choose_data_loader` that have the same layout.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_testing_data</span><span class="p">())</span></div>
 
-<div class="viewcode-block" id="FeedForward._simulate"><a class="viewcode-back" href="../../../blacklight.autoML.html#blacklight.autoML.FeedForward._simulate">[docs]</a>    <span class="k">def</span> <span class="nf">_simulate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="FeedForward._simulate"><a class="viewcode-back" href="../../../generated/blacklight.autoML.FeedForward.html#blacklight.autoML.FeedForward._simulate">[docs]</a>    <span class="k">def</span> <span class="nf">_simulate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Simulate the population for the number of generations.</span>
 <span class="sd">        Callable method.</span>
@@ -257,7 +289,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">_evaluate</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_reproduce</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="FeedForward._evaluate"><a class="viewcode-back" href="../../../blacklight.autoML.html#blacklight.autoML.FeedForward._evaluate">[docs]</a>    <span class="k">def</span> <span class="nf">_evaluate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="FeedForward._evaluate"><a class="viewcode-back" href="../../../generated/blacklight.autoML.FeedForward.html#blacklight.autoML.FeedForward._evaluate">[docs]</a>    <span class="k">def</span> <span class="nf">_evaluate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Evaluate the fitness of all individuals in the population.</span>
 <span class="sd">        :return:</span>
@@ -270,16 +302,16 @@
             <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
             <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span></div>
 
-<div class="viewcode-block" id="FeedForward._reproduce"><a class="viewcode-back" href="../../../blacklight.autoML.html#blacklight.autoML.FeedForward._reproduce">[docs]</a>    <span class="k">def</span> <span class="nf">_reproduce</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_reproduce</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_kill_off_worst</span><span class="p">()</span>
         <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_individuals</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">individuals</span><span class="p">)):</span>
             <span class="n">parents</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span>
                 <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">individuals</span><span class="o">.</span><span class="n">keys</span><span class="p">()),</span> <span class="n">size</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
             <span class="n">child</span> <span class="o">=</span> <span class="n">parents</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">mate</span><span class="p">(</span><span class="n">parents</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">individuals</span><span class="p">[</span><span class="s2">&quot;new_child&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">child</span></div>
+            <span class="bp">self</span><span class="o">.</span><span class="n">individuals</span><span class="p">[</span><span class="s2">&quot;new_child&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">child</span>
 
-<div class="viewcode-block" id="FeedForward._get_fitness"><a class="viewcode-back" href="../../../blacklight.autoML.html#blacklight.autoML.FeedForward._get_fitness">[docs]</a>    <span class="k">def</span> <span class="nf">_get_fitness</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">pass</span></div></div>
+    <span class="k">def</span> <span class="nf">_get_fitness</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span></div>
 </pre></div>
         </article>
       </div>

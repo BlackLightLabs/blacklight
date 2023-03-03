@@ -1,17 +1,10 @@
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 4
    :caption: Contents:
 
-Blacklight autoML
-=================
+   blacklight.autoML
+   blacklight.dataLoaders
 
-.. automodule:: blacklight.autoML
-   :members:
-   :undoc-members:
 
-Blacklight Data Loaders
-=======================
 
-.. automodule:: blacklight.dataLoaders
-   :members:
-   :undoc-members:
+

@@ -1,32 +1,5 @@
-individuals
-=======================
-
-feedforwardindividual
---------------------------------------------
-
-.. automodule:: blacklight.autoML.individuals.feedforwardindividual
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-base individual
----------------------------------
-
-.. automodule:: blacklight.autoML.individuals.individual
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-individualutils
---------------------------------------
-
-.. automodule:: blacklight.autoML.individuals.individualutils
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-Module contents
----------------
+Individuals
+===========
 
 .. automodule:: blacklight.autoML.individuals
    :members:

@@ -1,16 +1,5 @@
-populations
-=======================
-
-population
----------------------------------
-
-.. automodule:: blacklight.autoML.populations.population
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-Module contents
----------------
+Populations
+===========
 
 .. automodule:: blacklight.autoML.populations
    :members:

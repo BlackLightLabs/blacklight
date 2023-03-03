@@ -1,0 +1,17 @@
+autoML
+-------
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Contents:
+
+    individuals
+    populations
+
+Module contents
+===============
+
+.. automodule:: blacklight.autoML
+    :members:
+    :undoc-members:
+    :show-inheritance:

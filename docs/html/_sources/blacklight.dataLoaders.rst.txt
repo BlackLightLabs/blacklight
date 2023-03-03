@@ -1,26 +1,7 @@
 dataLoaders
-=======================
+------------
 
-dataLoaders.dataLoader
----------------------------------
-
-.. automodule:: blacklight.dataLoaders.dataLoader
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-dataLoaders.utils
-----------------------------
-
-.. automodule:: blacklight.dataLoaders.utils
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-Module contents
----------------
-
-.. automodule:: blacklight.dataLoaders
+.. autoclass:: blacklight.dataLoaders.dataLoader
    :members:
    :undoc-members:
    :show-inheritance:

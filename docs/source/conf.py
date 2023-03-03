@@ -20,11 +20,11 @@ import sys
 import os
 for x in os.walk('../../blacklight'):
   sys.path.append(x[0])
-
+sys.path.append(".")
 sys.path.append('../')
 
 
-extensions = ['sphinx.ext.autodoc', 'sphinx.ext.napoleon', 'sphinx.ext.viewcode']
+extensions = ['sphinx.ext.autodoc', 'sphinx.ext.napoleon', 'sphinx.ext.viewcode', 'sphinx.ext.autosummary']
 
 templates_path = ['_templates']
 exclude_patterns = []
