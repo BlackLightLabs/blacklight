@@ -10,8 +10,19 @@ class FeedForward(Population):
     A population of DNN topologies that can be evaluated. Their GOAL is the current dataset that this population wants to work on.
     """
 
-    def __init__(self, number_of_individuals, num_parents_mating, death_percentage, number_of_generations,  **kwargs):
-        super().__init__(number_of_individuals, num_parents_mating, death_percentage, number_of_generations, **kwargs)
+    def __init__(
+            self,
+            number_of_individuals,
+            num_parents_mating,
+            death_percentage,
+            number_of_generations,
+            **kwargs):
+        super().__init__(
+            number_of_individuals,
+            num_parents_mating,
+            death_percentage,
+            number_of_generations,
+            **kwargs)
         self.model = None
         self.data = None
         self.num_individuals = number_of_individuals
@@ -24,7 +35,8 @@ class FeedForward(Population):
             None, self, **kwargs): f"{i}" for i in range(self.num_individuals)})
 
     def fit(self, data, **kwargs):
-        self.data = choose_data_loader(data).get_dataset(kwargs.get("BATCH_SIZE", None)) if data else None
+        self.data = choose_data_loader(data).get_dataset(
+            kwargs.get("BATCH_SIZE", None)) if data else None
         # Initialize individuals
         self._initialize_individuals(**kwargs)
         self._simulate()

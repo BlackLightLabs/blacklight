@@ -3,7 +3,6 @@ from blacklight.dataLoaders.utils import read_data_from_file
 import tensorflow as tf
 import pandas as pd
 import math
-from tensorflow import keras
 from sklearn.preprocessing import LabelEncoder
 
 
@@ -53,9 +52,9 @@ class Dataset(tf.keras.utils.Sequence):
 
     def __getitem__(self, idx):
         batch_x = self.x[idx * self.batch_size:(idx + 1) *
-                                               self.batch_size]
+                         self.batch_size]
         batch_y = self.y[idx * self.batch_size:(idx + 1) *
-                                               self.batch_size]
+                         self.batch_size]
         return batch_x, batch_y
 
 

@@ -1,13 +1,17 @@
 import unittest
-from blacklight.autoML.individuals.individualutils import *
+from blacklight.autoML.individuals.individualutils import get_min_length_chromosome, get_crossover_points_from_num_parents, merge_genes, mutate_dominant_gene
 import numpy as np
+from collections import OrderedDict
+import random
+
 
 class TestMinLengthChromosome(unittest.TestCase):
     # Test get_min_length_chromosome
     def test_min_length_chromosome(self):
         parents_chromosomes = [
             {
-                # gene_1 should be the min len chromosome, returning a value of 3.
+                # gene_1 should be the min len chromosome, returning a value of
+                # 3.
                 "gene_1": {1: "relu", 2: "relu", 3: "relu"},
                 "gene_2": {1: "sigmoid", 2: "sigmoid", 3: "sigmoid", 4: "sigmoid"}
             },
@@ -57,16 +61,23 @@ class TestMergeGenes(unittest.TestCase):
             "gene_1_recombinant_one": OrderedDict({5: "sigmoid", 12: "sigmoid", 13: "sigmoid"}),
             "gene_1_recombinant_two": OrderedDict({11: "sigmoid", 6: "sigmoid", 7: "sigmoid"})
         }
-        child_genes = merge_genes(parents_genes[0], parents_genes[1], crossover_point)
+        child_genes = merge_genes(
+            parents_genes[0],
+            parents_genes[1],
+            crossover_point)
 
         for recombinant in correct_child_genes.keys():
-            np.testing.assert_array_equal(child_genes[recombinant].keys(), correct_child_genes[recombinant].keys())
+            np.testing.assert_array_equal(
+                child_genes[recombinant].keys(),
+                correct_child_genes[recombinant].keys())
+
 
 class TestMutateGene(unittest.TestCase):
 
     def test_mutate(self):
         random.seed(889)
-        gene = OrderedDict({1: "relu", 2: "relu", 3: "relu", 4: "relu", 5: "relu"})
+        gene = OrderedDict(
+            {1: "relu", 2: "relu", 3: "relu", 4: "relu", 5: "relu"})
         mutated = False
         dom_gene = None
         while not mutated:

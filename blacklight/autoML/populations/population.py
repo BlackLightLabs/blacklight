@@ -21,7 +21,6 @@ class Population:
         self.individuals = None
         self.data = None
 
-
     def simulate(self):
         """
         Simulate the population for the number of generations.

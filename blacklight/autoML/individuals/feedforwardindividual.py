@@ -157,11 +157,12 @@ class FeedForwardIndividual(Individual):
         :return:
         """
 
-        feed_forward_model = keras.Sequential(
-            [tf.keras.layers.Dense(self.train_data.x.shape[-1], activation='relu', input_shape=(self.train_data.x.shape[-1],))]
-            + [tf.keras.layers.Dense(i, activation=self.dominant_gene.get(i)) for i in self.dominant_gene.keys()]
-            + [keras.layers.Dense(1, activation='sigmoid')]
-        )
+        feed_forward_model = keras.Sequential([tf.keras.layers.Dense(self.train_data.x.shape[-1],
+                                                                     activation='relu',
+                                                                     input_shape=(self.train_data.x.shape[-1],
+                                                                                  ))] + [tf.keras.layers.Dense(i,
+                                                                                                               activation=self.dominant_gene.get(i)) for i in self.dominant_gene.keys()] + [keras.layers.Dense(1,
+                                                                                                                                                                                                               activation='sigmoid')])
         feed_forward_model.compile(
             optimizer=self.OPTIMIZER(learning_rate=self.LEARNING_RATE),
             loss=self.LOSS,
