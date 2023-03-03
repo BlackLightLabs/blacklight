@@ -1,0 +1,16 @@
+dataLoaders
+------------
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Contents:
+
+    dataLoaders
+
+Module contents
+===============
+
+.. automodule:: blacklight.dataLoaders
+    :members:
+    :undoc-members:
+    :show-inheritance:

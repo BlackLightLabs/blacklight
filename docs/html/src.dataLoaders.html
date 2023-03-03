@@ -198,24 +198,29 @@
         <article role="main">
           <section id="dataloaders">
 <h1>dataLoaders<a class="headerlink" href="#dataloaders" title="Permalink to this heading">#</a></h1>
-<section id="module-src.dataLoaders.dataLoader">
-<span id="dataloaders-dataloader"></span><h2>dataLoaders.dataLoader<a class="headerlink" href="#module-src.dataLoaders.dataLoader" title="Permalink to this heading">#</a></h2>
+<section id="module-blacklight.dataLoaders.dataLoader">
+<span id="dataloaders-dataloader"></span><h2>dataLoaders.dataLoader<a class="headerlink" href="#module-blacklight.dataLoaders.dataLoader" title="Permalink to this heading">#</a></h2>
 <dl class="py class">
-<dt class="sig sig-object py" id="src.dataLoaders.dataLoader.DFDataLoader">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DFDataLoader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/dataLoaders/dataLoader.html#DFDataLoader"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.dataLoaders.dataLoader.DFDataLoader" title="Permalink to this definition">#</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#src.dataLoaders.dataLoader.DataLoader" title="src.dataLoaders.dataLoader.DataLoader"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataLoader</span></code></a></p>
+<dt class="sig sig-object py" id="blacklight.dataLoaders.dataLoader.DFDataLoader">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DFDataLoader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/blacklight/dataLoaders/dataLoader.html#DFDataLoader"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#blacklight.dataLoaders.dataLoader.DFDataLoader" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#blacklight.dataLoaders.dataLoader.DataLoader" title="blacklight.dataLoaders.dataLoader.DataLoader"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataLoader</span></code></a></p>
 <p>Take data from predefined DataFrame</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="blacklight.dataLoaders.dataLoader.DFDataLoader.get_dataset">
+<span class="sig-name descname"><span class="pre">get_dataset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch_size</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/blacklight/dataLoaders/dataLoader.html#DFDataLoader.get_dataset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#blacklight.dataLoaders.dataLoader.DFDataLoader.get_dataset" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 <dl class="py class">
-<dt class="sig sig-object py" id="src.dataLoaders.dataLoader.DataLoader">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DataLoader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/dataLoaders/dataLoader.html#DataLoader"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.dataLoaders.dataLoader.DataLoader" title="Permalink to this definition">#</a></dt>
+<dt class="sig sig-object py" id="blacklight.dataLoaders.dataLoader.DataLoader">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">DataLoader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/blacklight/dataLoaders/dataLoader.html#DataLoader"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#blacklight.dataLoaders.dataLoader.DataLoader" title="Permalink to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>An abstract class to hold general methods between dataloader instances
 and provide a structure to satisfy Liwosky Substitution.</p>
 <dl class="py method">
-<dt class="sig sig-object py" id="src.dataLoaders.dataLoader.DataLoader.extractData">
-<span class="sig-name descname"><span class="pre">extractData</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/dataLoaders/dataLoader.html#DataLoader.extractData"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.dataLoaders.dataLoader.DataLoader.extractData" title="Permalink to this definition">#</a></dt>
+<dt class="sig sig-object py" id="blacklight.dataLoaders.dataLoader.DataLoader.extractData">
+<span class="sig-name descname"><span class="pre">extractData</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/blacklight/dataLoaders/dataLoader.html#DataLoader.extractData"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#blacklight.dataLoaders.dataLoader.DataLoader.extractData" title="Permalink to this definition">#</a></dt>
 <dd><p>Expects self.data to be of type pd.DataFrame
 :type pd.DataFrame</p>
 </dd></dl>
@@ -223,29 +228,40 @@ and provide a structure to satisfy Liwosky Substitution.</p>
 </dd></dl>
 
 <dl class="py class">
-<dt class="sig sig-object py" id="src.dataLoaders.dataLoader.FileDataLoader">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">FileDataLoader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_location</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_type</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/dataLoaders/dataLoader.html#FileDataLoader"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.dataLoaders.dataLoader.FileDataLoader" title="Permalink to this definition">#</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#src.dataLoaders.dataLoader.DataLoader" title="src.dataLoaders.dataLoader.DataLoader"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataLoader</span></code></a></p>
+<dt class="sig sig-object py" id="blacklight.dataLoaders.dataLoader.Dataset">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Dataset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/blacklight/dataLoaders/dataLoader.html#Dataset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#blacklight.dataLoaders.dataLoader.Dataset" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code></p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="blacklight.dataLoaders.dataLoader.FileDataLoader">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">FileDataLoader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_location</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_type</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/blacklight/dataLoaders/dataLoader.html#FileDataLoader"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#blacklight.dataLoaders.dataLoader.FileDataLoader" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#blacklight.dataLoaders.dataLoader.DataLoader" title="blacklight.dataLoaders.dataLoader.DataLoader"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataLoader</span></code></a></p>
 <p>Take data from a file</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="blacklight.dataLoaders.dataLoader.FileDataLoader.get_dataset">
+<span class="sig-name descname"><span class="pre">get_dataset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch_size</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/blacklight/dataLoaders/dataLoader.html#FileDataLoader.get_dataset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#blacklight.dataLoaders.dataLoader.FileDataLoader.get_dataset" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="src.dataLoaders.dataLoader.choose_data_loader">
-<span class="sig-name descname"><span class="pre">choose_data_loader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_location</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_type</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/dataLoaders/dataLoader.html#choose_data_loader"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.dataLoaders.dataLoader.choose_data_loader" title="Permalink to this definition">#</a></dt>
+<dt class="sig sig-object py" id="blacklight.dataLoaders.dataLoader.choose_data_loader">
+<span class="sig-name descname"><span class="pre">choose_data_loader</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_location</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/blacklight/dataLoaders/dataLoader.html#choose_data_loader"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#blacklight.dataLoaders.dataLoader.choose_data_loader" title="Permalink to this definition">#</a></dt>
 <dd><p>Choose the correct data loader based on the data type.</p>
 </dd></dl>
 
 </section>
-<section id="module-src.dataLoaders.utils">
-<span id="dataloaders-utils"></span><h2>dataLoaders.utils<a class="headerlink" href="#module-src.dataLoaders.utils" title="Permalink to this heading">#</a></h2>
+<section id="module-blacklight.dataLoaders.utils">
+<span id="dataloaders-utils"></span><h2>dataLoaders.utils<a class="headerlink" href="#module-blacklight.dataLoaders.utils" title="Permalink to this heading">#</a></h2>
 <dl class="py function">
-<dt class="sig sig-object py" id="src.dataLoaders.utils.read_data_from_file">
-<span class="sig-name descname"><span class="pre">read_data_from_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_location</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_type</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">pandas.DataFrame</span></span></span><a class="reference internal" href="_modules/src/dataLoaders/utils.html#read_data_from_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.dataLoaders.utils.read_data_from_file" title="Permalink to this definition">#</a></dt>
+<dt class="sig sig-object py" id="blacklight.dataLoaders.utils.read_data_from_file">
+<span class="sig-name descname"><span class="pre">read_data_from_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_location</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_type</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">pandas.DataFrame</span></span></span><a class="reference internal" href="_modules/blacklight/dataLoaders/utils.html#read_data_from_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#blacklight.dataLoaders.utils.read_data_from_file" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
 </section>
-<section id="module-src.dataLoaders">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-src.dataLoaders" title="Permalink to this heading">#</a></h2>
+<section id="module-blacklight.dataLoaders">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-blacklight.dataLoaders" title="Permalink to this heading">#</a></h2>
 </section>
 </section>
 
@@ -305,21 +321,28 @@ and provide a structure to satisfy Liwosky Substitution.</p>
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">dataLoaders</a><ul>
-<li><a class="reference internal" href="#module-src.dataLoaders.dataLoader">dataLoaders.dataLoader</a><ul>
-<li><a class="reference internal" href="#src.dataLoaders.dataLoader.DFDataLoader"><code class="docutils literal notranslate"><span class="pre">DFDataLoader</span></code></a></li>
-<li><a class="reference internal" href="#src.dataLoaders.dataLoader.DataLoader"><code class="docutils literal notranslate"><span class="pre">DataLoader</span></code></a><ul>
-<li><a class="reference internal" href="#src.dataLoaders.dataLoader.DataLoader.extractData"><code class="docutils literal notranslate"><span class="pre">DataLoader.extractData()</span></code></a></li>
+<li><a class="reference internal" href="#module-blacklight.dataLoaders.dataLoader">dataLoaders.dataLoader</a><ul>
+<li><a class="reference internal" href="#blacklight.dataLoaders.dataLoader.DFDataLoader"><code class="docutils literal notranslate"><span class="pre">DFDataLoader</span></code></a><ul>
+<li><a class="reference internal" href="#blacklight.dataLoaders.dataLoader.DFDataLoader.get_dataset"><code class="docutils literal notranslate"><span class="pre">DFDataLoader.get_dataset()</span></code></a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#src.dataLoaders.dataLoader.FileDataLoader"><code class="docutils literal notranslate"><span class="pre">FileDataLoader</span></code></a></li>
-<li><a class="reference internal" href="#src.dataLoaders.dataLoader.choose_data_loader"><code class="docutils literal notranslate"><span class="pre">choose_data_loader()</span></code></a></li>
+<li><a class="reference internal" href="#blacklight.dataLoaders.dataLoader.DataLoader"><code class="docutils literal notranslate"><span class="pre">DataLoader</span></code></a><ul>
+<li><a class="reference internal" href="#blacklight.dataLoaders.dataLoader.DataLoader.extractData"><code class="docutils literal notranslate"><span class="pre">DataLoader.extractData()</span></code></a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#module-src.dataLoaders.utils">dataLoaders.utils</a><ul>
-<li><a class="reference internal" href="#src.dataLoaders.utils.read_data_from_file"><code class="docutils literal notranslate"><span class="pre">read_data_from_file()</span></code></a></li>
+<li><a class="reference internal" href="#blacklight.dataLoaders.dataLoader.Dataset"><code class="docutils literal notranslate"><span class="pre">Dataset</span></code></a></li>
+<li><a class="reference internal" href="#blacklight.dataLoaders.dataLoader.FileDataLoader"><code class="docutils literal notranslate"><span class="pre">FileDataLoader</span></code></a><ul>
+<li><a class="reference internal" href="#blacklight.dataLoaders.dataLoader.FileDataLoader.get_dataset"><code class="docutils literal notranslate"><span class="pre">FileDataLoader.get_dataset()</span></code></a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#module-src.dataLoaders">Module contents</a></li>
+<li><a class="reference internal" href="#blacklight.dataLoaders.dataLoader.choose_data_loader"><code class="docutils literal notranslate"><span class="pre">choose_data_loader()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-blacklight.dataLoaders.utils">dataLoaders.utils</a><ul>
+<li><a class="reference internal" href="#blacklight.dataLoaders.utils.read_data_from_file"><code class="docutils literal notranslate"><span class="pre">read_data_from_file()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-blacklight.dataLoaders">Module contents</a></li>
 </ul>
 </li>
 </ul>

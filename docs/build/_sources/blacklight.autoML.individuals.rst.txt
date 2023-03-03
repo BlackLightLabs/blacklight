@@ -1,0 +1,23 @@
+Individuals
+===========
+
+.. automodule:: blacklight.autoML.individuals
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Individual Base
+===============
+
+.. automodule:: blacklight.autoML.individuals.individual
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Feedforward Individual
+======================
+
+.. automodule:: blacklight.autoML.individuals.FeedForwardIndividual
+   :members:
+   :undoc-members:
+   :show-inheritance:

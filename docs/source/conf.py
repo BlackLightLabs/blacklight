@@ -11,7 +11,7 @@ copyright = '2023, Cole Agard'
 author = 'Cole Agard'
 release = '0.1.0'
 
-autodoc_mock_imports = ["numpy", "pandas", "tensorflow"]
+autodoc_mock_imports = ["numpy", "pandas", "tensorflow", "sklearn"]
 autodoc_default_options = {"members": True,  "private-members": True}
 add_module_names = False
 # -- General configuration ---------------------------------------------------
@@ -20,11 +20,11 @@ import sys
 import os
 for x in os.walk('../../blacklight'):
   sys.path.append(x[0])
-
+sys.path.append(".")
 sys.path.append('../')
 
 
-extensions = ['sphinx.ext.autodoc', 'sphinx.ext.napoleon', 'sphinx.ext.viewcode']
+extensions = ['sphinx.ext.autodoc', 'sphinx.ext.napoleon', 'sphinx.ext.viewcode', 'sphinx.ext.autosummary']
 
 templates_path = ['_templates']
 exclude_patterns = []

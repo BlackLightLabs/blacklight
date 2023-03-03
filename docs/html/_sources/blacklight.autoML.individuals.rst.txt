@@ -1,0 +1,7 @@
+Individuals
+===========
+
+.. automodule:: blacklight.autoML.individuals
+   :members:
+   :undoc-members:
+   :show-inheritance:

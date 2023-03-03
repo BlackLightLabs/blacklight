@@ -3,14 +3,13 @@ blacklight methods
 .. toctree::
    :maxdepth: 4
 
-   src.dataLoaders
-   src.individuals
-   src.populations
+   blacklight.dataLoaders
+   blacklight.autoML
 
 Module contents
 ---------------
 
-.. automodule:: src
+.. automodule:: blacklight
    :members:
    :undoc-members:
    :show-inheritance:

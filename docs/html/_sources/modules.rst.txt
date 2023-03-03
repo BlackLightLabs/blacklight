@@ -1,7 +1,10 @@
-blacklight
-===
-
 .. toctree::
    :maxdepth: 4
+   :caption: Contents:
 
-   blacklight source
+   blacklight.autoML
+   blacklight.dataLoaders
+
+
+
+
