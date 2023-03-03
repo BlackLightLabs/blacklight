@@ -18,7 +18,7 @@ jobs:
       - name: Lint with flake8
         run: |
           pip install flake8
-          flake8 --ignore=E501,W503,W504,F401 --show-source --statistics src/
+          flake8 --ignore=E501,W503,W504,F401 --show-source --statistics blacklight/
   test:
     runs-on: ${{ matrix.os }}
     strategy:
