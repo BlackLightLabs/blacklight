@@ -4,7 +4,7 @@ individuals
 feedforwardindividual
 --------------------------------------------
 
-.. automodule:: src.individuals.feedforwardindividual
+.. automodule:: blacklight.autoML.individuals.feedforwardindividual
    :members:
    :undoc-members:
    :show-inheritance:
@@ -12,7 +12,7 @@ feedforwardindividual
 base individual
 ---------------------------------
 
-.. automodule:: src.individuals.individual
+.. automodule:: blacklight.autoML.individuals.individual
    :members:
    :undoc-members:
    :show-inheritance:
@@ -20,7 +20,7 @@ base individual
 individualutils
 --------------------------------------
 
-.. automodule:: src.individuals.individualutils
+.. automodule:: blacklight.autoML.individuals.individualutils
    :members:
    :undoc-members:
    :show-inheritance:
@@ -28,7 +28,7 @@ individualutils
 Module contents
 ---------------
 
-.. automodule:: src.individuals
+.. automodule:: blacklight.autoML.individuals
    :members:
    :undoc-members:
    :show-inheritance:

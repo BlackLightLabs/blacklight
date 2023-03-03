@@ -1,0 +1,15 @@
+autoML methods
+==================
+.. toctree::
+   :maxdepth: 4
+
+    autoML.individuals
+    autoML.populations
+
+Module contents
+---------------
+
+.. automodule:: blacklight.autoML
+   :members:
+   :undoc-members:
+   :show-inheritance:
