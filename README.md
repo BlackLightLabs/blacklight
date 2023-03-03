@@ -19,6 +19,5 @@ The hypothesis of this project is that DNN topologies will converge to either a 
 
 The project utilizes a genetic algorithm to evolve the topology of the DNN. The algorithm starts with a randomly generated population of DNN topologies and evaluates their fitness using the accuracy of the model. The fittest individuals are selected for reproduction, while the weaker ones are discarded. The offspring of the selected individuals are then created through crossover and mutation. This process is repeated for a specified number of generations, and the best-performing topology is chosen as the final output.
 
-## Conclusion
-
-The results of this project will help evaluate the effectiveness of using genetic algorithms for optimizing DNN topologies. If the hypothesis is proven correct, it can provide a powerful new tool for creating more efficient DNNs.
+## Documentation 
+Documentation can be found at https://blacklightlabs.github.io/blacklight/html/index.html

@@ -18,7 +18,7 @@ add_module_names = False
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 import sys
 import os
-for x in os.walk('../../src'):
+for x in os.walk('../../blacklight'):
   sys.path.append(x[0])
 
 sys.path.append('../')
