@@ -1,7 +1,8 @@
 import tensorflow as tf
 from tensorflow import keras
-from blacklight.autoML.individuals.individual import Individual
-from blacklight.autoML.individuals.individualutils import get_crossover_points_from_num_parents, get_min_length_chromosome, merge_genes, FeedForwardConstants, mutate_dominant_gene
+from blacklight.base.individual import Individual
+from blacklight.autoML.individuals.individualutils import get_crossover_points_from_num_parents, \
+    get_min_length_chromosome, merge_genes, FeedForwardConstants, mutate_dominant_gene
 from collections import OrderedDict
 import random
 
@@ -157,12 +158,17 @@ class FeedForwardIndividual(Individual):
         :return:
         """
 
-        feed_forward_model = keras.Sequential([tf.keras.layers.Dense(self.train_data.x.shape[-1],
-                                                                     activation='relu',
-                                                                     input_shape=(self.train_data.x.shape[-1],
-                                                                                  ))] + [tf.keras.layers.Dense(i,
-                                                                                                               activation=self.dominant_gene.get(i)) for i in self.dominant_gene.keys()] + [keras.layers.Dense(1,
-                                                                                                                                                                                                               activation='sigmoid')])
+        feed_forward_model = keras.Sequential([
+                                                  tf.keras.layers.Dense(self.train_data.x.shape[-1],
+                                                                        activation='relu',
+                                                                        input_shape=(self.train_data.x.shape[-1],
+                                                                                     ))
+                                              ] + [
+                                                  tf.keras.layers.Dense(i, activation=self.dominant_gene.get(i))
+                                                  for i in self.dominant_gene.keys()
+                                              ] + [
+                                                  keras.layers.Dense(self.train_data.num_classes, activation='softmax')
+                                              ])
         feed_forward_model.compile(
             optimizer=self.OPTIMIZER(learning_rate=self.LEARNING_RATE),
             loss=self.LOSS,

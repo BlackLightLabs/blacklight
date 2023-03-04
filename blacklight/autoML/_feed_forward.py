@@ -1,6 +1,6 @@
-from blacklight.autoML.individuals.feedforwardindividual import FeedForwardIndividual
+from blacklight.autoML.base.individuals.feedforwardindividual import FeedForwardIndividual
 from blacklight.dataLoaders.dataLoader import choose_data_loader
-from blacklight.autoML.populations.population import Population
+from blacklight.base.population import Population
 from collections import OrderedDict
 import numpy as np
 
