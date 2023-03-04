@@ -1,6 +1,8 @@
 import unittest
 from blacklight.dataLoaders.utils import read_data_from_file
+import sys
 
+sys.path.append("data/")
 
 class TestDataloaderUtils_read(unittest.TestCase):
     def test_read_error_type(self):
@@ -13,7 +15,7 @@ class TestDataloaderUtils_read(unittest.TestCase):
     def test_file_not_found(self):
         with self.assertRaises(FileNotFoundError):
             read_data_from_file(
-                "blacklight/dataloaders/tests/data/doesnotexist", "csv")
+                "data/doesnotexist", "csv")
         return
 
     def test_read_csv_data(self):
