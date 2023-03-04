@@ -40,7 +40,10 @@ jobs:
           pwd
           pip install setuptools>=42.0.0
           pip install pandas numpy pyarrow fastparquet openpyxl scikit-learn tensorflow coverage
-          coverage run -m unittest discover -v
+          cd ..
+          python -m coverage run -m unittest discover -v
+          python -m coverage report
+          coverage xml -o .cobertura.xml
       - name: Codacy Coverage Reporter
         uses: codacy/codacy-coverage-reporter-action@v1.3.0
         with:
