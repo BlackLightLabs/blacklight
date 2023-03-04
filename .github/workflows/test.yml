@@ -24,11 +24,10 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        python: [3.9]
+        python: [3.10]
 
     steps:
       - uses: actions/checkout@v2
-
       - name: Set up Python ${{ matrix.python }}
         uses: actions/setup-python@v1
         with:
@@ -42,4 +41,4 @@ jobs:
           pip install setuptools>=42.0.0
           pip install pandas numpy pyarrow fastparquet openpyxl scikit-learn
           pip install tensorflow 
-          python -m unittest discover
+          python -m unittest discover -v
