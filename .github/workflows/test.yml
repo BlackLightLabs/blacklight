@@ -41,13 +41,8 @@ jobs:
           pip install setuptools>=42.0.0
           pip install pandas numpy pyarrow fastparquet openpyxl scikit-learn tensorflow coverage
           coverage run -m unittest discover -v
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v3
+      - name: Codacy Coverage Reporter
+        uses: codacy/codacy-coverage-reporter-action@v1.3.0
         with:
-          env_vars: OS,PYTHON
-          fail_ci_if_error: true
-          files: ./.coverage
-          flags: unittests
-          name: codecov-umbrella
-          verbose: true
-
+          project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
+          coverage-reports: .coverage
