@@ -1,9 +1,5 @@
 from abc import ABC, abstractmethod
 
-from dataclasses import dataclass
-import tensorflow as tf
-from tensorflow import keras
-
 
 def _check_individual_inputs(parents, population) -> bool:
     """

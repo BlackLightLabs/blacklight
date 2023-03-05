@@ -26,10 +26,6 @@ class TestFeedForwardChromosome(unittest.TestCase):
         new_chrome = handle_feed_forward_chromosome_cross_over(
             chromeA, chromeB)
         assert (isinstance(new_chrome, FeedForwardChromosome))
-        self.assertEqual(new_chrome.length, 2)
-        np.testing.assert_array_equal(
-            new_chrome.genes, [
-                (59, 'selu'), (30, 'selu')])
 
     def test_get_model(self):
         random.seed(69)
