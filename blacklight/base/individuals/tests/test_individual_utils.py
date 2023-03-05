@@ -1,5 +1,5 @@
 import unittest
-from blacklight.autoML.individuals.individualutils import get_min_length_chromosome, get_crossover_points_from_num_parents, merge_genes, mutate_dominant_gene
+from blacklight.base.individuals.individualutils import get_min_length_chromosome, get_crossover_points_from_num_parents, merge_genes, mutate_dominant_gene
 import numpy as np
 from collections import OrderedDict
 import random

@@ -1,5 +1,9 @@
 from abc import ABC, abstractmethod
 
+from dataclasses import dataclass
+import tensorflow as tf
+from tensorflow import keras
+
 
 def _check_individual_inputs(parents, population) -> bool:
     """
@@ -10,9 +14,7 @@ def _check_individual_inputs(parents, population) -> bool:
         raise ValueError("Population can not be None.")
 
     if parents is not None:
-        if not isinstance(parents, list):
-            raise ValueError("Parents must be a list of individuals.")
-        if not all(isinstance(genes, dict) for genes in parents):
+        if not isinstance(parents, tuple):
             raise ValueError("Parents must be a list of individuals.")
 
     if parents is None:
@@ -31,7 +33,7 @@ class Individual(ABC):
 
     fitness = 0
 
-    def __init__(self, parents_genes=None, population=None):
+    def __init__(self, parents_genes=None, population=None, **kwargs):
         self.need_new_genes = _check_individual_inputs(
             parents_genes, population)
         self.population = population
@@ -41,30 +43,9 @@ class Individual(ABC):
         self.NUM_PARENTS = None
 
     @abstractmethod
-    def _random_genes(self):
-        """
-        Randomly initialize genes for each type of individual if there are no parents.
-        """
-        pass
-
-    @abstractmethod
-    def _crossover(self):
+    def _crossover(self, *args):
         """
         Crossover genes from parents to create new genes.
-        """
-        pass
-
-    @abstractmethod
-    def _mutate(self):
-        """
-        Mutate genes of this individual.
-        """
-        pass
-
-    @abstractmethod
-    def _make_model(self):
-        """
-        Make a Keras model from this individual's genes.
         """
         pass
 

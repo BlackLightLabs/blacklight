@@ -1,8 +1,7 @@
-from collections import OrderedDict
 from abc import ABC, abstractmethod
 
 
-class Chromosome(ABC):
+class BaseChromosome(ABC):
     """
     Abstract class for a chromosome in an individual. Implements common traits between all chromosomes.
     """
@@ -18,17 +17,8 @@ class Chromosome(ABC):
         pass
 
     @abstractmethod
-    def _crossover(self, other_chromosome):
-        """
-        Crossover genes from parents to create new genes.
-        """
-        pass
-
-    @abstractmethod
     def _mutate(self):
         """
         Mutate genes of this chromosome.
         """
         pass
-
-

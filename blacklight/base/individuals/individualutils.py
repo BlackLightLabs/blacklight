@@ -4,9 +4,6 @@ Utils for individuals.
 
 import random
 from collections import OrderedDict
-from dataclasses import dataclass
-import tensorflow as tf
-from tensorflow import keras
 
 
 def get_min_length_chromosome(parents_chromosomes):
@@ -95,26 +92,3 @@ def mutate_dominant_gene(dominant_gene, MAX_LAYER_SIZE, **kwargs):
         dom_gene = OrderedDict(new_gene)
         return dom_gene, mutate
     return dominant_gene, mutate
-
-
-@dataclass
-class FeedForwardConstants:
-    """Constants for FeedForward NeuralNetorks"""
-
-    default_metrics = [
-        keras.metrics.TruePositives(name='tp'),
-        keras.metrics.FalsePositives(name='fp'),
-        keras.metrics.TrueNegatives(name='tn'),
-        keras.metrics.FalseNegatives(name='fn'),
-        keras.metrics.CategoricalAccuracy(name='accuracy'),
-        keras.metrics.Precision(name='precision'),
-        keras.metrics.Recall(name='recall'),
-        keras.metrics.AUC(name='auc'),
-    ]
-
-    default_early_stopping = tf.keras.callbacks.EarlyStopping(
-        monitor='auc',
-        verbose=1,
-        patience=10,
-        mode='max',
-        restore_best_weights=True)
