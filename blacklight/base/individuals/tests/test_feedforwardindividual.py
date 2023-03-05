@@ -46,4 +46,3 @@ class TestIndividual(unittest.TestCase):
 
         child = first_individual.mate(second_individual)
         self.assertIsNotNone(child.chromosome)
-
