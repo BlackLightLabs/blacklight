@@ -3,12 +3,9 @@ import numpy as np
 from blacklight.base.individuals.feedforwardindividual import FeedForwardIndividual
 from blacklight.base.population import Population
 import random
-from collections import OrderedDict
 from unittest import mock
 from blacklight.dataLoaders.dataLoader import Dataset
 import numpy as np
-# import blacklight as bl
-# ff = bl.autoML.FeedForward
 
 
 class TestIndividual(unittest.TestCase):
