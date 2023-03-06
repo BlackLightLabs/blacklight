@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "blacklight"
-version = "0.1.0"
+version = "0.1.6"
 description = "A package to manage genetic deep learning dependencies in python."
 authors = ["Cole Agard <ctagard19@gmail.com>"]
 readme = "README.md"
@@ -9,7 +9,6 @@ readme = "README.md"
 python = ">=3.9,<3.11"
 numpy = "*"
 pandas = "*"
-html5lib = "*"
 tensorflow = {version = "*", markers = "platform_machine != 'arm64'"}
 
 [tool.poetry.group.test.dependencies]

@@ -12,8 +12,8 @@ Welcome to Blacklight's API Documentation!
    :no-members:
    :no-inherited-members:
 
-AutoML classes
-##############
+Blacklight autoML
+#################
 
 .. currentmodule:: blacklight
 
@@ -24,10 +24,10 @@ AutoML classes
 
    autoML.FeedForward
 
-AutoML utilities
+Blacklight Base
 ################
 
-AutoML Populations Classes
+Base Population Class
 **************************
 
 .. currentmodule:: blacklight
@@ -37,9 +37,9 @@ AutoML Populations Classes
    :toctree: generated/
    :template: class.rst
 
-   autoML.populations.Population
+   base.population
 
-AutoML Individuals Classes
+Base Individual Class
 **************************
 
 .. currentmodule:: blacklight
@@ -49,23 +49,44 @@ AutoML Individuals Classes
    :toctree: generated/
    :template: class.rst
 
-   autoML.individuals.Individual
-   autoML.individuals.FeedForwardIndividual
+   base.Individual
 
-AutoML Individuals Utility Functions
-************************************
+Base Chromosome Class
+**************************
 
 .. currentmodule:: blacklight
 
 .. autosummary::
-    :nosignatures:
-    :toctree: generated/
-    :template: function.rst
+   :nosignatures:
+   :toctree: generated/
+   :template: class.rst
 
-    autoML.individuals.get_min_length_chromosome
-    autoML.individuals.get_crossover_points_from_num_parents
-    autoML.individuals.merge_genes
-    autoML.individuals.mutate_dominant_gene
+   base.BaseChromosome
+
+Individuals
+**************************
+
+.. currentmodule:: blacklight
+
+.. autosummary::
+   :nosignatures:
+   :toctree: generated/
+   :template: class.rst
+
+   base.individuals.FeedForwardIndividual
+
+Chromosomes
+**************************
+
+.. currentmodule:: blacklight
+
+.. autosummary::
+   :nosignatures:
+   :toctree: generated/
+   :template: class.rst
+
+   base.chromosomes.FeedForwardChromosome
+
 
 
 Indices and tables

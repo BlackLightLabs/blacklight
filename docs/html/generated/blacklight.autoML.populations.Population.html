@@ -3,7 +3,7 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
-<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="&lt;no title&gt;" href="blacklight.autoML.individuals.Individual.html" /><link rel="prev" title="&lt;no title&gt;" href="blacklight.autoML.FeedForward.html" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" />
 
     <!-- Generated with Sphinx 6.1.3 and Furo 2022.12.07 -->
         <title>&lt;no title&gt; - Blacklight 0.1.0 documentation</title>
@@ -134,7 +134,7 @@
           <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
         </button>
       </div>
-      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
         <div class="visually-hidden">Toggle table of contents sidebar</div>
         <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
       </label>
@@ -157,18 +157,14 @@
   <ul>
 <li class="toctree-l1"><a class="reference internal" href="blacklight.autoML.FeedForward.html"><code class="docutils literal notranslate"><span class="pre">FeedForward</span></code></a></li>
 </ul>
-<ul class="current">
-<li class="toctree-l1 current current-page"><a class="current reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">Population</span></code></a></li>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="blacklight.base.population.html"><code class="docutils literal notranslate"><span class="pre">population</span></code></a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="blacklight.autoML.individuals.Individual.html"><code class="docutils literal notranslate"><span class="pre">Individual</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="blacklight.autoML.individuals.FeedForwardIndividual.html"><code class="docutils literal notranslate"><span class="pre">FeedForwardIndividual</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="blacklight.base.Individual.html"><code class="docutils literal notranslate"><span class="pre">Individual</span></code></a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="blacklight.autoML.individuals.get_min_length_chromosome.html"><code class="docutils literal notranslate"><span class="pre">get_min_length_chromosome()</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="blacklight.autoML.individuals.get_crossover_points_from_num_parents.html"><code class="docutils literal notranslate"><span class="pre">get_crossover_points_from_num_parents()</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="blacklight.autoML.individuals.merge_genes.html"><code class="docutils literal notranslate"><span class="pre">merge_genes()</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="blacklight.autoML.individuals.mutate_dominant_gene.html"><code class="docutils literal notranslate"><span class="pre">mutate_dominant_gene()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="blacklight.base.individuals.FeedForwardIndividual.html"><code class="docutils literal notranslate"><span class="pre">FeedForwardIndividual</span></code></a></li>
 </ul>
 
 </div>
@@ -197,59 +193,20 @@
               <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
             </button>
           </div>
-          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
             <div class="visually-hidden">Toggle table of contents sidebar</div>
             <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
           </label>
         </div>
         <article role="main">
-          <dl class="py class">
-<dt class="sig sig-object py" id="blacklight.autoML.populations.Population">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Population</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">number_of_individuals</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_parents_mating</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">death_percentage</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">number_of_generations</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/blacklight/autoML/populations/population.html#Population"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#blacklight.autoML.populations.Population" title="Permalink to this definition">#</a></dt>
-<dd><p>An abstract class representing a population of Neural Network topologies that can be evaluated. Their GOAL is the current dataset that this population wants to work on.</p>
-<dl class="py method">
-<dt class="sig sig-object py" id="blacklight.autoML.populations.Population._evaluate">
-<span class="sig-name descname"><span class="pre">_evaluate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/blacklight/autoML/populations/population.html#Population._evaluate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#blacklight.autoML.populations.Population._evaluate" title="Permalink to this definition">#</a></dt>
-<dd><p>Evaluate the fitness of all individuals in the population.
-:return:</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="blacklight.autoML.populations.Population.simulate">
-<span class="sig-name descname"><span class="pre">simulate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/blacklight/autoML/populations/population.html#Population.simulate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#blacklight.autoML.populations.Population.simulate" title="Permalink to this definition">#</a></dt>
-<dd><p>Simulate the population for the number of generations.
-Callable method.
-:return:</p>
-</dd></dl>
-
-</dd></dl>
-
-
+          
         </article>
       </div>
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="blacklight.autoML.individuals.Individual.html">
-              <div class="page-info">
-                <div class="context">
-                  <span>Next</span>
-                </div>
-                <div class="title">&lt;no title&gt;</div>
-              </div>
-              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
-            </a>
-          <a class="prev-page" href="blacklight.autoML.FeedForward.html">
-              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
-              <div class="page-info">
-                <div class="context">
-                  <span>Previous</span>
-                </div>
-                
-                <div class="title">&lt;no title&gt;</div>
-                
-              </div>
-            </a>
+          
+          
         </div>
         <div class="bottom-of-page">
           <div class="left-details">
@@ -268,28 +225,8 @@ Callable method.
         
       </footer>
     </div>
-    <aside class="toc-drawer">
+    <aside class="toc-drawer no-toc">
       
-      
-      <div class="toc-sticky toc-scroll">
-        <div class="toc-title-container">
-          <span class="toc-title">
-            On this page
-          </span>
-        </div>
-        <div class="toc-tree-container">
-          <div class="toc-tree">
-            <ul>
-<li><a class="reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">Population</span></code></a><ul>
-<li><a class="reference internal" href="#blacklight.autoML.populations.Population._evaluate"><code class="docutils literal notranslate"><span class="pre">Population._evaluate()</span></code></a></li>
-<li><a class="reference internal" href="#blacklight.autoML.populations.Population.simulate"><code class="docutils literal notranslate"><span class="pre">Population.simulate()</span></code></a></li>
-</ul>
-</li>
-</ul>
-
-          </div>
-        </div>
-      </div>
       
       
     </aside>

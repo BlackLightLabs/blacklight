@@ -157,17 +157,13 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../generated/blacklight.autoML.FeedForward.html"><code class="docutils literal notranslate"><span class="pre">FeedForward</span></code></a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../generated/blacklight.autoML.populations.Population.html"><code class="docutils literal notranslate"><span class="pre">Population</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../generated/blacklight.base.population.html"><code class="docutils literal notranslate"><span class="pre">population</span></code></a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../generated/blacklight.autoML.individuals.Individual.html"><code class="docutils literal notranslate"><span class="pre">Individual</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../generated/blacklight.autoML.individuals.FeedForwardIndividual.html"><code class="docutils literal notranslate"><span class="pre">FeedForwardIndividual</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../generated/blacklight.base.Individual.html"><code class="docutils literal notranslate"><span class="pre">Individual</span></code></a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../generated/blacklight.autoML.individuals.get_min_length_chromosome.html"><code class="docutils literal notranslate"><span class="pre">get_min_length_chromosome()</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../generated/blacklight.autoML.individuals.get_crossover_points_from_num_parents.html"><code class="docutils literal notranslate"><span class="pre">get_crossover_points_from_num_parents()</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../generated/blacklight.autoML.individuals.merge_genes.html"><code class="docutils literal notranslate"><span class="pre">merge_genes()</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../generated/blacklight.autoML.individuals.mutate_dominant_gene.html"><code class="docutils literal notranslate"><span class="pre">mutate_dominant_gene()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../generated/blacklight.base.individuals.FeedForwardIndividual.html"><code class="docutils literal notranslate"><span class="pre">FeedForwardIndividual</span></code></a></li>
 </ul>
 
 </div>
@@ -202,9 +198,9 @@
         </div>
         <article role="main">
           <h1>Source code for blacklight.autoML._feed_forward</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">blacklight.autoML.individuals.feedforwardindividual</span> <span class="kn">import</span> <span class="n">FeedForwardIndividual</span>
+<span></span><span class="kn">from</span> <span class="nn">blacklight.base.individuals.feedforwardindividual</span> <span class="kn">import</span> <span class="n">FeedForwardIndividual</span>
 <span class="kn">from</span> <span class="nn">blacklight.dataLoaders.dataLoader</span> <span class="kn">import</span> <span class="n">choose_data_loader</span>
-<span class="kn">from</span> <span class="nn">blacklight.autoML.populations.population</span> <span class="kn">import</span> <span class="n">Population</span>
+<span class="kn">from</span> <span class="nn">blacklight.base.population</span> <span class="kn">import</span> <span class="n">Population</span>
 <span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">OrderedDict</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
@@ -253,8 +249,9 @@
 <span class="sd">                data: The data to fit this population to. Has to be either a pandas dataframe with columns: [feature1, feature2, ..., featureN, label] or a file path to a file of formats specified in `ref: dataLoaders.dataLoader.choose_data_loader` that have the same layout.</span>
 <span class="sd">                **kwargs: Any additional arguments to pass to each :class:`~blacklight.autoML.individuals.FeedForwardIndividual` which is a Keras model.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">choose_data_loader</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="o">.</span><span class="n">get_dataset</span><span class="p">(</span>
-            <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;BATCH_SIZE&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">))</span> <span class="k">if</span> <span class="n">data</span> <span class="k">else</span> <span class="kc">None</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">choose_data_loader</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">get_dataset</span><span class="p">(</span>
+            <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;BATCH_SIZE&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">))</span> <span class="k">if</span> <span class="n">data</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="kc">None</span>
         <span class="c1"># Initialize individuals</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_initialize_individuals</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_simulate</span><span class="p">()</span>
@@ -304,7 +301,7 @@
 
     <span class="k">def</span> <span class="nf">_reproduce</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_kill_off_worst</span><span class="p">()</span>
-        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">num_individuals</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">individuals</span><span class="p">)):</span>
+        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">num_individuals</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">individuals</span><span class="p">))</span> <span class="o">*</span> <span class="mi">2</span><span class="p">):</span>
             <span class="n">parents</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span>
                 <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">individuals</span><span class="o">.</span><span class="n">keys</span><span class="p">()),</span> <span class="n">size</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
             <span class="n">child</span> <span class="o">=</span> <span class="n">parents</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">mate</span><span class="p">(</span><span class="n">parents</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>

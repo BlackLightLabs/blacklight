@@ -6,7 +6,7 @@
 <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="&lt;no title&gt;" href="generated/blacklight.autoML.FeedForward.html" />
 
     <!-- Generated with Sphinx 6.1.3 and Furo 2022.12.07 -->
-        <title>Blacklight 0.1.0 documentation</title>
+        <title>Blacklight 0.1.6 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?digest=91d0f0d1c444bdcb17a68e833c7a53903343c195" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
@@ -123,7 +123,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="#"><div class="brand">Blacklight 0.1.0 documentation</div></a>
+      <a href="#"><div class="brand">Blacklight 0.1.6 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -146,7 +146,7 @@
       <div class="sidebar-sticky"><a class="sidebar-brand" href="#">
   
   
-  <span class="sidebar-brand-text">Blacklight 0.1.0 documentation</span>
+  <span class="sidebar-brand-text">Blacklight 0.1.6 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -158,17 +158,19 @@
 <li class="toctree-l1"><a class="reference internal" href="generated/blacklight.autoML.FeedForward.html"><code class="docutils literal notranslate"><span class="pre">FeedForward</span></code></a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="generated/blacklight.autoML.populations.Population.html"><code class="docutils literal notranslate"><span class="pre">Population</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="generated/blacklight.base.population.html"><code class="docutils literal notranslate"><span class="pre">population</span></code></a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="generated/blacklight.autoML.individuals.Individual.html"><code class="docutils literal notranslate"><span class="pre">Individual</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="generated/blacklight.autoML.individuals.FeedForwardIndividual.html"><code class="docutils literal notranslate"><span class="pre">FeedForwardIndividual</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="generated/blacklight.base.Individual.html"><code class="docutils literal notranslate"><span class="pre">Individual</span></code></a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="generated/blacklight.autoML.individuals.get_min_length_chromosome.html"><code class="docutils literal notranslate"><span class="pre">get_min_length_chromosome()</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="generated/blacklight.autoML.individuals.get_crossover_points_from_num_parents.html"><code class="docutils literal notranslate"><span class="pre">get_crossover_points_from_num_parents()</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="generated/blacklight.autoML.individuals.merge_genes.html"><code class="docutils literal notranslate"><span class="pre">merge_genes()</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="generated/blacklight.autoML.individuals.mutate_dominant_gene.html"><code class="docutils literal notranslate"><span class="pre">mutate_dominant_gene()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="generated/blacklight.base.BaseChromosome.html"><code class="docutils literal notranslate"><span class="pre">BaseChromosome</span></code></a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="generated/blacklight.base.individuals.FeedForwardIndividual.html"><code class="docutils literal notranslate"><span class="pre">FeedForwardIndividual</span></code></a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="generated/blacklight.base.chromosomes.FeedForwardChromosome.html"><code class="docutils literal notranslate"><span class="pre">FeedForwardChromosome</span></code></a></li>
 </ul>
 
 </div>
@@ -205,63 +207,75 @@
         <article role="main">
           <section id="module-blacklight.autoML">
 <span id="welcome-to-blacklight-s-api-documentation"></span><h1>Welcome to Blacklight’s API Documentation!<a class="headerlink" href="#module-blacklight.autoML" title="Permalink to this heading">#</a></h1>
-<span class="target" id="module-0"></span><section id="automl-classes">
-<h2>AutoML classes<a class="headerlink" href="#automl-classes" title="Permalink to this heading">#</a></h2>
+<span class="target" id="module-0"></span><section id="blacklight-automl">
+<h2>Blacklight autoML<a class="headerlink" href="#blacklight-automl" title="Permalink to this heading">#</a></h2>
 <div class="table-wrapper autosummary longtable docutils container">
 <table class="autosummary longtable docutils align-default">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="generated/blacklight.autoML.FeedForward.html#blacklight.autoML.FeedForward" title="blacklight.autoML.FeedForward"><code class="xref py py-obj docutils literal notranslate"><span class="pre">autoML.FeedForward</span></code></a></p></td>
-<td><p>A population of Feed Forward DNN topologies that can be evaluated.</p></td>
+<td><p>A population of Feed Forward DNN topologies that will be evaluated utilizing a genetic search.</p></td>
 </tr>
 </tbody>
 </table>
 </div>
 </section>
-<section id="automl-utilities">
-<h2>AutoML utilities<a class="headerlink" href="#automl-utilities" title="Permalink to this heading">#</a></h2>
-<section id="automl-populations-classes">
-<h3>AutoML Populations Classes<a class="headerlink" href="#automl-populations-classes" title="Permalink to this heading">#</a></h3>
+<section id="blacklight-base">
+<h2>Blacklight Base<a class="headerlink" href="#blacklight-base" title="Permalink to this heading">#</a></h2>
+<section id="base-population-class">
+<h3>Base Population Class<a class="headerlink" href="#base-population-class" title="Permalink to this heading">#</a></h3>
 <div class="table-wrapper autosummary longtable docutils container">
 <table class="autosummary longtable docutils align-default">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/blacklight.autoML.populations.Population.html#blacklight.autoML.populations.Population" title="blacklight.autoML.populations.Population"><code class="xref py py-obj docutils literal notranslate"><span class="pre">autoML.populations.Population</span></code></a></p></td>
-<td><p>A population of DNN topologies that can be evaluated.</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/blacklight.base.population.html#blacklight.base.population" title="blacklight.base.population"><code class="xref py py-obj docutils literal notranslate"><span class="pre">base.population</span></code></a></p></td>
+<td><p></p></td>
 </tr>
 </tbody>
 </table>
 </div>
 </section>
-<section id="automl-individuals-classes">
-<h3>AutoML Individuals Classes<a class="headerlink" href="#automl-individuals-classes" title="Permalink to this heading">#</a></h3>
+<section id="base-individual-class">
+<h3>Base Individual Class<a class="headerlink" href="#base-individual-class" title="Permalink to this heading">#</a></h3>
 <div class="table-wrapper autosummary longtable docutils container">
 <table class="autosummary longtable docutils align-default">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/blacklight.autoML.individuals.Individual.html#blacklight.autoML.individuals.Individual" title="blacklight.autoML.individuals.Individual"><code class="xref py py-obj docutils literal notranslate"><span class="pre">autoML.individuals.Individual</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/blacklight.base.Individual.html#blacklight.base.Individual" title="blacklight.base.Individual"><code class="xref py py-obj docutils literal notranslate"><span class="pre">base.Individual</span></code></a></p></td>
 <td><p>Abstract class for an individual in a population.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/blacklight.autoML.individuals.FeedForwardIndividual.html#blacklight.autoML.individuals.FeedForwardIndividual" title="blacklight.autoML.individuals.FeedForwardIndividual"><code class="xref py py-obj docutils literal notranslate"><span class="pre">autoML.individuals.FeedForwardIndividual</span></code></a></p></td>
+</tbody>
+</table>
+</div>
+</section>
+<section id="base-chromosome-class">
+<h3>Base Chromosome Class<a class="headerlink" href="#base-chromosome-class" title="Permalink to this heading">#</a></h3>
+<div class="table-wrapper autosummary longtable docutils container">
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/blacklight.base.BaseChromosome.html#blacklight.base.BaseChromosome" title="blacklight.base.BaseChromosome"><code class="xref py py-obj docutils literal notranslate"><span class="pre">base.BaseChromosome</span></code></a></p></td>
+<td><p>Abstract class for a chromosome in an individual.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="individuals">
+<h3>Individuals<a class="headerlink" href="#individuals" title="Permalink to this heading">#</a></h3>
+<div class="table-wrapper autosummary longtable docutils container">
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/blacklight.base.individuals.FeedForwardIndividual.html#blacklight.base.individuals.FeedForwardIndividual" title="blacklight.base.individuals.FeedForwardIndividual"><code class="xref py py-obj docutils literal notranslate"><span class="pre">base.individuals.FeedForwardIndividual</span></code></a></p></td>
 <td><p>Individual for a feed forward neural network.</p></td>
 </tr>
 </tbody>
 </table>
 </div>
 </section>
-<section id="automl-individuals-utility-functions">
-<h3>AutoML Individuals Utility Functions<a class="headerlink" href="#automl-individuals-utility-functions" title="Permalink to this heading">#</a></h3>
+<section id="chromosomes">
+<h3>Chromosomes<a class="headerlink" href="#chromosomes" title="Permalink to this heading">#</a></h3>
 <div class="table-wrapper autosummary longtable docutils container">
 <table class="autosummary longtable docutils align-default">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/blacklight.autoML.individuals.get_min_length_chromosome.html#blacklight.autoML.individuals.get_min_length_chromosome" title="blacklight.autoML.individuals.get_min_length_chromosome"><code class="xref py py-obj docutils literal notranslate"><span class="pre">autoML.individuals.get_min_length_chromosome</span></code></a></p></td>
-<td><p>Get the chromosome with the minimum length.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/blacklight.autoML.individuals.get_crossover_points_from_num_parents.html#blacklight.autoML.individuals.get_crossover_points_from_num_parents" title="blacklight.autoML.individuals.get_crossover_points_from_num_parents"><code class="xref py py-obj docutils literal notranslate"><span class="pre">autoML.individuals.get_crossover_points_from_num_parents</span></code></a></p></td>
-<td><p>Get a list of crossover points for a given number of parents and chromosome length.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/blacklight.autoML.individuals.merge_genes.html#blacklight.autoML.individuals.merge_genes" title="blacklight.autoML.individuals.merge_genes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">autoML.individuals.merge_genes</span></code></a></p></td>
-<td><p>Merge two genes together.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/blacklight.autoML.individuals.mutate_dominant_gene.html#blacklight.autoML.individuals.mutate_dominant_gene" title="blacklight.autoML.individuals.mutate_dominant_gene"><code class="xref py py-obj docutils literal notranslate"><span class="pre">autoML.individuals.mutate_dominant_gene</span></code></a></p></td>
-<td><p>Mutate the dominant gene.</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/blacklight.base.chromosomes.FeedForwardChromosome.html#blacklight.base.chromosomes.FeedForwardChromosome" title="blacklight.base.chromosomes.FeedForwardChromosome"><code class="xref py py-obj docutils literal notranslate"><span class="pre">base.chromosomes.FeedForwardChromosome</span></code></a></p></td>
+<td><p>Feed forward chromosome class.</p></td>
 </tr>
 </tbody>
 </table>
@@ -323,11 +337,13 @@
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">Welcome to Blacklight’s API Documentation!</a><ul>
-<li><a class="reference internal" href="#automl-classes">AutoML classes</a></li>
-<li><a class="reference internal" href="#automl-utilities">AutoML utilities</a><ul>
-<li><a class="reference internal" href="#automl-populations-classes">AutoML Populations Classes</a></li>
-<li><a class="reference internal" href="#automl-individuals-classes">AutoML Individuals Classes</a></li>
-<li><a class="reference internal" href="#automl-individuals-utility-functions">AutoML Individuals Utility Functions</a></li>
+<li><a class="reference internal" href="#blacklight-automl">Blacklight autoML</a></li>
+<li><a class="reference internal" href="#blacklight-base">Blacklight Base</a><ul>
+<li><a class="reference internal" href="#base-population-class">Base Population Class</a></li>
+<li><a class="reference internal" href="#base-individual-class">Base Individual Class</a></li>
+<li><a class="reference internal" href="#base-chromosome-class">Base Chromosome Class</a></li>
+<li><a class="reference internal" href="#individuals">Individuals</a></li>
+<li><a class="reference internal" href="#chromosomes">Chromosomes</a></li>
 </ul>
 </li>
 </ul>

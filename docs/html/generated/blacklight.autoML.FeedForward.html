@@ -3,10 +3,10 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
-<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="&lt;no title&gt;" href="blacklight.autoML.populations.Population.html" /><link rel="prev" title="Welcome to Blacklight’s API Documentation!" href="../index.html" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="&lt;no title&gt;" href="blacklight.base.population.html" /><link rel="prev" title="Welcome to Blacklight’s API Documentation!" href="../index.html" />
 
     <!-- Generated with Sphinx 6.1.3 and Furo 2022.12.07 -->
-        <title>&lt;no title&gt; - Blacklight 0.1.0 documentation</title>
+        <title>&lt;no title&gt; - Blacklight 0.1.6 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?digest=91d0f0d1c444bdcb17a68e833c7a53903343c195" />
     <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
@@ -123,7 +123,7 @@
       </label>
     </div>
     <div class="header-center">
-      <a href="../index.html"><div class="brand">Blacklight 0.1.0 documentation</div></a>
+      <a href="../index.html"><div class="brand">Blacklight 0.1.6 documentation</div></a>
     </div>
     <div class="header-right">
       <div class="theme-toggle-container theme-toggle-header">
@@ -146,7 +146,7 @@
       <div class="sidebar-sticky"><a class="sidebar-brand" href="../index.html">
   
   
-  <span class="sidebar-brand-text">Blacklight 0.1.0 documentation</span>
+  <span class="sidebar-brand-text">Blacklight 0.1.6 documentation</span>
   
 </a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
   <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
@@ -158,17 +158,19 @@
 <li class="toctree-l1 current current-page"><a class="current reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">FeedForward</span></code></a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="blacklight.autoML.populations.Population.html"><code class="docutils literal notranslate"><span class="pre">Population</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="blacklight.base.population.html"><code class="docutils literal notranslate"><span class="pre">population</span></code></a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="blacklight.autoML.individuals.Individual.html"><code class="docutils literal notranslate"><span class="pre">Individual</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="blacklight.autoML.individuals.FeedForwardIndividual.html"><code class="docutils literal notranslate"><span class="pre">FeedForwardIndividual</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="blacklight.base.Individual.html"><code class="docutils literal notranslate"><span class="pre">Individual</span></code></a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="blacklight.autoML.individuals.get_min_length_chromosome.html"><code class="docutils literal notranslate"><span class="pre">get_min_length_chromosome()</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="blacklight.autoML.individuals.get_crossover_points_from_num_parents.html"><code class="docutils literal notranslate"><span class="pre">get_crossover_points_from_num_parents()</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="blacklight.autoML.individuals.merge_genes.html"><code class="docutils literal notranslate"><span class="pre">merge_genes()</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="blacklight.autoML.individuals.mutate_dominant_gene.html"><code class="docutils literal notranslate"><span class="pre">mutate_dominant_gene()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="blacklight.base.BaseChromosome.html"><code class="docutils literal notranslate"><span class="pre">BaseChromosome</span></code></a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="blacklight.base.individuals.FeedForwardIndividual.html"><code class="docutils literal notranslate"><span class="pre">FeedForwardIndividual</span></code></a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="blacklight.base.chromosomes.FeedForwardChromosome.html"><code class="docutils literal notranslate"><span class="pre">FeedForwardChromosome</span></code></a></li>
 </ul>
 
 </div>
@@ -240,7 +242,7 @@ Callable method.
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>data</strong> – The data to fit this population to. Has to be either a pandas dataframe with columns: [feature1, feature2, …, featureN, label] or a file path to a file of formats specified in <cite>ref: dataLoaders.dataLoader.choose_data_loader</cite> that have the same layout.</p></li>
-<li><p><strong>**kwargs</strong> – Any additional arguments to pass to each <a class="reference internal" href="blacklight.autoML.individuals.FeedForwardIndividual.html#blacklight.autoML.individuals.FeedForwardIndividual" title="blacklight.autoML.individuals.FeedForwardIndividual"><code class="xref py py-class docutils literal notranslate"><span class="pre">FeedForwardIndividual</span></code></a> which is a Keras model.</p></li>
+<li><p><strong>**kwargs</strong> – Any additional arguments to pass to each <code class="xref py py-class docutils literal notranslate"><span class="pre">FeedForwardIndividual</span></code> which is a Keras model.</p></li>
 </ul>
 </dd>
 </dl>
@@ -276,7 +278,7 @@ Callable method.
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="blacklight.autoML.populations.Population.html">
+          <a class="next-page" href="blacklight.base.population.html">
               <div class="page-info">
                 <div class="context">
                   <span>Next</span>

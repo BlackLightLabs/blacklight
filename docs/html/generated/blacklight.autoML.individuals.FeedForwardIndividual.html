@@ -3,7 +3,7 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
-<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="prev" title="&lt;no title&gt;" href="blacklight.autoML.individuals.Individual.html" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" />
 
     <!-- Generated with Sphinx 6.1.3 and Furo 2022.12.07 -->
         <title>&lt;no title&gt; - Blacklight 0.1.0 documentation</title>
@@ -134,7 +134,7 @@
           <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
         </button>
       </div>
-      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
         <div class="visually-hidden">Toggle table of contents sidebar</div>
         <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
       </label>
@@ -157,9 +157,14 @@
   <ul>
 <li class="toctree-l1"><a class="reference internal" href="blacklight.autoML.FeedForward.html"><code class="docutils literal notranslate"><span class="pre">FeedForward</span></code></a></li>
 </ul>
-<ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="blacklight.autoML.individuals.Individual.html"><code class="docutils literal notranslate"><span class="pre">Individual</span></code></a></li>
-<li class="toctree-l1 current current-page"><a class="current reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">FeedForwardIndividual</span></code></a></li>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="blacklight.base.population.html"><code class="docutils literal notranslate"><span class="pre">population</span></code></a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="blacklight.base.Individual.html"><code class="docutils literal notranslate"><span class="pre">Individual</span></code></a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="blacklight.base.individuals.FeedForwardIndividual.html"><code class="docutils literal notranslate"><span class="pre">FeedForwardIndividual</span></code></a></li>
 </ul>
 
 </div>
@@ -188,130 +193,20 @@
               <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
             </button>
           </div>
-          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
             <div class="visually-hidden">Toggle table of contents sidebar</div>
             <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
           </label>
         </div>
         <article role="main">
-          <dl class="py class">
-<dt class="sig sig-object py" id="blacklight.autoML.individuals.FeedForwardIndividual">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">FeedForwardIndividual</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parents_genes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">population</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">MAX_NEURONS</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">64</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">MAX_LAYERS</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">NUM_PARENTS</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/blacklight/autoML/individuals/feedforwardindividual.html#FeedForwardIndividual"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#blacklight.autoML.individuals.FeedForwardIndividual" title="Permalink to this definition">#</a></dt>
-<dd><p>Individual for a feed forward neural network.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>parents_genes</strong> – list of genes from parents</p></li>
-<li><p><strong>population</strong> – population object that this individual belongs to</p></li>
-<li><p><strong>MAX_NEURONS</strong> – maximum number of neurons allowed</p></li>
-<li><p><strong>MAX_LAYERS</strong> – maximum number of layers allowed</p></li>
-<li><p><strong>NUM_PARENTS</strong> – number of parents used for crossover</p></li>
-<li><p><strong>**kwargs</strong> – arguments to be passed to Keras</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>None</p>
-</dd>
-</dl>
-<dl class="py method">
-<dt class="sig sig-object py" id="blacklight.autoML.individuals.FeedForwardIndividual._crossover">
-<span class="sig-name descname"><span class="pre">_crossover</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/blacklight/autoML/individuals/feedforwardindividual.html#FeedForwardIndividual._crossover"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#blacklight.autoML.individuals.FeedForwardIndividual._crossover" title="Permalink to this definition">#</a></dt>
-<dd><p>Utilizes parents genes (a list of genes) and returns a new set of genes
-for this individual.
-Models real crossover, see merge_genes for details.
-:param None:</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>dictionary of genes</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>genes (dict)</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="blacklight.autoML.individuals.FeedForwardIndividual._evaluate_model">
-<span class="sig-name descname"><span class="pre">_evaluate_model</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/blacklight/autoML/individuals/feedforwardindividual.html#FeedForwardIndividual._evaluate_model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#blacklight.autoML.individuals.FeedForwardIndividual._evaluate_model" title="Permalink to this definition">#</a></dt>
-<dd><p>Evaluate the model.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="blacklight.autoML.individuals.FeedForwardIndividual._make_model">
-<span class="sig-name descname"><span class="pre">_make_model</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/blacklight/autoML/individuals/feedforwardindividual.html#FeedForwardIndividual._make_model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#blacklight.autoML.individuals.FeedForwardIndividual._make_model" title="Permalink to this definition">#</a></dt>
-<dd><p>Make a keras model from the genes.
-Implementing Forward-Forward Neural Networks to save on computation time
-during the architecture search.
-:return:</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="blacklight.autoML.individuals.FeedForwardIndividual._mutate">
-<span class="sig-name descname"><span class="pre">_mutate</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/blacklight/autoML/individuals/feedforwardindividual.html#FeedForwardIndividual._mutate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#blacklight.autoML.individuals.FeedForwardIndividual._mutate" title="Permalink to this definition">#</a></dt>
-<dd><p>Mutate the genes of the individual.
-:return:</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="blacklight.autoML.individuals.FeedForwardIndividual._random_genes">
-<span class="sig-name descname"><span class="pre">_random_genes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/blacklight/autoML/individuals/feedforwardindividual.html#FeedForwardIndividual._random_genes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#blacklight.autoML.individuals.FeedForwardIndividual._random_genes" title="Permalink to this definition">#</a></dt>
-<dd><p>Randomly initialize genes for each type of individual if there are no parents.
-Feed Forward Neural Networks are made up of layers. Each layer has a number of neurons and an activation function.
-Initialize genes as a dictionary of dictionaries. Each sub_dictionary entry represents a layer.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>None</strong> – </p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>dictionary of randomly generated genes</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>genes (dict)</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="blacklight.autoML.individuals.FeedForwardIndividual._train_model">
-<span class="sig-name descname"><span class="pre">_train_model</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/blacklight/autoML/individuals/feedforwardindividual.html#FeedForwardIndividual._train_model"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#blacklight.autoML.individuals.FeedForwardIndividual._train_model" title="Permalink to this definition">#</a></dt>
-<dd><p>Train the model.
-:return:</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="blacklight.autoML.individuals.FeedForwardIndividual.get_fitness">
-<span class="sig-name descname"><span class="pre">get_fitness</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/blacklight/autoML/individuals/feedforwardindividual.html#FeedForwardIndividual.get_fitness"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#blacklight.autoML.individuals.FeedForwardIndividual.get_fitness" title="Permalink to this definition">#</a></dt>
-<dd><p>Get the fitness of the individual.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="blacklight.autoML.individuals.FeedForwardIndividual.mate">
-<span class="sig-name descname"><span class="pre">mate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">other_individual</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/blacklight/autoML/individuals/feedforwardindividual.html#FeedForwardIndividual.mate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#blacklight.autoML.individuals.FeedForwardIndividual.mate" title="Permalink to this definition">#</a></dt>
-<dd><p>Mate with another individual.
-:param other_individual: Individual to mate with.
-:return:</p>
-</dd></dl>
-
-</dd></dl>
-
-
+          
         </article>
       </div>
       <footer>
         
         <div class="related-pages">
           
-          <a class="prev-page" href="blacklight.autoML.individuals.Individual.html">
-              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
-              <div class="page-info">
-                <div class="context">
-                  <span>Previous</span>
-                </div>
-                
-                <div class="title">&lt;no title&gt;</div>
-                
-              </div>
-            </a>
+          
         </div>
         <div class="bottom-of-page">
           <div class="left-details">
@@ -330,34 +225,8 @@ Initialize genes as a dictionary of dictionaries. Each sub_dictionary entry repr
         
       </footer>
     </div>
-    <aside class="toc-drawer">
+    <aside class="toc-drawer no-toc">
       
-      
-      <div class="toc-sticky toc-scroll">
-        <div class="toc-title-container">
-          <span class="toc-title">
-            On this page
-          </span>
-        </div>
-        <div class="toc-tree-container">
-          <div class="toc-tree">
-            <ul>
-<li><a class="reference internal" href="#"><code class="docutils literal notranslate"><span class="pre">FeedForwardIndividual</span></code></a><ul>
-<li><a class="reference internal" href="#blacklight.autoML.individuals.FeedForwardIndividual._crossover"><code class="docutils literal notranslate"><span class="pre">FeedForwardIndividual._crossover()</span></code></a></li>
-<li><a class="reference internal" href="#blacklight.autoML.individuals.FeedForwardIndividual._evaluate_model"><code class="docutils literal notranslate"><span class="pre">FeedForwardIndividual._evaluate_model()</span></code></a></li>
-<li><a class="reference internal" href="#blacklight.autoML.individuals.FeedForwardIndividual._make_model"><code class="docutils literal notranslate"><span class="pre">FeedForwardIndividual._make_model()</span></code></a></li>
-<li><a class="reference internal" href="#blacklight.autoML.individuals.FeedForwardIndividual._mutate"><code class="docutils literal notranslate"><span class="pre">FeedForwardIndividual._mutate()</span></code></a></li>
-<li><a class="reference internal" href="#blacklight.autoML.individuals.FeedForwardIndividual._random_genes"><code class="docutils literal notranslate"><span class="pre">FeedForwardIndividual._random_genes()</span></code></a></li>
-<li><a class="reference internal" href="#blacklight.autoML.individuals.FeedForwardIndividual._train_model"><code class="docutils literal notranslate"><span class="pre">FeedForwardIndividual._train_model()</span></code></a></li>
-<li><a class="reference internal" href="#blacklight.autoML.individuals.FeedForwardIndividual.get_fitness"><code class="docutils literal notranslate"><span class="pre">FeedForwardIndividual.get_fitness()</span></code></a></li>
-<li><a class="reference internal" href="#blacklight.autoML.individuals.FeedForwardIndividual.mate"><code class="docutils literal notranslate"><span class="pre">FeedForwardIndividual.mate()</span></code></a></li>
-</ul>
-</li>
-</ul>
-
-          </div>
-        </div>
-      </div>
       
       
     </aside>

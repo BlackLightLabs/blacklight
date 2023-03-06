@@ -21,7 +21,6 @@ class DataLoader:
         """
         # Must be of time pd.DataFrame
         self.data = data
-        pass
 
     def extractData(self):
         """
@@ -45,6 +44,7 @@ class Dataset(tf.keras.utils.Sequence):
         self.x, self.y = x_set, y_set
         if isinstance(y_set[0], str):
             self.y = LabelEncoder().fit_transform(self.y)
+            self.num_classes = len(set(self.y))
         self.batch_size = batch_size if batch_size else len(self.x)
 
     def __len__(self):
