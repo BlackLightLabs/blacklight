@@ -9,7 +9,7 @@
 project = 'Blacklight'
 copyright = '2023, Cole Agard'
 author = 'Cole Agard'
-release = '0.1.0'
+release = '0.1.6'
 
 autodoc_mock_imports = ["numpy", "pandas", "tensorflow", "sklearn"]
 autodoc_default_options = {"members": True,  "private-members": True}

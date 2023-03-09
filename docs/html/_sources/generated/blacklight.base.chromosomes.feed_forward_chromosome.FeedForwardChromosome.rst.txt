@@ -1,0 +1,5 @@
+﻿:mod: `blacklight.base.chromosomes.feed_forward_chromosome`.FeedForwardChromosome=====================================================================================
+
+.. currentmodule:: blacklight.base.chromosomes.feed_forward_chromosome
+
+.. autoclass:: FeedForwardChromosome
