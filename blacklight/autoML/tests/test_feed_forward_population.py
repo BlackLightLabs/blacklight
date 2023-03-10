@@ -34,17 +34,13 @@ class TestFeedForward(unittest.TestCase):
         self.assertEqual(individual.death_percentage, 0.2)
         self.assertEqual(individual.num_generations, 10)
 
-    @mock.patch('blacklight.dataLoaders.dataLoader.DataLoader.extractData')
-    @mock.patch('blacklight.dataLoaders.dataLoader.FileDataLoader.get_dataset')
     @mock.patch('blacklight.base.individuals.feedforwardindividual.FeedForwardIndividual.get_fitness')
     def test_iris_data_is_loaded(
             self,
-            mock_get_fitness,
-            mock_get_dataset,
-            mock_extract_data):
-        mock_extract_data.return_value = self.X, self.y
+            mock_get_fitness
+            ):
+
         mock_get_fitness.return_value = 0.9
-        mock_get_dataset.return_value = self.dataSet
         pop = FeedForward(4, 4, 0.2, 10)
         pop.fit(self.dataDF)
         self.assertIsNotNone(pop.individuals)

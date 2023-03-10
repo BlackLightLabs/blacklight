@@ -116,6 +116,7 @@ class BlacklightDataset(tf.keras.utils.Sequence):
         elif type_of_data == "file":
             self.X, self.y = handle_file_data(self.X)
 
+        self.X_shape = self.X.shape[-1]
         self.batch_size = batch_size if batch_size else len(self.X)
 
     def num_classes(self):

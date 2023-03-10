@@ -77,11 +77,11 @@ class FeedForwardIndividual(Individual):
         # data
         self.train_data = population.get_training_data()
         self.test_data = population.get_testing_data()
-        self.X_shape = self.train_data.x.shape[-1]
+        self.X_shape = self.train_data.X_shape
         if self.need_new_genes:
             self.chromosome = FeedForwardChromosome(
                 input_shape=self.X_shape,
-                num_classes=self.train_data.num_classes,
+                num_classes=self.train_data.num_classes(),
                 genes=None,
                 mutation_prob=0.1,
                 model_params=self.model_options)
