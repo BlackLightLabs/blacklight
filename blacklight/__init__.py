@@ -1,6 +1,6 @@
 
 __all__ = [
     'autoML',
-    'dataLoaders',
+    'blacklightDataLoader',
     'base'
 ]

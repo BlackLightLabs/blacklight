@@ -4,7 +4,7 @@ from blacklight.base.individuals.feedforwardindividual import FeedForwardIndivid
 from blacklight.base.population import Population
 import random
 from unittest import mock
-from blacklight.dataLoaders.dataLoader import Dataset
+from blacklight.blacklightDataLoader import BlacklightDataset
 
 
 class TestIndividual(unittest.TestCase):
@@ -13,7 +13,7 @@ class TestIndividual(unittest.TestCase):
         X = np.array([[1, 5.1, 3.5, 1.4, 0.2], [
                      2, 4.9, 3.0, 1.4, 0.2], [3, 4.7, 3.2, 1.3, 0.2]])
         y = np.array(['Iris-setosa', 'Iris-versicolor', 'Iris-virginica'])
-        self.dataSet = Dataset(X, y, None)
+        self.dataSet = BlacklightDataset(X, y, None)
         random.seed(69)
 
     def test_individual(self):
