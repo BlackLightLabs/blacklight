@@ -2,7 +2,7 @@ import unittest
 from blacklight.autoML._feed_forward import FeedForward
 from unittest import mock
 import numpy as np
-from blacklight.blacklightDataLoader.blacklight_dataset import Dataset
+from blacklight.blacklightDataLoader import BlacklightDataset
 import pandas as pd
 
 
@@ -16,7 +16,7 @@ class TestFeedForward(unittest.TestCase):
                      2, 4.9, 3.0, 1.4, 0.2], [3, 4.7, 3.2, 1.3, 0.2]])
         y = np.array(['Iris-setosa', 'Iris-versicolor', 'Iris-virginica'])
         self.X, self.y = X, y
-        self.dataSet = Dataset(X, y, None)
+        self.dataSet = BlacklightDataset(X, y, None)
         self.dataDF = pd.DataFrame(
             data=X,
             columns=[
