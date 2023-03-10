@@ -38,7 +38,7 @@ class TestFeedForward(unittest.TestCase):
     def test_iris_data_is_loaded(
             self,
             mock_get_fitness
-            ):
+    ):
 
         mock_get_fitness.return_value = 0.9
         pop = FeedForward(4, 4, 0.2, 10)

@@ -49,8 +49,9 @@ def determine_input_data_type(X):
         else:
             return "directory"
     else:
-        raise TypeError("X must be of type numpy.ndarray, pandas.DataFrame, tf.data.Dataset, a file location, "
-                        "or a directory.")
+        raise TypeError(
+            "X must be of type numpy.ndarray, pandas.DataFrame, tf.data.Dataset, a file location, "
+            "or a directory.")
 
 
 def handle_pandas_data(X, y):
@@ -67,8 +68,9 @@ def handle_pandas_data(X, y):
         if isinstance(y[0], str):
             y = LabelEncoder().fit_transform(y)
         return np.array(X), np.array(y)
-    except:
-        raise ValueError("X (dataframe) could not be separated into label and feature columns.")
+    except BaseException:
+        raise ValueError(
+            "X (dataframe) could not be separated into label and feature columns.")
 
 
 def handle_numpy_data(X, y):
@@ -79,7 +81,8 @@ def handle_numpy_data(X, y):
             y = LabelEncoder().fit_transform(y)
         return X, y
     except IndexError:
-        raise np.error_message("X (np.array) could not be separated into label and feature columns.")
+        raise np.error_message(
+            "X (np.array) could not be separated into label and feature columns.")
 
 
 def handle_tf_data(X, y):
@@ -103,6 +106,7 @@ class BlacklightDataset(tf.keras.utils.Sequence):
         - y: The labels for the data. This can be a numpy array, pandas series. If not provided, the last column of X will be used or the column labeled "label" or "labels".
         - batch_size: The size of the batch to be used for training. If not provided, the batch size will be the length of the data.
     """
+
     def __init__(self, X, y=None, batch_size=None):
         type_of_data = determine_input_data_type(X)
         self.X = X
@@ -136,9 +140,9 @@ class BlacklightDataset(tf.keras.utils.Sequence):
             - idx: The index of the batch to be returned.
         """
         batch_x = self.X[idx * self.batch_size:(idx + 1) *
-                                               self.batch_size]
+                         self.batch_size]
         batch_y = self.y[idx * self.batch_size:(idx + 1) *
-                                               self.batch_size]
+                         self.batch_size]
         return batch_x, batch_y
 
 
