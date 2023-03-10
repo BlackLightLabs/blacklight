@@ -4,7 +4,7 @@ from blacklight.base.individuals.feedforwardindividual import FeedForwardIndivid
 from blacklight.base.population import Population
 import random
 from unittest import mock
-from blacklight.dataLoaders.dataLoader import Dataset
+from blacklight.blacklightDataLoader.blacklight_dataset import Dataset
 
 
 class TestIndividual(unittest.TestCase):

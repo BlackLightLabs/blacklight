@@ -2,7 +2,7 @@ import unittest
 from blacklight.autoML._feed_forward import FeedForward
 from unittest import mock
 import numpy as np
-from blacklight.dataLoaders.dataLoader import Dataset
+from blacklight.blacklightDataLoader.blacklight_dataset import Dataset
 import pandas as pd
 
 

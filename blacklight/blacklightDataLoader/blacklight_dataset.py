@@ -5,44 +5,16 @@ import math
 from sklearn.preprocessing import LabelEncoder
 
 
-class DataLoader:
-    """
-    An abstract class to hold general methods between dataloader instances
-    and provide a structure to satisfy Liwosky Substitution.
-    """
-
-    def __init__(self, data):
-        """
-        Specify data_location, which may have many types:
-            (PostgresSQL, SQLite, Dataframe, Redis, etc...)
-
-        :param args: Location of data source, with other args depending on source.
-        """
-        # Must be of time pd.DataFrame
-        self.data = data
-
-    def extractData(self):
-        """
-        Expects self.data to be of type pd.DataFrame
-        :type pd.DataFrame
-        """
-        possible_prediction_columns = ["label", "prediction", "labels"]
-        y_column_name = ""
-        for column in self.data.columns:
-            if str(column).lower() in possible_prediction_columns:
-                y_column_name = column
-                break
-
-        y = np.array(self.data.pop(y_column_name))
-        X = np.array(self.data)
-        return X, y
-
-
 def parse_target_column(data):
     """
     Parse target column from data
-    :param data: pd.DataFrame
-    :return: pd.DataFrame, pd.Series
+
+    Parameters:
+        - data: The input data to be classified. Must be of type pandas.DataFrame.
+
+    Returns:
+        - X: The feature columns of the input data.
+        - y: The target column of the input data.
     """
     possible_prediction_columns = ["label", "prediction", "labels"]
     y_column_name = ""
@@ -57,6 +29,14 @@ def parse_target_column(data):
 
 
 def determine_input_data_type(X):
+    """
+    Determine the type of input data.
+    Current supported datatypes are numpy.ndarray, pandas.DataFrame, tf.data.Dataset, a file location, or a directory.
+
+    Parameters:
+        - X: The input data to be classified. Must be of type numpy.ndarray, pandas.DataFrame, tf.data.Dataset, a file
+             location, or a directory.
+    """
     if isinstance(X, pd.DataFrame):
         return "pandas"
     elif isinstance(X, np.ndarray):
@@ -74,12 +54,19 @@ def determine_input_data_type(X):
 
 
 def handle_pandas_data(X, y):
+    """
+    Handle pandas data by parsing the target column and encoding the target column if it is a string.
+
+    Parameters:
+        - X: The input data to be classified. Must be of type pandas.DataFrame.
+        - y: The target column of the input data. Must be of type pandas.Series.
+    """
     try:
         if y is None:
             X, y = parse_target_column(X)
         if isinstance(y[0], str):
             y = LabelEncoder().fit_transform(y)
-        return X, y
+        return np.array(X), np.array(y)
     except:
         raise ValueError("X (dataframe) could not be separated into label and feature columns.")
 
@@ -106,6 +93,16 @@ def handle_file_data(X):
 
 
 class BlacklightDataset(tf.keras.utils.Sequence):
+    """
+    A dataset for all blacklight populations to use. This class is a wrapper for tf.keras.utils.Sequence
+    that handles all data types and formats, which also allows for multiprocessing during training.
+    This class is used by the Individual class to extract data in the fit method for processing.
+
+    Parameters:
+        - X: The data to be used for training. This can be a numpy array, pandas dataframe, or a file location.
+        - y: The labels for the data. This can be a numpy array, pandas series. If not provided, the last column of X will be used or the column labeled "label" or "labels".
+        - batch_size: The size of the batch to be used for training. If not provided, the batch size will be the length of the data.
+    """
     def __init__(self, X, y=None, batch_size=None):
         type_of_data = determine_input_data_type(X)
         self.X = X
@@ -119,79 +116,43 @@ class BlacklightDataset(tf.keras.utils.Sequence):
         elif type_of_data == "file":
             self.X, self.y = handle_file_data(self.X)
 
-        self.batch_size = batch_size if batch_size else len(self.x)
+        self.batch_size = batch_size if batch_size else len(self.X)
+
+    def num_classes(self):
+        """
+        Return the number of classes in the dataset.
+        """
+        return len(set(self.y))
 
     def __len__(self):
-        return math.ceil(len(self.x) / self.batch_size)
+        return math.ceil(len(self.X) / self.batch_size)
 
     def __getitem__(self, idx):
-        batch_x = self.x[idx * self.batch_size:(idx + 1) *
+        """
+        Grab a batch of data for use in training. If batch_size is not provided, the batch size will be the length of the data.
+
+        Parameters:
+            - idx: The index of the batch to be returned.
+        """
+        batch_x = self.X[idx * self.batch_size:(idx + 1) *
                                                self.batch_size]
         batch_y = self.y[idx * self.batch_size:(idx + 1) *
                                                self.batch_size]
         return batch_x, batch_y
-
-
-class Dataset(tf.keras.utils.Sequence):
-    def __init__(self, x_set, y_set, batch_size):
-        self.x, self.y = x_set, y_set
-        if isinstance(y_set[0], str):
-            self.y = LabelEncoder().fit_transform(self.y)
-            self.num_classes = len(set(self.y))
-        self.batch_size = batch_size if batch_size else len(self.x)
-
-    def __len__(self):
-        return math.ceil(len(self.x) / self.batch_size)
-
-    def __getitem__(self, idx):
-        batch_x = self.x[idx * self.batch_size:(idx + 1) *
-                                               self.batch_size]
-        batch_y = self.y[idx * self.batch_size:(idx + 1) *
-                                               self.batch_size]
-        return batch_x, batch_y
-
-
-class FileDataLoader(DataLoader):
-    """
-    Take data from a file
-    """
-
-    def __init__(self, data_location, data_type):
-        self.data = read_data_from_file(data_location, data_type)
-        super().__init__(self.data)
-        self.X, self.y = self.extractData()
-
-    def get_dataset(self, batch_size):
-        return Dataset(self.X, self.y, batch_size)
-
-
-class DFDataLoader(DataLoader):
-    """
-    Take data from predefined DataFrame
-    """
-
-    def __init__(self, data):
-        self.data = data
-        super().__init__(self.data)
-        self.X, self.y = self.extractData()
-
-    def get_dataset(self, batch_size):
-        return Dataset(self.X, self.y, batch_size)
-
-
-def choose_data_loader(data_location):
-    """
-    Choose the correct data loader based on the data type.
-    """
-    if isinstance(data_location, str):
-        return FileDataLoader(data_location, data_location.split(".")[-1])
-    elif isinstance(data_location, pd.DataFrame):
-        return DFDataLoader(data_location)
-    else:
-        raise ValueError("Data type not recognized.")
 
 
 def read_data_from_file(data_location, data_type, **kwargs) -> pd.DataFrame:
+    """
+    Read data from a file location. This function will attempt to read the data as a CSV, JSON, Excel, or Parquet file.
+
+    Parameters:
+        - data_location: The location of the data to be read.
+        - data_type: The type of data to be read. Must be one of 'csv', 'json', 'excel', or 'parquet'.
+        - **kwargs: Keyword arguments to be passed to the read function.
+
+    Returns:
+        - read_data: The data read from the file location.
+    """
     read_data = None
     try:
         # Attempt to read CSV Data

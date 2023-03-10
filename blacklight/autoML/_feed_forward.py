@@ -1,5 +1,5 @@
 from blacklight.base.individuals.feedforwardindividual import FeedForwardIndividual
-from blacklight.dataLoaders.dataLoader import choose_data_loader
+from blacklight.blacklightDataLoader.blacklight_dataset import choose_data_loader
 from blacklight.base.population import Population
 from collections import OrderedDict
 import numpy as np
