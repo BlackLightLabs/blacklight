@@ -7,7 +7,7 @@ from blacklight.base.chromosomes.feed_forward_chromosome import FeedForwardChrom
 from dataclasses import dataclass
 
 
-def parse_keras_options(options):
+def parse_keras_options(options, num_classes):
     """
     Parse keras options.
     """
@@ -24,8 +24,12 @@ def parse_keras_options(options):
         "callbacks", FeedForwardConstants.default_callbacks)
     train_options["use_multiprocessing"] = options.get(
         "use_multiprocessing", True)
+    train_options["class_weight"] = options.get("class-weight", None)
+    # Model options
 
-    model_options["loss"] = options.get("loss", 'categorical_crossentropy')
+    model_options["loss"] = options.get("loss", "categorical_crossentropy")
+    model_options["target_layer"] = (num_classes, "softmax")
+
     model_options["metrics"] = options.get(
         "metrics", FeedForwardConstants.default_metrics)
     model_options["learning_rate"] = options.get("learning_rate", .0001)
@@ -35,7 +39,7 @@ def parse_keras_options(options):
     return train_options, model_options
 
 
-class FeedForwardIndividual(Individual):
+class ClassifierFeedForwardIndividual(Individual):
     """
     Individual for a feed forward neural network.
 
@@ -68,20 +72,23 @@ class FeedForwardIndividual(Individual):
         # Keras parameters -> Maybe these need to be in the population, not the
         # individual?
         options = kwargs
-        self.train_options, self.model_options = parse_keras_options(options)
+        self.problem_type = population.problem_type
+        self.num_classes = population.num_classes
+        self.train_options, self.model_options = parse_keras_options(options, self.num_classes)
         # Class parameters
-        self.dominant_gene = None
 
         self.model = None
+        self.model_history = None
+
         self.fitness_metric = kwargs.get("fitness_metric", 'auc')
         # data
         self.train_data = population.get_training_data()
         self.test_data = population.get_testing_data()
+
         self.X_shape = self.train_data.X_shape
         if self.need_new_genes:
             self.chromosome = FeedForwardChromosome(
                 input_shape=self.X_shape,
-                num_classes=self.train_data.num_classes(),
                 genes=None,
                 mutation_prob=0.1,
                 model_params=self.model_options)
@@ -111,19 +118,20 @@ class FeedForwardIndividual(Individual):
         # Get genes from parents
         parents_genes = (self.chromosome, other_individual.chromosome)
         # Create child
-        child = FeedForwardIndividual(
+        child = ClassifierFeedForwardIndividual(
             parents_genes=parents_genes,
             population=self.population)
         # Return child
         return child
 
-    def _train_model(self):
+    def _evaluate_model(self):
         """
-        Train the model.
-        :return:
+        Evaluate the model.
         """
-        # Train the model
-        self.model.fit(
+        # First make the model
+        self.model = self.chromosome.get_model()
+        # Then train the model
+        self.model_history = self.model.fit(
             x=self.train_data,
             epochs=self.train_options["epochs"],
             batch_size=self.train_options["batch_size"],
@@ -133,14 +141,6 @@ class FeedForwardIndividual(Individual):
             use_multiprocessing=self.train_options["use_multiprocessing"],
             callbacks=self.train_options['callbacks'] if self.train_options['early_stopping'] else None)
 
-    def _evaluate_model(self):
-        """
-        Evaluate the model.
-        """
-        # First make the model
-        self.model = self.chromosome.get_model()
-        # Then train the model
-        self._train_model()
         # Then get the fitness
         results = self.model.evaluate(
             self.test_data,

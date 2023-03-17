@@ -1,6 +1,6 @@
 import unittest
 import numpy as np
-from blacklight.base.individuals.feedforwardindividual import FeedForwardIndividual
+from blacklight.base.individuals.feedForwardIndividuals import ClassifierFeedForwardIndividual
 from blacklight.base.population import Population
 import random
 from unittest import mock
@@ -18,7 +18,7 @@ class TestIndividual(unittest.TestCase):
 
     def test_individual(self):
         with self.assertRaises(ValueError):
-            _ = FeedForwardIndividual(None, None)
+            _ = ClassifierFeedForwardIndividual(None, None)
         return
 
     @mock.patch('blacklight.base.population.Population.get_training_data')
@@ -27,7 +27,7 @@ class TestIndividual(unittest.TestCase):
         NewPopulation.data = self.dataSet
         mock_get_training_data.return_value = self.dataSet
 
-        this_individual = FeedForwardIndividual(None, population=NewPopulation)
+        this_individual = ClassifierFeedForwardIndividual(None, population=NewPopulation)
         self.assertIsNotNone(this_individual.chromosome)
         np.testing.assert_array_equal(
             this_individual.chromosome.genes, [
@@ -39,9 +39,9 @@ class TestIndividual(unittest.TestCase):
         NewPopulation = Population(2, 2, 0.2, 5)
         mock_get_training_data.return_value = self.dataSet
 
-        first_individual = FeedForwardIndividual(
+        first_individual = ClassifierFeedForwardIndividual(
             None, population=NewPopulation)
-        second_individual = FeedForwardIndividual(
+        second_individual = ClassifierFeedForwardIndividual(
             None, population=NewPopulation)
 
         child = first_individual.mate(second_individual)

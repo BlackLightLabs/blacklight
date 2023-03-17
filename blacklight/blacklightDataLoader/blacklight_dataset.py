@@ -3,6 +3,7 @@ import tensorflow as tf
 import pandas as pd
 import math
 from sklearn.preprocessing import LabelEncoder
+from keras.utils import np_utils
 
 
 def parse_target_column(data):
@@ -23,8 +24,8 @@ def parse_target_column(data):
             y_column_name = column
             break
 
-    y = data.pop(y_column_name)
-    X = data
+    y = data[y_column_name]
+    X = data.to_numpy()[:, :-1]
     return X, y
 
 
@@ -65,9 +66,7 @@ def handle_pandas_data(X, y):
     try:
         if y is None:
             X, y = parse_target_column(X)
-        if isinstance(y[0], str):
-            y = LabelEncoder().fit_transform(y)
-        return np.array(X), np.array(y)
+        return np.array(X).astype('float32'), np.array(y)
     except BaseException:
         raise ValueError(
             "X (dataframe) could not be separated into label and feature columns.")
@@ -77,8 +76,6 @@ def handle_numpy_data(X, y):
     try:
         if y is None:
             X, y = X[:, :-1], X[:, -1]
-        if isinstance(y[0], str):
-            y = LabelEncoder().fit_transform(y)
         return X, y
     except IndexError:
         raise np.error_message(
@@ -108,26 +105,25 @@ class BlacklightDataset(tf.keras.utils.Sequence):
     """
 
     def __init__(self, X, y=None, batch_size=None):
-        type_of_data = determine_input_data_type(X)
+
         self.X = X
         self.y = y
-        if type_of_data == "pandas":
-            self.X, self.y = handle_pandas_data(self.X, self.y)
-        elif type_of_data == "numpy":
-            self.X, self.y = handle_numpy_data(self.X, self.y)
-        elif type_of_data == "tf.data":
-            self.X, self.y = handle_tf_data(self.X, self.y)
-        elif type_of_data == "file":
-            self.X, self.y = handle_file_data(self.X)
-
-        self.X_shape = self.X.shape[-1]
+        if y is None:
+            type_of_data = determine_input_data_type(X)
+            if type_of_data == "pandas":
+                self.X, self.y = handle_pandas_data(self.X, self.y)
+            elif type_of_data == "numpy":
+                self.X, self.y = handle_numpy_data(self.X, self.y)
+            elif type_of_data == "tf.data":
+                self.X, self.y = handle_tf_data(self.X, self.y)
+            elif type_of_data == "file":
+                self.X, self.y = handle_file_data(self.X)
         self.batch_size = batch_size if batch_size else len(self.X)
+        self.X_shape = self.X.shape[-1]
 
-    def num_classes(self):
-        """
-        Return the number of classes in the dataset.
-        """
-        return len(set(self.y))
+    def one_hot_encode_target(self):
+        y = LabelEncoder().fit_transform(self.y)
+        self.y = np_utils.to_categorical(y)
 
     def __len__(self):
         return math.ceil(len(self.X) / self.batch_size)
@@ -140,9 +136,9 @@ class BlacklightDataset(tf.keras.utils.Sequence):
             - idx: The index of the batch to be returned.
         """
         batch_x = self.X[idx * self.batch_size:(idx + 1) *
-                         self.batch_size]
+                                               self.batch_size]
         batch_y = self.y[idx * self.batch_size:(idx + 1) *
-                         self.batch_size]
+                                               self.batch_size]
         return batch_x, batch_y
 
 
@@ -158,7 +154,6 @@ def read_data_from_file(data_location, data_type, **kwargs) -> pd.DataFrame:
     Returns:
         - read_data: The data read from the file location.
     """
-    read_data = None
     try:
         # Attempt to read CSV Data
         if data_type == "csv":

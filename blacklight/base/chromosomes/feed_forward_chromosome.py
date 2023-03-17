@@ -1,31 +1,7 @@
 from blacklight.base.chromosome import BaseChromosome
-from dataclasses import dataclass
 import tensorflow as tf
 from tensorflow import keras
 import random
-
-
-@dataclass
-class FeedForwardConstants:
-    """Constants for FeedForward NeuralNetorks"""
-
-    default_metrics = [
-        keras.metrics.TruePositives(name='tp'),
-        keras.metrics.FalsePositives(name='fp'),
-        keras.metrics.TrueNegatives(name='tn'),
-        keras.metrics.FalseNegatives(name='fn'),
-        keras.metrics.CategoricalAccuracy(name='accuracy'),
-        keras.metrics.Precision(name='precision'),
-        keras.metrics.Recall(name='recall'),
-        keras.metrics.AUC(name='auc'),
-    ]
-
-    default_early_stopping = tf.keras.callbacks.EarlyStopping(
-        monitor='auc',
-        verbose=1,
-        patience=10,
-        mode='max',
-        restore_best_weights=True)
 
 
 def handle_feed_forward_chromosome_cross_over(chromosomeA, chromosomeB):
@@ -53,7 +29,6 @@ def handle_feed_forward_chromosome_cross_over(chromosomeA, chromosomeB):
 
     new_chromosome = FeedForwardChromosome(
         input_shape=chromosomeA.input_shape,
-        num_classes=chromosomeA.num_classes,
         mutation_prob=chromosomeA.mutation_prob,
         genes=genes,
         model_params=chromosomeA.model_params)
@@ -72,7 +47,6 @@ class FeedForwardChromosome(BaseChromosome):
 
     def __init__(self,
                  input_shape=None,
-                 num_classes=None,
                  max_neurons=64,
                  max_layers=10,
                  min_neurons=1,
@@ -87,7 +61,6 @@ class FeedForwardChromosome(BaseChromosome):
         self.max_neurons = max_neurons
         self.min_neurons = min_neurons
         self.input_shape = input_shape
-        self.num_classes = num_classes
 
         self.length = None
         self.mutation_prob = mutation_prob
@@ -98,13 +71,13 @@ class FeedForwardChromosome(BaseChromosome):
 
         self.LOSS = self.model_params.get("loss", 'categorical_crossentropy')
         self.METRICS = self.model_params.get(
-            "metrics", FeedForwardConstants.default_metrics)
+            "metrics")
         self.LEARNING_RATE = self.model_params.get("learning_rate", .0001)
 
         self.genes = genes if genes else self._random_genes()
+        self.length = len(self.genes)
         if has_new_genes:
             self._mutate()
-        self.length = len(self.genes)
 
         self.model = self._make_model()
 
@@ -125,17 +98,17 @@ class FeedForwardChromosome(BaseChromosome):
         return genes
 
     def _make_model(self):
-        feed_forward_model = keras.Sequential([
-            tf.keras.layers.Dense(self.input_shape,
-                                  activation='relu',
-                                  input_shape=(self.input_shape,
-                                               ))
-        ] + [
-            tf.keras.layers.Dense(allele[0], activation=allele[1])
-            for allele in self.genes
-        ] + [
-            keras.layers.Dense(self.num_classes, activation='softmax')
-        ])
+        feed_forward_model = keras.Sequential()
+        # Add input layer
+        feed_forward_model.add(
+            tf.keras.layers.Dense(self.genes[0][0], activation=self.genes[0][1], input_shape=(self.input_shape,)))
+        # Add hidden layers
+        for allele in self.genes[1:]:
+            feed_forward_model.add(tf.keras.layers.Dense(allele[0], activation=allele[1]))
+        # Add output layer
+        target_layer = self.model_params.get("target_layer")
+        feed_forward_model.add(tf.keras.layers.Dense(target_layer[0], activation=target_layer[1]))
+
         feed_forward_model.compile(
             optimizer=self.OPTIMIZER(learning_rate=self.LEARNING_RATE),
             loss=self.LOSS,
