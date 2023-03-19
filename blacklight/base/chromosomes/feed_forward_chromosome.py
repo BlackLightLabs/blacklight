@@ -1,58 +1,37 @@
 from blacklight.base.chromosome import BaseChromosome
+from typing import List, Optional, Union, Tuple
 import tensorflow as tf
 from tensorflow import keras
 import random
 
 
-def handle_feed_forward_chromosome_cross_over(chromosomeA, chromosomeB):
-    """
-    Handle feed forward cross over.
-    """
-    if chromosomeA.length > chromosomeB.length:
-        longer_chromosome = chromosomeA
-        shorter_chromosome = chromosomeB
-    else:
-        longer_chromosome = chromosomeB
-        shorter_chromosome = chromosomeA
-
-    points = random.randint(1, len(shorter_chromosome.genes))
-    base_one = shorter_chromosome.genes[:points]
-    link_one = longer_chromosome.genes[points:]
-
-    base_two = longer_chromosome.genes[:points]
-    link_two = shorter_chromosome.genes[points:]
-
-    recombinant_one = base_one + link_one
-    recombinant_two = base_two + link_two
-
-    genes = random.choice([recombinant_one, recombinant_two])
-
-    new_chromosome = FeedForwardChromosome(
-        input_shape=chromosomeA.input_shape,
-        mutation_prob=chromosomeA.mutation_prob,
-        genes=genes,
-        model_params=chromosomeA.model_params)
-
-    return new_chromosome
 
 
 class FeedForwardChromosome(BaseChromosome):
     """
-    Feed forward chromosome class.
+    Feed forward chromosome class representing a feed forward neural network.
 
-    Parameters:
-            parents_genes: list of genes from parents
+    Args:
+        input_shape (Optional[int], optional): The input shape of the neural network. Defaults to None.
+        max_neurons (int, optional): The maximum number of neurons in a layer. Defaults to 64.
+        max_layers (int, optional): The maximum number of layers in the neural network. Defaults to 10.
+        min_neurons (int, optional): The minimum number of neurons in a layer. Defaults to 1.
+        genes (Optional[List[Tuple[int, str]]], optional): The list of genes representing the neural network structure. Defaults to None.
+        mutation_prob (Optional[int], optional): The probability of mutation for the chromosome. Defaults to None.
+        model_params (Optional[dict], optional): The parameters for the Keras model. Defaults to None.
 
+    Examples:
+        >>> chromosome = FeedForwardChromosome(input_shape=10)
     """
 
     def __init__(self,
-                 input_shape=None,
-                 max_neurons=64,
-                 max_layers=10,
-                 min_neurons=1,
-                 genes=None,
-                 mutation_prob=None,
-                 model_params=None):
+                 input_shape: Optional[int] = None,
+                 max_neurons: int = 64,
+                 max_layers: int = 10,
+                 min_neurons: int = 1,
+                 genes: Optional[List[Tuple[int, str]]] = None,
+                 mutation_prob: Optional[int] = None,
+                 model_params: Optional[dict] = None):
         super().__init__()
         self.model_params = model_params if model_params else {}
         has_new_genes = genes is not None
@@ -81,9 +60,12 @@ class FeedForwardChromosome(BaseChromosome):
 
         self.model = self._make_model()
 
-    def _random_genes(self):
+    def _random_genes(self) -> List[Tuple[int, str]]:
         """
         Generate random feed forward genes for the chromosome.
+
+        Returns:
+            List[Tuple[int, str]]: A list of genes representing the neural network structure.
         """
         layer_type_activation_types = ['relu', 'sigmoid', 'tanh', 'selu']
         layer_size = range(self.min_neurons, self.max_neurons)
@@ -97,7 +79,52 @@ class FeedForwardChromosome(BaseChromosome):
         ]
         return genes
 
-    def _make_model(self):
+    @staticmethod
+    def cross_over(chromosome_a, chromosome_b):
+        """
+        Handle feed forward cross over between two chromosomes.
+
+        Args:
+            chromosome_a (FeedForwardChromosome): The first chromosome to perform cross over.
+            chromosome_b (FeedForwardChromosome): The second chromosome to perform cross over.
+
+        Returns:
+            FeedForwardChromosome: A new chromosome created by cross over between the input chromosomes.
+
+        Examples:
+            >>> chromosomeA = FeedForwardChromosome(input_shape=10)
+            >>> chromosomeB = FeedForwardChromosome(input_shape=10)
+            >>> new_chromosome = handle_feed_forward_chromosome_cross_over(chromosome_a, chromosome_b)
+        """
+        shorter_chromosome, longer_chromosome = BaseChromosome.get_shortest_chromosome(chromosome_a, chromosome_b)
+
+        points = random.randint(1, len(shorter_chromosome.genes))
+        base_one = shorter_chromosome.genes[:points]
+        link_one = longer_chromosome.genes[points:]
+
+        base_two = longer_chromosome.genes[:points]
+        link_two = shorter_chromosome.genes[points:]
+
+        recombinant_one = base_one + link_one
+        recombinant_two = base_two + link_two
+
+        genes = random.choice([recombinant_one, recombinant_two])
+
+        new_chromosome = FeedForwardChromosome(
+            input_shape=chromosome_a.input_shape,
+            mutation_prob=chromosome_a.mutation_prob,
+            genes=genes,
+            model_params=chromosome_a.model_params)
+
+        return new_chromosome
+
+    def _make_model(self) -> tf.keras.Sequential:
+        """
+        Create a Keras Sequential model based on the chromosome's genes.
+
+        Returns:
+            tf.keras.Sequential: A feed forward neural network model.
+        """
         feed_forward_model = keras.Sequential()
         # Add input layer
         feed_forward_model.add(
@@ -116,9 +143,9 @@ class FeedForwardChromosome(BaseChromosome):
         )
         return feed_forward_model
 
-    def _mutate(self):
+    def _mutate(self) -> None:
         """
-        Mutate the chromosome.
+        Mutate the chromosome by randomly changing one of its genes.
         """
         mutate = random.choices([True, False], weights=[
             self.mutation_prob, 10 - self.mutation_prob], k=1)[0]
@@ -129,7 +156,17 @@ class FeedForwardChromosome(BaseChromosome):
             new_activation = random.choice(['relu', 'sigmoid', 'tanh', 'selu'])
             self.genes[layer_idx] = (new_allele, new_activation)
 
-    def get_model(self):
+    def get_model(self) -> tf.keras.Sequential:
+        """
+        Get the Keras Sequential model of the chromosome.
+
+        Returns:
+            tf.keras.Sequential: The feed forward neural network model.
+
+        Examples:
+            >>> chromosome = FeedForwardChromosome(input_shape=10)
+            >>> model = chromosome.get_model()
+        """
         return self.model
 
     def __repr__(self):

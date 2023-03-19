@@ -22,3 +22,21 @@ class BaseChromosome(ABC):
         Mutate genes of this chromosome.
         """
         pass
+
+    @staticmethod
+    def get_shortest_chromosome(chromosome_a: BaseChromosome, chromosome_b: BaseChromosome) -> Tuple[
+        BaseChromosome, BaseChromosome]:
+        """
+        Determine the shortest and longest chromosomes.
+
+        Args:
+            chromosome_a (BaseChromosome): The first chromosome to compare.
+            chromosome_b (BaseChromosome): The second chromosome to compare.
+
+        Returns:
+            Tuple[BaseChromosome, BaseChromosome]: A tuple containing the shortest chromosome and the longest chromosome, in that order.
+        """
+        if chromosome_a.length > chromosome_b.length:
+            return chromosome_b, chromosome_a
+        else:
+            return chromosome_a, chromosome_b
