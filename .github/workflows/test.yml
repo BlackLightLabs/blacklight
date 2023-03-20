@@ -39,7 +39,7 @@ jobs:
           ls
           pwd
           pip install setuptools>=42.0.0
-          pip install pandas numpy pyarrow fastparquet openpyxl scikit-learn tensorflow pytest coverage matplotlib
+          pip install pandas numpy tqdm pyarrow fastparquet openpyxl scikit-learn tensorflow pytest coverage matplotlib
           python -m coverage run -m pytest -v --disable-warnings
           python -m coverage report
           coverage xml -o .cobertura.xml

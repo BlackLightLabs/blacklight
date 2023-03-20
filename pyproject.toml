@@ -11,6 +11,8 @@ numpy = "*"
 pandas = "*"
 fastparquet = "*"
 openpyxl = "*"
+matplotlib = "*"
+tqdm = "*"
 tensorflow = {version = "*", markers = "platform_machine != 'arm64'"}
 
 [tool.poetry.group.dev.dependencies]
