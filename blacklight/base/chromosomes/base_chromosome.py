@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+from typing import Tuple
 
 
 class BaseChromosome(ABC):
@@ -8,11 +9,19 @@ class BaseChromosome(ABC):
 
     def __init__(self):
         self.genes = None
+        self.length = None
 
     @abstractmethod
     def _random_genes(self):
         """
         Randomly initialize genes for each type of chromosome if there are no parents.
+        """
+        pass
+
+    @abstractmethod
+    def cross_over(self, *args):
+        """
+        Handle cross over between two chromosomes.
         """
         pass
 
@@ -24,8 +33,8 @@ class BaseChromosome(ABC):
         pass
 
     @staticmethod
-    def get_shortest_chromosome(chromosome_a: BaseChromosome, chromosome_b: BaseChromosome) -> Tuple[
-        BaseChromosome, BaseChromosome]:
+    def get_shortest_chromosome(
+            chromosome_a: object, chromosome_b: object) -> Tuple[object, object]:
         """
         Determine the shortest and longest chromosomes.
 

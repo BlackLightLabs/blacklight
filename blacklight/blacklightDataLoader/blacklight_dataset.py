@@ -136,9 +136,9 @@ class BlacklightDataset(tf.keras.utils.Sequence):
             - idx: The index of the batch to be returned.
         """
         batch_x = self.X[idx * self.batch_size:(idx + 1) *
-                                               self.batch_size]
+                         self.batch_size]
         batch_y = self.y[idx * self.batch_size:(idx + 1) *
-                                               self.batch_size]
+                         self.batch_size]
         return batch_x, batch_y
 
 

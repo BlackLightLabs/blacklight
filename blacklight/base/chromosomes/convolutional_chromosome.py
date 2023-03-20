@@ -1,87 +1,11 @@
+from __future__ import annotations
 import random
 from abc import ABC
-
 import tensorflow as tf
 from tensorflow import keras
-from blacklight.base import BaseChromosome
-
-
-def handle_convolutional_chromosome_crossover(
-        chromosomeA: ConvolutionalChromosome,
-        chromosomeB: ConvolutionalChromosome
-) -> ConvolutionalChromosome:
-    """
-    Perform a crossover operation between two ConvolutionalChromosome instances.
-
-    This function creates two new offspring by crossing over the genes of the input chromosomes.
-    The crossover operation is applied separately to the convolutional part and the dense part
-    of the chromosomes, respecting their structure.
-
-    Args:
-        chromosomeA (ConvolutionalChromosome): The first parent chromosome.
-        chromosomeB (ConvolutionalChromosome): The second parent chromosome.
-
-    Returns:
-        ConvolutionalChromosome: A new ConvolutionalChromosome instances created through crossover.
-
-    Raises:
-        ValueError: If the "flatten" layer is not found in the genes or if the input chromosomes have different input shapes.
-    """
-    shorter_chromosome, longer_chromosome = find_shorter_chromosome(chromosomeA, chromosomeB)
-
-    shorter_conv_part, shorter_dense_part = split_convolutional_dense(shorter_chromosome.genes)
-    longer_conv_part, longer_dense_part = split_convolutional_dense(longer_chromosome.genes)
-
-    crossover_point_conv = random.randint(1, len(shorter_conv_part))
-    crossover_point_dense = random.randint(1, len(shorter_dense_part))
-
-    recombinant_conv_part = shorter_conv_part[:crossover_point_conv] + longer_conv_part[crossover_point_conv:]
-    recombinant_dense_part = shorter_dense_part[:crossover_point_dense] + longer_dense_part[crossover_point_dense:]
-
-    recombinant_genes = recombinant_conv_part + [("Flatten",)] + recombinant_dense_part
-
-    new_chromosome = ConvolutionalChromosome(
-        input_shape=chromosomeA.input_shape,
-        mutation_prob=chromosomeA.mutation_prob,
-        genes=recombinant_genes,
-        model_params=chromosomeA.model_params)
-
-    return new_chromosome
-
-
-def find_shorter_chromosome(
-        chromosomeA: ConvolutionalChromosome,
-        chromosomeB: ConvolutionalChromosome
-) -> tuple[ConvolutionalChromosome, ConvolutionalChromosome]:
-    if len(chromosomeA.genes) < len(chromosomeB.genes):
-        shorter_chromosome = chromosomeA
-        longer_chromosome = chromosomeB
-    else:
-        shorter_chromosome = chromosomeB
-        longer_chromosome = chromosomeA
-
-    return shorter_chromosome, longer_chromosome
-
-
-def split_convolutional_dense(genes: list) -> tuple[list, list]:
-    """
-    Split convolutional and dense layers from the genes.
-
-    Parameters:
-        genes: list of alleles for a convolutional chromosome
-
-    Returns:
-        - conv_part: the convolutional part of the genes
-        - dense_part: the dense part of the genes
-    """
-    try:
-        flatten_index = genes.index(("Flatten",))
-    except ValueError:
-        raise ValueError("Flatten layer not found in the genes.")
-
-    conv_part = genes[:flatten_index]
-    dense_part = genes[flatten_index + 1:]
-    return conv_part, dense_part
+from blacklight.base.chromosomes import BaseChromosome
+from blacklight.base.utils import ModelConfig
+from blacklight.base.utils import BlacklightModel
 
 
 class ConvolutionalChromosome(BaseChromosome, ABC):
@@ -127,75 +51,101 @@ class ConvolutionalChromosome(BaseChromosome, ABC):
         >>> chromosome = ConvolutionalChromosome(input_shape, max_conv_layers, max_dense_layers, model_params=model_params)
         >>> model = chromosome.get_model()
     """
-    def __init__(self, input_shape=None, max_conv_layers=10, max_dense_layers=5, min_conv_layers=1, min_dense_layers=1,
-                 genes=None, mutation_prob=None, model_params=None):
+
+    def __init__(
+            self,
+            input_shape=None,
+            max_conv_layers=10,
+            max_dense_layers=5,
+            min_conv_layers=1,
+            min_dense_layers=1,
+            genes=None,
+            mutation_prob=None,
+            model_params=None):
         super().__init__()
         self.model_params = model_params if model_params else {}
         has_new_genes = genes is not None
 
-        self.max_conv_layers = max_conv_layers
-        self.max_dense_layers = max_dense_layers
-        self.min_conv_layers = min_conv_layers
-        self.min_dense_layers = min_dense_layers
-        self.input_shape = input_shape
-
         self.length = None
         self.mutation_prob = mutation_prob
-
-        # Keras model parameters
-        self.OPTIMIZER = self.model_params.get(
-            "optimizer", tf.keras.optimizers.Adam)
-
-        self.LOSS = self.model_params.get("loss", 'categorical_crossentropy')
-        self.METRICS = self.model_params.get(
-            "metrics")
-        self.LEARNING_RATE = self.model_params.get("learning_rate", .0001)
 
         self.genes = genes if genes else self._random_genes()
         self.length = len(self.genes)
         if has_new_genes:
             self._mutate()
 
-        self.model = self._make_model
+        model = BlacklightModel(self.model_params, self.genes)
 
-    def _make_model(self) -> tf.keras.Model:
+        self.model = model.create_model()
+
+    @staticmethod
+    def split_convolutional_dense(genes: list) -> tuple[list, list]:
         """
-        Create a Keras model based on the chromosome's genes.
+        Split convolutional and dense layers from the genes.
 
-        This method constructs a Keras model using the genes that represent both the convolutional
-        and dense layers of the neural network. The model also includes a flatten layer between
-        the convolutional and dense layers, as well as an output layer defined in the `model_params`
-        attribute.
+        Parameters:
+            genes: list of alleles for a convolutional chromosome
 
         Returns:
-            tf.keras.Model: The Keras model representing the architecture described by the genes.
-
-        Raises:
-            ValueError: If the genes don't have a "flatten" layer between the convolutional and dense layers.
+            - conv_part: the convolutional part of the genes
+            - dense_part: the dense part of the genes
         """
-        model = keras.Sequential()
-        model.add(tf.keras.layers.InputLayer(input_shape=self.input_shape))
-        for gene in self.genes:
-            if gene[0] == "Conv2D":
-                model.add(tf.keras.layers.Conv2D(gene[1], gene[2], activation=gene[3]))
-            elif gene[0] == "MaxPooling2D":
-                model.add(tf.keras.layers.MaxPooling2D(gene[1]))
-            elif gene[0] == "Flatten":
-                model.add(tf.keras.layers.Flatten())
-            elif gene[0] == "Dense":
-                model.add(tf.keras.layers.Dense(gene[1], activation=gene[2]))
-            else:
-                raise ValueError(f"Invalid gene type: {gene[0]}")
+        try:
+            flatten_index = genes.index(("Flatten",))
+        except ValueError:
+            raise ValueError("Flatten layer not found in the genes.")
 
-        target_layer = self.model_params.get("target_layer")
-        model.add(tf.keras.layers.Dense(target_layer[0], activation=target_layer[1]))
+        conv_part = genes[:flatten_index]
+        dense_part = genes[flatten_index + 1:]
+        return conv_part, dense_part
 
-        model.compile(
-            optimizer=self.OPTIMIZER(learning_rate=self.LEARNING_RATE),
-            loss=self.LOSS,
-            metrics=self.METRICS
-        )
-        return model
+    @staticmethod
+    def cross_over(
+            chromosome_a: ConvolutionalChromosome,
+            chromosome_b: ConvolutionalChromosome) -> ConvolutionalChromosome:
+        """
+            Perform a crossover operation between two ConvolutionalChromosome instances.
+
+            This function creates two new offspring by crossing over the genes of the input chromosomes.
+            The crossover operation is applied separately to the convolutional part and the dense part
+            of the chromosomes, respecting their structure.
+
+            Args:
+                chromosome_a (ConvolutionalChromosome): The first parent chromosome.
+                chromosome_b (ConvolutionalChromosome): The second parent chromosome.
+
+            Returns:
+                ConvolutionalChromosome: A new ConvolutionalChromosome instances created through crossover.
+
+            Raises:
+                ValueError: If the "flatten" layer is not found in the genes or if the input chromosomes have different input shapes.
+            """
+        shorter_chromosome, longer_chromosome = BaseChromosome.get_shortest_chromosome(
+            chromosome_a, chromosome_b)
+
+        shorter_conv_part, shorter_dense_part = ConvolutionalChromosome.split_convolutional_dense(
+            shorter_chromosome.genes)
+        longer_conv_part, longer_dense_part = ConvolutionalChromosome.split_convolutional_dense(
+            longer_chromosome.genes)
+
+        crossover_point_conv = random.randint(1, len(shorter_conv_part))
+        crossover_point_dense = random.randint(1, len(shorter_dense_part))
+
+        recombinant_conv_part = shorter_conv_part[:crossover_point_conv] + \
+            longer_conv_part[crossover_point_conv:]
+        recombinant_dense_part = shorter_dense_part[:crossover_point_dense] + \
+            longer_dense_part[crossover_point_dense:]
+
+        recombinant_genes = recombinant_conv_part + \
+            [("Flatten",)] + recombinant_dense_part
+
+        new_chromosome = ConvolutionalChromosome(
+            input_shape=chromosome_a.input_shape,
+            mutation_prob=chromosome_a.mutation_prob,
+            genes=recombinant_genes,
+            model_params=chromosome_a.model_params)
+
+        return new_chromosome
 
     def _mutate(self) -> None:
         """
@@ -213,18 +163,27 @@ class ConvolutionalChromosome(BaseChromosome, ABC):
             self.mutation_prob, 10 - self.mutation_prob], k=1)[0]
 
         if mutate:
-            conv_indices = [i for i, gene in enumerate(self.genes) if gene[0] == "Conv2D"]
-            dense_indices = [i for i, gene in enumerate(self.genes) if gene[0] == "Dense"]
+            conv_indices = [
+                i for i, gene in enumerate(
+                    self.genes) if gene[0] == "Conv2D"]
+            dense_indices = [
+                i for i, gene in enumerate(
+                    self.genes) if gene[0] == "Dense"]
 
             mutation_type = random.choice(["conv", "dense"])
             if mutation_type == "conv":
                 layer_idx = random.choice(conv_indices)
                 new_filters = random.randint(32, 256)
-                self.genes[layer_idx] = ("Conv2D", new_filters, self.genes[layer_idx][2], self.genes[layer_idx][3])
+                self.genes[layer_idx] = (
+                    "Conv2D",
+                    new_filters,
+                    self.genes[layer_idx][2],
+                    self.genes[layer_idx][3])
             elif mutation_type == "dense":
                 layer_idx = random.choice(dense_indices)
                 new_neurons = random.randint(32, 256)
-                self.genes[layer_idx] = ("Dense", new_neurons, self.genes[layer_idx][2])
+                self.genes[layer_idx] = (
+                    "Dense", new_neurons, self.genes[layer_idx][2])
 
     def get_model(self) -> tf.keras.Model:
         return self.model

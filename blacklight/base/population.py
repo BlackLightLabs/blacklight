@@ -13,7 +13,7 @@ class Population:
             num_parents_mating: int,
             death_percentage: float,
             number_of_generations: int,
-            **kwargs):
+            options):
         self.test_data = None
         self.num_individuals = number_of_individuals
         self.num_parents_mating = num_parents_mating
@@ -22,7 +22,8 @@ class Population:
         self.problem_type = None
         self.num_classes = 3
         self.individuals = None
-        self.data = None
+        self.train_data = None
+        self.test_data = None
 
     def simulate(self):
         """
@@ -45,22 +46,23 @@ class Population:
             key=lambda x: x[0],
             reverse=True))
 
-    def _reproduce(self):
-        self._kill_off_worst()
-        for _ in range(self.num_individuals - len(self.individuals)):
-            parents = np.random.choice(
-                list(self.individuals.values()), replace=False)
-            child = parents[0].mate(parents[1])
-            self.individuals[" "] = child
-
     def _kill_off_worst(self):
         for _ in range(
                 int((self.death_percentage * self.num_individuals))):
             self.individuals.popitem()
             self.num_individuals -= 1
 
+    def _reproduce(self):
+        self._kill_off_worst()
+        for i in range(self.num_parents_mating):
+            parents = np.random.choice(
+                list(self.individuals.keys()), size=2, replace=False)
+            child = parents[0].mate(parents[1])
+            self.individuals[child] = f"new_child_{i}"
+            self.num_individuals += 1
+
     def get_training_data(self):
-        return self.data if self.data else None
+        return self.train_data if self.train_data else None
 
     def get_testing_data(self):
         return self.test_data if self.test_data else None
