@@ -1,48 +1,58 @@
-import unittest
-import numpy as np
-from blacklight.base.individuals.feedforwardindividual import FeedForwardIndividual
-from blacklight.base.population import Population
-import random
-from unittest import mock
-from blacklight.blacklightDataLoader import BlacklightDataset
+import pytest
+from unittest.mock import MagicMock
+from blacklight.base.chromosomes.feed_forward_chromosome import FeedForwardChromosome
+from blacklight.base.utils import ModelConfig
+from blacklight.base.individuals import FeedForwardIndividual
 
 
-class TestIndividual(unittest.TestCase):
+@pytest.fixture
+def model_config():
+    model_options = {
+        "layer_information": {
+            "problem_type": "binary_classification",
+            "input_shape": 2,
+            "min_dense_layers": 1,
+            "max_dense_layers": 8,
+            "min_dense_neurons": 1,
+            "max_dense_neurons": 4,
+            "dense_activation_types": ["relu", "sigmoid", "tanh", "selu"]
+        },
+        "problem_type": "classification",
+        "num_classes": 3,
+    }
+    model_config = ModelConfig.parse_options_to_model_options(model_options)
+    return model_config
 
-    def setUp(self):
-        X = np.array([[1, 5.1, 3.5, 1.4, 0.2], [
-                     2, 4.9, 3.0, 1.4, 0.2], [3, 4.7, 3.2, 1.3, 0.2]])
-        y = np.array(['Iris-setosa', 'Iris-versicolor', 'Iris-virginica'])
-        self.dataSet = BlacklightDataset(X, y, None)
-        random.seed(69)
 
-    def test_individual(self):
-        with self.assertRaises(ValueError):
-            _ = FeedForwardIndividual(None, None)
-        return
+@pytest.fixture
+def mock_population(model_config):
+    population = MagicMock()
+    population.problem_type = "classification"
+    population.num_classes = 10
+    population.get_training_data.return_value = (None, None)
+    population.get_testing_data.return_value = (None, None)
+    return population
 
-    @mock.patch('blacklight.base.population.Population.get_training_data')
-    def test_individual_random_genes(self, mock_get_training_data):
-        NewPopulation = Population(2, 2, 0.2, 5)
-        NewPopulation.data = self.dataSet
-        mock_get_training_data.return_value = self.dataSet
 
-        this_individual = FeedForwardIndividual(None, population=NewPopulation)
-        self.assertIsNotNone(this_individual.chromosome)
-        np.testing.assert_array_equal(
-            this_individual.chromosome.genes, [
-                (7, 'sigmoid'), (5, 'tanh')])
-        return
+def test_initialization(model_config, mock_population):
+    individual = FeedForwardIndividual(model_config, mock_population)
+    assert isinstance(individual, FeedForwardIndividual)
+    assert isinstance(individual.chromosome, FeedForwardChromosome)
+    assert individual.chromosome.model_params == model_config
+    assert individual.chromosome is not None
 
-    @mock.patch('blacklight.base.population.Population.get_training_data')
-    def test_individual_inheritance(self, mock_get_training_data):
-        NewPopulation = Population(2, 2, 0.2, 5)
-        mock_get_training_data.return_value = self.dataSet
 
-        first_individual = FeedForwardIndividual(
-            None, population=NewPopulation)
-        second_individual = FeedForwardIndividual(
-            None, population=NewPopulation)
+def test_get_fitness(model_config, mock_population):
+    individual = FeedForwardIndividual(model_config, mock_population)
+    individual.chromosome.evaluate_model = MagicMock(return_value=0.75)
+    fitness = individual.get_fitness()
+    assert fitness == 0.75
 
-        child = first_individual.mate(second_individual)
-        self.assertIsNotNone(child.chromosome)
+
+def test_mate(model_config, mock_population):
+    individual1 = FeedForwardIndividual(model_config, mock_population)
+    individual2 = FeedForwardIndividual(model_config, mock_population)
+    child = individual1.mate(individual2)
+    assert isinstance(child, FeedForwardIndividual)
+    assert child.chromosome != individual1.chromosome
+    assert child.chromosome != individual2.chromosome

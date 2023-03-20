@@ -29,7 +29,7 @@ class Individual(ABC):
 
     fitness = 0
 
-    def __init__(self, parents_genes=None, population=None, **kwargs):
+    def __init__(self, parents_genes=None, population=None):
         self.need_new_genes = _check_individual_inputs(
             parents_genes, population)
         self.population = population

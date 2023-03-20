@@ -12,8 +12,7 @@ def test_parse_target_column():
     X, y = parse_target_column(test_data)
     assert X.shape == (150, 5)
     assert y.shape == (150,)
-    assert isinstance(y, pd.Series)
-    assert isinstance(X, pd.DataFrame)
+    assert isinstance(X, np.ndarray)
 
 
 def test_read_error_type():
@@ -110,4 +109,4 @@ def test_Blacklight_Dataset():
     assert isinstance(dataset_from_file.X, np.ndarray)
 
     assert dataset_from_df.__getitem__(0)[0].shape == (150, 5)
-    assert dataset_from_df.__getitem__(0)[1].shape == (150, )
+    assert dataset_from_df.__getitem__(0)[1].shape == (150,)

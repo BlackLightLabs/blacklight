@@ -1,8 +1,13 @@
-from blacklight.base.individuals.feedforwardindividual import FeedForwardIndividual
+from blacklight.base.individuals import FeedForwardIndividual
 from blacklight.blacklightDataLoader import BlacklightDataset
 from blacklight.base.population import Population
+from blacklight.base.utils import ModelConfig
 from collections import OrderedDict
 import numpy as np
+import matplotlib.pyplot as plt
+from tqdm import tqdm
+from sklearn.model_selection import train_test_split
+import logging
 
 
 class FeedForward(Population):
@@ -22,26 +27,31 @@ class FeedForward(Population):
             num_parents_mating,
             death_percentage,
             number_of_generations,
-            **kwargs):
+            options):
         super().__init__(
             number_of_individuals,
             num_parents_mating,
             death_percentage,
             number_of_generations,
-            **kwargs)
+            options)
+        self.num_classes = None
+        self.test_data = None
+        self.problem_type_individual = None
+        self.model_history = None
         self.model = None
         self.data = None
         self.num_individuals = number_of_individuals
         self.num_parents_mating = num_parents_mating
         self.num_generations = number_of_generations
         self.death_percentage = death_percentage
-        self.kwargs = kwargs
+        self.problem_type = None
+        self.options = ModelConfig.parse_options_to_model_options(options)
 
-    def _initialize_individuals(self, **kwargs):
+    def _initialize_individuals(self):
         self.individuals = OrderedDict({FeedForwardIndividual(
-            None, self, **kwargs): f"{i}" for i in range(self.num_individuals)})
+            self.options, self, None): f"{i}" for i in range(self.num_individuals)})
 
-    def fit(self, X, y=None, **kwargs):
+    def fit(self, X_train, y_train=None, X_test=None, y_test=None, **kwargs):
         """
         Fit this population of FeedForward Individuals to the given data, and return the best model.
 
@@ -50,11 +60,50 @@ class FeedForward(Population):
                 **kwargs: Any additional arguments to pass to each :class:`~blacklight.autoML.individuals.FeedForwardIndividual` which is a Keras model.
                 y: The labels of the data. If None, then the labels are assumed to be the last column of the data.
         """
-        self.data = BlacklightDataset(X, y, kwargs.get("batch_size", None))
+        # Disable tensorflow logging
+        import os
+        logging.getLogger('tensorflow').disabled = True
+        os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
+
+        if X_test is not None and y_test is not None:
+            self.test_data = BlacklightDataset(
+                X_test, y_test, kwargs.get("batch_size", None))
+            self.train_data = BlacklightDataset(
+                X_train, y_train, kwargs.get("batch_size", None))
+        else:
+            data = BlacklightDataset(
+                X_train, y_train, kwargs.get(
+                    "batch_size", None))
+            X_train, X_test, y_train, y_test = train_test_split(
+                data.X, data.y, test_size=0.2)
+            self.test_data = BlacklightDataset(
+                X_test, y_test, kwargs.get("batch_size", None))
+            self.train_data = BlacklightDataset(
+                X_train, y_train, kwargs.get(
+                    "batch_size", None))
+
         # Initialize individuals
-        self._initialize_individuals(**kwargs)
+        self._initialize_individuals()
+
+        # Simulate the population for the specified number of generations
         self._simulate()
-        self.model = list(self.individuals.keys())[0].model
+
+        # Get the best individual
+        self.best_individual = list(self.individuals.keys())[0]
+        self.model, self.model_history = self.best_individual.model, self.best_individual.model_history
+
+    def print_model_summary(self):
+        """
+        Print the summary of the best model.
+        """
+        self.model.summary()
+
+    def print_model_training_history(self):
+        plt.plot(self.model_history.history['accuracy'])
+        plt.title('model accuracy')
+        plt.ylabel('accuracy')
+        plt.xlabel('epoch')
+        plt.show()
 
     def predict(self, X):
         """
@@ -81,8 +130,13 @@ class FeedForward(Population):
         Callable method.
         :return:
         """
-        for _ in range(self.num_generations):
+        print(
+            f"\nSimulating feed forward neural network population with {self.num_individuals} individuals for {self.num_generations} generations.")
+        for gen in range(self.num_generations):
+            print(f"\nGeneration {gen}")
+            print(f"Evaluating Individuals in generation {gen}")
             self._evaluate()
+            print(f"\nReproducing Individuals in generation {gen}")
             self._reproduce()
 
     def _evaluate(self):
@@ -90,21 +144,12 @@ class FeedForward(Population):
         Evaluate the fitness of all individuals in the population.
         :return:
         """
-        evaluated_individuals = OrderedDict(
-            {individual:
-             individual.get_fitness() for individual in self.individuals.keys()})
+        evaluated_individuals = OrderedDict({individual: individual.get_fitness(
+        ) for individual in tqdm(self.individuals.keys())})
         self.individuals = OrderedDict(sorted(
             evaluated_individuals.items(),
             key=lambda x: x[1],
             reverse=True))
-
-    def _reproduce(self):
-        self._kill_off_worst()
-        for _ in range((self.num_individuals - len(self.individuals)) * 2):
-            parents = np.random.choice(
-                list(self.individuals.keys()), size=2, replace=False)
-            child = parents[0].mate(parents[1])
-            self.individuals["new_child"] = child
 
     def _get_fitness(self):
         pass
