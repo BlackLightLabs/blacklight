@@ -36,8 +36,6 @@ jobs:
     
       - name: Test package with pytest
         run: |
-          ls
-          pwd
           pip install setuptools>=42.0.0
           pip install pandas numpy tqdm pyarrow fastparquet openpyxl scikit-learn tensorflow pytest coverage matplotlib
           python -m coverage run -m pytest -v --disable-warnings
