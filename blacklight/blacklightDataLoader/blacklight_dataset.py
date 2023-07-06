@@ -120,6 +120,9 @@ class BlacklightDataset(tf.keras.utils.Sequence):
                 self.X, self.y = handle_file_data(self.X)
         self.batch_size = batch_size if batch_size else len(self.X)
         self.X_shape = self.X.shape[-1]
+        # If the type of the target is string, encode it
+        if isinstance(self.y[0], str):
+            self.one_hot_encode_target()
 
     def one_hot_encode_target(self):
         y = LabelEncoder().fit_transform(self.y)
