@@ -11,7 +11,7 @@ def test_parse_target_column():
         "blacklight/blacklightDataLoader/tests/data/Iris.csv")
     X, y = parse_target_column(test_data)
     assert X.shape == (150, 5)
-    assert y.shape == (150, 3)
+    assert y.shape == (150,)
     assert isinstance(X, np.ndarray)
 
 
@@ -43,7 +43,7 @@ def test_handle_pandas_data():
         "blacklight/blacklightDataLoader/tests/data/Iris.csv")
     X, y = handle_pandas_data(test_data, None)
     assert X.shape == (150, 5)
-    assert y.shape == (150, 3)
+    assert y.shape == (150,)
     assert isinstance(y, np.ndarray)
     assert isinstance(X, np.ndarray)
 
@@ -53,7 +53,7 @@ def test_handle_numpy_data():
         "blacklight/blacklightDataLoader/tests/data/Iris.csv")
     X, y = handle_numpy_data(test_data.to_numpy(), None)
     assert X.shape == (150, 5)
-    assert y.shape == (150, 3)
+    assert y.shape == (150,)
     assert isinstance(y, np.ndarray)
     assert isinstance(X, np.ndarray)
 
@@ -62,7 +62,7 @@ def test_handle_file_data():
     X, y = handle_file_data(
         "blacklight/blacklightDataLoader/tests/data/Iris.csv")
     assert X.shape == (150, 5)
-    assert y.shape == (150, 3)
+    assert y.shape == (150,)
     assert isinstance(y, np.ndarray)
     assert isinstance(X, np.ndarray)
 

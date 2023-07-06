@@ -13,6 +13,8 @@ fastparquet = "*"
 openpyxl = "*"
 matplotlib = "*"
 tqdm = "*"
+scikit-learn = "*"
+scipy = "*"
 tensorflow = {version = "*", markers = "platform_machine != 'arm64'"}
 
 [tool.poetry.group.dev.dependencies]
