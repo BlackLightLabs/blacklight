@@ -11,7 +11,7 @@ def test_parse_target_column():
         "blacklight/blacklightDataLoader/tests/data/Iris.csv")
     X, y = parse_target_column(test_data)
     assert X.shape == (150, 5)
-    assert y.shape == (150,)
+    assert y.shape == (150, 3)
     assert isinstance(X, np.ndarray)
 
 
