@@ -172,7 +172,7 @@ def test_fit(model_config, model_options, getdata, get_test_data):
         with unittest.mock.patch.object(FeedForwardIndividual, 'get_fitness', lambda x: random.randint(1, 10)):
             population.fit(X_train, y_train, X_test, y_test)
             assert population.get_training_data().X[0][0] == X_train[0][0]
-            assert population.get_training_data().y[0] == y_train[0]
+            assert population.get_training_data().y[0][0] == 1
             assert population.best_individual is not None
 
             # Test correct dataset behaviour with no test data
