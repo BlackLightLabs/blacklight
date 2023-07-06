@@ -3,7 +3,7 @@ import tensorflow as tf
 import pandas as pd
 import math
 from sklearn.preprocessing import LabelEncoder
-from keras.utils import np_utils
+from keras.utils import to_categorical
 
 
 def parse_target_column(data):
@@ -126,7 +126,7 @@ class BlacklightDataset(tf.keras.utils.Sequence):
 
     def one_hot_encode_target(self):
         y = LabelEncoder().fit_transform(self.y)
-        self.y = np_utils.to_categorical(y)
+        self.y = to_categorical(y)
 
     def __len__(self):
         return math.ceil(len(self.X) / self.batch_size)
