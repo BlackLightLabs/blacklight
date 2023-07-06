@@ -56,6 +56,9 @@ class BlacklightModel:
     def get_model(self):
         return self.model
 
+    def get_model_history(self):
+        return self.model_history
+
     def evaluate_model(self, train_data, test_data):
         # first train the model
         if self.model_history is None:

@@ -6,9 +6,9 @@
 Welcome to Blacklight's API Documentation!
 ==========================================
 
-.. py:module:: `blacklight.autoML`
+.. py:module:: `blacklight.populations`
 
-.. automodule:: blacklight.autoML
+.. automodule:: blacklight.populations
    :no-members:
    :no-inherited-members:
 
@@ -22,7 +22,7 @@ Blacklight autoML
    :toctree: generated/
    :template: class.rst
 
-   autoML.FeedForward
+   population.FeedForward
 
 Blacklight Base
 ################

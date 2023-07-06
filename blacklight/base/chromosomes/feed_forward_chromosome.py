@@ -153,6 +153,9 @@ class FeedForwardChromosome(BaseChromosome):
         """
         return self.model.get_model()
 
+    def get_model_history(self):
+        return self.model.get_model_history()
+
     def __repr__(self):
         return f"FeedForwardChromosome with genes: {self.genes}"
 

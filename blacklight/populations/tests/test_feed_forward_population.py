@@ -1,4 +1,4 @@
-from blacklight.autoML._feed_forward import FeedForward
+from blacklight.populations._feed_forward import FeedForward
 import numpy as np
 import pandas as pd
 import unittest.mock

@@ -95,6 +95,7 @@ class FeedForwardIndividual(Individual):
         fitness = self.chromosome.evaluate_model(
             self.train_data, self.test_data)
         self.fitness = fitness
+        self.model_history = self.chromosome.get_model_history()
 
         return fitness
 

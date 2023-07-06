@@ -19,6 +19,7 @@ class FeedForward(Population):
             num_parents_mating (int): The number of parents that will be used to mate and create the next generation.
             death_percentage (float): The percentage of individuals that will die off each generation.
             number_of_generations (int): The number of generations that the population will be simulated for.
+            options (ModelConfig): ModelConfig Object containing options for the model (e.g. number of layers, number of neurons, etc.).
     """
 
     def __init__(
@@ -48,12 +49,21 @@ class FeedForward(Population):
         self.options = ModelConfig.parse_options_to_model_options(options)
 
     def _initialize_individuals(self):
+        """
+        Initialize the individuals in this population.
+        Returns:
+
+        """
         self.individuals = OrderedDict({FeedForwardIndividual(
             self.options, self, None): f"{i}" for i in range(self.num_individuals)})
 
     def fit(self, X_train, y_train=None, X_test=None, y_test=None, **kwargs):
         """
         Fit this population of FeedForward Individuals to the given data, and return the best model.
+        You can pass ONLY x if and only if you have a column in your dataset (if pandas) called labels or label.
+        You can also do this if you have a numpy array with the label column at position -1.
+        Otherwise, you must pass X_train and y_train. If you pass X_test and y_test, then the model will be evaluated
+        on the test data after each generation. If not, then test train split will be applied with an 80/20 split.
 
         Parameters:
                 X: The data to fit this population to. Has to be either a pandas dataframe with columns: [feature1, feature2, ..., featureN, label] or a file path to a file of formats specified in `ref: dataLoaders.dataLoader.choose_data_loader` that have the same layout.
