@@ -1,5 +1,5 @@
 ﻿:mod: `blacklight.autoML`.FeedForward=========================================
 
-.. currentmodule:: blacklight.autoML
+.. currentmodule:: blacklight.populations
 
 .. autoclass:: FeedForward

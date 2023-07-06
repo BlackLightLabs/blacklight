@@ -126,5 +126,6 @@ class ModelConfig:
         config["callbacks"] = options.get(
             "callbacks", ModelConfig.get_default_callbacks())
         config["output_bias"] = options.get("output_bias", None)
+        config["fitness_metric"] = options.get("fitness_metric", "auc")
 
         return ModelConfig(config)
