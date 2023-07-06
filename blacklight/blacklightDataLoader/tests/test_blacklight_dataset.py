@@ -43,7 +43,7 @@ def test_handle_pandas_data():
         "blacklight/blacklightDataLoader/tests/data/Iris.csv")
     X, y = handle_pandas_data(test_data, None)
     assert X.shape == (150, 5)
-    assert y.shape == (150,)
+    assert y.shape == (150, 3)
     assert isinstance(y, np.ndarray)
     assert isinstance(X, np.ndarray)
 
@@ -53,7 +53,7 @@ def test_handle_numpy_data():
         "blacklight/blacklightDataLoader/tests/data/Iris.csv")
     X, y = handle_numpy_data(test_data.to_numpy(), None)
     assert X.shape == (150, 5)
-    assert y.shape == (150,)
+    assert y.shape == (150, 3)
     assert isinstance(y, np.ndarray)
     assert isinstance(X, np.ndarray)
 
@@ -62,7 +62,7 @@ def test_handle_file_data():
     X, y = handle_file_data(
         "blacklight/blacklightDataLoader/tests/data/Iris.csv")
     assert X.shape == (150, 5)
-    assert y.shape == (150,)
+    assert y.shape == (150, 3)
     assert isinstance(y, np.ndarray)
     assert isinstance(X, np.ndarray)
 
@@ -94,19 +94,19 @@ def test_Blacklight_Dataset():
     dataset_from_file = BlacklightDataset(X_file)
 
     assert dataset_from_df.X.shape == (150, 5)
-    assert dataset_from_df.y.shape == (150,)
+    assert dataset_from_df.y.shape == (150, 3)
     assert isinstance(dataset_from_df.y, np.ndarray)
     assert isinstance(dataset_from_df.X, np.ndarray)
 
     assert dataset_from_numpy.X.shape == (150, 5)
-    assert dataset_from_numpy.y.shape == (150,)
+    assert dataset_from_numpy.y.shape == (150, 3)
     assert isinstance(dataset_from_numpy.y, np.ndarray)
     assert isinstance(dataset_from_numpy.X, np.ndarray)
 
     assert dataset_from_file.X.shape == (150, 5)
-    assert dataset_from_file.y.shape == (150,)
+    assert dataset_from_file.y.shape == (150, 3)
     assert isinstance(dataset_from_file.y, np.ndarray)
     assert isinstance(dataset_from_file.X, np.ndarray)
 
     assert dataset_from_df.__getitem__(0)[0].shape == (150, 5)
-    assert dataset_from_df.__getitem__(0)[1].shape == (150,)
+    assert dataset_from_df.__getitem__(0)[1].shape == (150, 3)
