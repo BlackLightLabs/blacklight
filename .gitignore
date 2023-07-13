@@ -9,6 +9,7 @@ blacklightenv_macair/
 .obsidian/ 
 .vscode/ 
 .pytest_cache/
+.coverage
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
