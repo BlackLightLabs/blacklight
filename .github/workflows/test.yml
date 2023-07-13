@@ -40,7 +40,7 @@ jobs:
           pip install pandas numpy tqdm pyarrow fastparquet openpyxl scikit-learn tensorflow pytest coverage matplotlib
           python -m coverage run -m pytest -v --disable-warnings
           python -m coverage report
-          coverage xml -o .cobertura.xml
+          coverage xml -i -o .cobertura.xml
       - name: Codacy Coverage Reporter
         uses: codacy/codacy-coverage-reporter-action@v1.3.0
         with:
