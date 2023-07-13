@@ -1,4 +1,3 @@
-import pytest
 import tensorflow as tf
 from unittest.mock import MagicMock
 from blacklight.engine import BlacklightModel

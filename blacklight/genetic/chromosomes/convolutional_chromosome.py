@@ -2,10 +2,8 @@ from __future__ import annotations
 import random
 from abc import ABC
 import tensorflow as tf
-from tensorflow import keras
 from blacklight.genetic.base.chromosome import Chromosome
-from blacklight.base.utils import ModelConfig
-from blacklight.base.utils import BlacklightModel
+from blacklight.engine import BlacklightModel
 
 
 class ConvolutionalChromosome(Chromosome, ABC):
@@ -120,7 +118,7 @@ class ConvolutionalChromosome(Chromosome, ABC):
             Raises:
                 ValueError: If the "flatten" layer is not found in the genes or if the input chromosomes have different input shapes.
             """
-        shorter_chromosome, longer_chromosome = BaseChromosome.get_shortest_chromosome(
+        shorter_chromosome, longer_chromosome = Chromosome.get_shortest_chromosome(
             chromosome_a, chromosome_b)
 
         shorter_conv_part, shorter_dense_part = ConvolutionalChromosome.split_convolutional_dense(
