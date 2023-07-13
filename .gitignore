@@ -12,6 +12,5 @@ blacklightenv_macair/
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
-.coverage
 *.pyc
 *.pyo
