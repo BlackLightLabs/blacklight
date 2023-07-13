@@ -39,7 +39,7 @@ jobs:
           pip install poetry
           poetry install
           poetry run coverage run -m pytest -v --disable-warnings
-          poetry run coverage report
+          poetry run coverage report -m
           poetry run coverage xml -o .cobertura.xml --ignore-errors
       - name: Codacy Coverage Reporter
         uses: codacy/codacy-coverage-reporter-action@v1.3.0
