@@ -23,6 +23,7 @@ tensorflow-metal = {version = "*", markers = "platform_machine == 'arm64' and sy
 pytest = "*"
 flake8 = "*"
 autopep8 = "*"
+coverage = "*"
 
 [build-system]
 requires = ["poetry-core"]
