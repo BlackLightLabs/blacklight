@@ -21,7 +21,7 @@ def _check_individual_inputs(parents, population) -> bool:
 class Individual(ABC):
     """
     Abstract class for an individual in a population. Implements common traits between all individuals.
-    An individual is a KERAS model.
+    An individual is a KERAS Model.
     Genes are passed down from parents, or instantiated randomly.
     Individual is a base class that implements the basic functionality of an individual.
     Child classes hold specific information for different types of models.

@@ -1,6 +1,11 @@
 .idea/
 blacklight_env/
 blacklightenv_macair/
+.mypy_cache/
+.run/
+*.egg-info/
+*.egg
+*.idea/
 .obsidian/ 
 .vscode/ 
 .pytest_cache/
