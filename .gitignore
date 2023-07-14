@@ -1,5 +1,6 @@
 .idea/
 blacklight_env/
+blacklightvenv/
 blacklightenv_macair/
 .mypy_cache/
 .run/
