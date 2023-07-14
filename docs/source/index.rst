@@ -6,7 +6,7 @@
 Welcome to Blacklight's API Documentation!
 ==========================================
 
-.. py:module:: `blacklight.populations`
+.. py:modusdfle:: `blacklight.populations`
 
 .. automodule:: blacklight.populations
    :no-members:

@@ -2,12 +2,17 @@
 blacklight_env/
 blacklightvenv/
 blacklightenv_macair/
+.mypy_cache/
+.run/
+*.egg-info/
+*.egg
+*.idea/
 .obsidian/ 
 .vscode/ 
 .pytest_cache/
+.coverage
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
-.coverage
 *.pyc
 *.pyo
