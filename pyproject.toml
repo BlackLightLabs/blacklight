@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "blacklight"
-version = "0.1.8"
+version = "0.1.9"
 description = "AutoML utilizing Genetic Algorithms and Neural Networks"
 authors = ["Cole Agard <ctagard19@gmail.com>"]
 readme = "README.md"
