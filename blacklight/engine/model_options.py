@@ -3,14 +3,56 @@ from tensorflow import keras
 
 
 class ModelConfig:
+    # def __init__(self, config: Optional[dict] = None):
+    #     self.config = config
+    #     self.check_config()
+
     def __init__(self, config: Optional[dict] = None):
-        self.config = config
-        self.check_config()
+
+        model_options = {
+            "layer_information": {
+                "problem_type": "classification",
+                "input_shape": 4,
+                "min_dense_layers": 1,
+                "max_dense_layers": 8,
+                "min_dense_neurons": 2,
+                "max_dense_neurons": 8,
+                "dense_activation_types": ["relu", "sigmoid", "tanh", "selu"]
+            },
+            "target_layer": (1, "sigmoid"),
+            "loss": "binary_crossentropy",
+            "optimizer": "adam",
+            "metrics": ModelConfig.get_default_metrics(),
+            "learning_rate": 0.001,
+            "epochs": 1000,
+            "batch_size": 32,
+            "problem_type": "classification",
+            "num_classes": 3, }
+
+
+        default_config = model_options
+
+        if config is not None:
+
+            # layer_information_config = {"layer_information": config["layer_information"]}
+            # other_config = {key: value for key, value in config.items() if key != "layer_information"}
+
+            # for key, value in layer_information_config.items():
+            #     if key == "layer_information":
+            #         default_config[key] = value
+            default_config["layer_information"].update(config["layer_information"])
+            print(default_config)
+            self.config = default_config
+        else:
+            self.config = default_config
+
+        #split the dictionary into two dictionaries, one for layer_information and one for the rest, and try use update witht that
 
     def get(self, key: str, default=None):
         return self.config.get(key, default)
 
     def check_config(self):
+
         if self.config is None:
             raise ValueError("ModelConfig has no config set.")
         if "target_layer" not in self.config:
@@ -64,8 +106,27 @@ class ModelConfig:
     @staticmethod
     def parse_options_to_model_options(options):
         config = {}
-        if options.get("layer_information"):
+        if options is None:
+            options = {"layer_information": {
+                "problem_type": "classification",
+                "input_shape": 4,
+                "min_dense_layers": 1,
+                "max_dense_layers": 8,
+                "min_dense_neurons": 2,
+                "max_dense_neurons": 8,
+                "dense_activation_types": ["relu", "sigmoid", "tanh", "selu"]
+            },
+                "problem_type": "classification",
+                "num_classes": 3,
+            }
 
+        # if options = none, set it to the dictonary used in test
+        # write documentation explaining what each of the paramters are, and what choices the user has
+        # try if the user only implements one parameter, and not the other, what happens?
+        # HINT; dont write a bunch of if conditions, use the get function. if it dosent exist set it to the default.
+
+        # implement value errors when important things arent given. when u have layer information, u must have layer shape
+        if options.get("layer_information"):
             layer_information = options.get("layer_information")
             config["input_shape"] = layer_information.get("input_shape")
             # Get Dense Layer Information
