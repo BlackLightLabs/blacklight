@@ -40,6 +40,7 @@ class ModelConfig:
             # for key, value in layer_information_config.items():
             #     if key == "layer_information":
             #         default_config[key] = value
+            #     else:
             default_config["layer_information"].update(config["layer_information"])
             print(default_config)
             self.config = default_config
