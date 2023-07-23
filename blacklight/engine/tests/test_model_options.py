@@ -2,6 +2,72 @@ import pytest
 from blacklight.engine import ModelConfig
 
 
+#create a new unit test, modeled after these. if we dont pass any configs, it still has all the parameters
+#pytest, end with test or start with test
+
+full_config = {
+
+    "layer_information": {
+        "problem_type": "classification",
+        "input_shape": 4,
+        "min_dense_layers": 1,
+        "max_dense_layers": 8,
+        "min_dense_neurons": 2,
+        "max_dense_neurons": 8,
+        "dense_activation_types": ["relu", "sigmoid", "tanh", "selu"]
+    },
+    "target_layer": (1, "sigmoid"),
+    "loss": "binary_crossentropy",
+    "optimizer": "adam",
+    "metrics": ModelConfig.get_default_metrics(),
+    "learning_rate": 0.001,
+    "epochs": 1000,
+    "batch_size": 32,
+    "problem_type": "classification",
+    "num_classes": 3,
+}
+
+default_config = {
+    "layer_information": {
+        "problem_type": "classification",
+        "input_shape": 4,
+        "min_dense_layers": 1,
+        "max_dense_layers": 8,
+        "min_dense_neurons": 2,
+        "max_dense_neurons": 8,
+        "dense_activation_types": ["relu", "sigmoid", "tanh", "selu"]
+    },
+    "target_layer": (1, "sigmoid"),
+    "loss": "binary_crossentropy",
+    "optimizer": "adam",
+    "metrics": ModelConfig.get_default_metrics(),
+    "learning_rate": 0.001,
+    "epochs": 1000,
+    "batch_size": 32,
+    "problem_type": "classification",
+    "num_classes": 3,}
+
+partial_config = {
+    "layer_information": {
+        "input_shape": 99,
+        "min_dense_layers": 15,
+        "dense_activation_types": ["downy", "down", "tanh", "selu"],
+        "problem_type": "classification",
+    }
+}
+
+@pytest.mark.parametrize("config",[None, partial_config])
+def test_model_config(config):
+
+
+    model_config = ModelConfig(config)
+    assert isinstance(model_config, ModelConfig)
+    for key, value in default_config.items():
+        assert key in model_config.config
+    print(model_config.config)
+
+
+
 def test_model_config_init():
     config = {
         "target_layer": (1, "sigmoid"),
