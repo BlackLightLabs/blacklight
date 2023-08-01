@@ -1,5 +1,0 @@
-﻿:mod: `blacklight.base.chromosome`.BaseChromosome=====================================================
-
-.. currentmodule:: blacklight.base.chromosome
-
-.. autoclass:: BaseChromosome
