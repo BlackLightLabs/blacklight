@@ -8,19 +8,17 @@ from blacklight.engine import ModelConfig
 @pytest.fixture
 def model_config():
     model_options = {
-        "layer_information": {
-            "problem_type": "binary_classification",
-            "input_shape": 2,
-            "min_dense_layers": 1,
-            "max_dense_layers": 8,
-            "min_dense_neurons": 1,
-            "max_dense_neurons": 4,
-            "dense_activation_types": ["relu", "sigmoid", "tanh", "selu"]
-        },
+        "problem_type": "binary_classification",
+        "input_shape": 2,
+        "min_dense_layers": 1,
+        "max_dense_layers": 8,
+        "min_dense_neurons": 1,
+        "max_dense_neurons": 4,
+        "dense_activation_types": ["relu", "sigmoid", "tanh", "selu"],
         "problem_type": "classification",
         "num_classes": 3,
     }
-    model_config = ModelConfig.parse_options_to_model_options(model_options)
+    model_config = ModelConfig(model_options)
     return model_config
 
 

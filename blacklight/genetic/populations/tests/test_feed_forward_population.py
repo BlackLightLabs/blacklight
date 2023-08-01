@@ -71,8 +71,8 @@ def model_config():
         "problem_type": "classification",
         "num_classes": 3,
     }
-    model_config = ModelConfig.parse_options_to_model_options(model_options)
-    return model_config
+    model_config = ModelConfig(model_options)
+    return model_config.config
 
 
 @pytest.fixture
@@ -122,6 +122,7 @@ def test_kill_off_worst(model_config, model_options):
     population.individuals = OrderedDict()
 
     for i in range(4):
+        print(model_config)
         individual = FeedForwardIndividual(model_config, population)
         individual.get_fitness = MagicMock(return_value=i + 1)
         population.individuals[individual] = f"{i}"
