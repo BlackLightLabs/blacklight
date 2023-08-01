@@ -14,9 +14,9 @@ openpyxl = "*"
 matplotlib = "*"
 tqdm = "*"
 scikit-learn = "*"
-tensorflow = "*"
 tensorflow-macos = {version = "*", markers = "platform_machine == 'arm64' and sys.platform == 'darwin'"}
 tensorflow-metal = {version = "*", markers = "platform_machine == 'arm64' and sys.platform == 'darwin'"}
+tensorflow = {version="*", markers="platform_machine != 'arm64' and sys.platform != 'darwin'"}
 
 
 [tool.poetry.group.dev.dependencies]
