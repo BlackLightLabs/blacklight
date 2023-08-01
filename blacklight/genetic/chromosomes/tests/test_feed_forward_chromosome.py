@@ -14,7 +14,6 @@ def get_model_config() -> ModelConfig:
         "min_dense_neurons": 5,
         "max_dense_neurons": 10,
         "dense_activation_types": ["relu", "sigmoid", "tanh", "selu"],
-        "problem_type": "classification",
         "num_classes": 3,
     }
     model_config = ModelConfig(model_options)
@@ -26,6 +25,7 @@ def seed():
     random.seed(42)
 
 
+@pytest.mark.usefixtures("seed")
 def test_feed_forward_chromosome_init(seed):
     model_config = get_model_config()
     ff_chromosome = FeedForwardChromosome(model_params=model_config)

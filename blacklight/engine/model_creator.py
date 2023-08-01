@@ -43,15 +43,18 @@ class BlacklightModel:
         self.model = model
 
     def train_model(self, train_data):
-        self.model_history = self.model.fit(
-            x=train_data,
-            epochs=self.model_config.get("epochs"),
-            batch_size=self.model_config.get("batch_size"),
-            validation_split=self.model_config.get("validation_split"),
-            verbose=self.model_config.get("verbose"),
-            class_weight=self.model_config.get("class_weight"),
-            validation_data=self.model_config.get("validation_data"),
-            callbacks=self.model_config.get("callbacks") if self.model_config.get("early_stopping") else None)
+        if self.model:
+            self.model_history = self.model.fit(
+                x=train_data,
+                epochs=self.model_config.get("epochs"),
+                batch_size=self.model_config.get("batch_size"),
+                validation_split=self.model_config.get("validation_split"),
+                verbose=self.model_config.get("verbose"),
+                class_weight=self.model_config.get("class_weight"),
+                validation_data=self.model_config.get("validation_data"),
+                callbacks=self.model_config.get("callbacks") if self.model_config.get("early_stopping") else None)
+        else:
+            raise ValueError("Model not created yet. Please call create_model() first.")
 
     def get_model(self):
         return self.model
@@ -64,12 +67,15 @@ class BlacklightModel:
         if self.model_history is None:
             self.train_model(train_data)
         # then evaluate the model
-        results = self.model.evaluate(
-            test_data,
-            batch_size=self.model_config.get("batch_size"),
-            verbose=self.model_config.get("verbose"),
-            return_dict=True
-        )
+        if self.model:
+            results = self.model.evaluate(
+                test_data,
+                batch_size=self.model_config.get("batch_size"),
+                verbose=self.model_config.get("verbose"),
+                return_dict=True
+            )
+        else:
+            raise ValueError("Model not created yet. Please call create_model() first.")
         # the fitness metric is extracted.
         fitness = results[self.model_config.get("fitness_metric")]
         return fitness

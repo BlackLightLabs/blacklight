@@ -59,7 +59,10 @@ class ModelConfig:
         self.check_config()
 
     def get(self, key: str, default=None):
-        return self.config.get(key, default)
+        if key is None or self.config is None:
+            return ValueError("Key cannot be None")
+        else:
+            return self.config.get(key, default)
 
     def check_config(self):
         print(self.config)

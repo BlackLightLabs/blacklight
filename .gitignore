@@ -1,4 +1,5 @@
 .idea/
+venv/
 blacklight_env/
 blacklightvenv/
 blacklightenv_macair/

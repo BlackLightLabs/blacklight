@@ -38,6 +38,8 @@ class Population:
         Evaluate the fitness of all individuals in the population.
         :return:
         """
+        if not self.individuals:
+            raise ValueError("No individuals in population.")
         evaluated_individuals = OrderedDict(
             (individual.get_fitness,
              individual) for individual in self.individuals.values())
@@ -47,6 +49,8 @@ class Population:
             reverse=True))
 
     def _kill_off_worst(self):
+        if not self.individuals:
+            raise ValueError("No individuals in population.")
         for _ in range(
                 int((self.death_percentage * self.num_individuals))):
             self.individuals.popitem()
@@ -54,6 +58,8 @@ class Population:
 
     def _reproduce(self):
         self._kill_off_worst()
+        if not self.individuals:
+            raise ValueError("No individuals in population.")
         for i in range(self.num_parents_mating):
             parents = np.random.choice(
                 list(self.individuals.keys()), size=2, replace=False)
