@@ -78,7 +78,7 @@ def handle_numpy_data(X, y):
             X, y = X[:, :-1], X[:, -1]
         return X, y
     except IndexError:
-        raise np.error_message(
+        raise ValueError(
             "X (np.array) could not be separated into label and feature columns.")
 
 

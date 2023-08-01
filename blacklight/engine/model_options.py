@@ -8,7 +8,10 @@ class ModelConfig:
         self.check_config()
 
     def get(self, key: str, default=None):
-        return self.config.get(key, default)
+        if key is None or self.config is None:
+            return ValueError("Key cannot be None")
+        else: 
+            return self.config.get(key, default)
 
     def check_config(self):
         if self.config is None:
@@ -126,6 +129,6 @@ class ModelConfig:
         config["callbacks"] = options.get(
             "callbacks", ModelConfig.get_default_callbacks())
         config["output_bias"] = options.get("output_bias", None)
-        config["fitness_metric"] = options.get("fitness_metric", "auc")
+        config["fitness_metric"] = options.get("fitness_metric", "accuracy")
 
         return ModelConfig(config)

@@ -72,6 +72,7 @@ class FeedForwardChromosome(Chromosome):
                     range(
                         self.model_params.get("min_dense_layers"),
                         self.model_params.get("max_dense_layers"))))]
+
         return genes
 
     @staticmethod
