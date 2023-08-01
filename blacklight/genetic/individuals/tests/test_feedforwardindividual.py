@@ -15,7 +15,6 @@ def model_config():
         "min_dense_neurons": 1,
         "max_dense_neurons": 4,
         "dense_activation_types": ["relu", "sigmoid", "tanh", "selu"],
-        "problem_type": "classification",
         "num_classes": 3,
     }
     model_config = ModelConfig(model_options)

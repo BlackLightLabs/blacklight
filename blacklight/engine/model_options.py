@@ -61,7 +61,7 @@ class ModelConfig:
     def get(self, key: str, default=None):
         if key is None or self.config is None:
             return ValueError("Key cannot be None")
-        else: 
+        else:
             return self.config.get(key, default)
 
     def check_config(self):
@@ -116,4 +116,3 @@ class ModelConfig:
             patience=10,
             mode='max',
             restore_best_weights=True)
-
