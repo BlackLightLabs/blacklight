@@ -47,7 +47,7 @@ class FeedForward(Population):
         self.num_generations = number_of_generations
         self.death_percentage = death_percentage
         self.problem_type = None
-        self.options = ModelConfig.parse_options_to_model_options(options)
+        self.options = ModelConfig(options)
 
     def _initialize_individuals(self):
         """

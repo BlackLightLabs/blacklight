@@ -1,7 +1,0 @@
-dataLoaders
-------------
-
-.. autoclass:: blacklight.dataLoaders.dataLoader
-   :members:
-   :undoc-members:
-   :show-inheritance:
