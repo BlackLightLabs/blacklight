@@ -1,9 +1,8 @@
-from typing import Optional
 from tensorflow import keras
 
 
 class ModelConfig:
-    def __init__(self, config: Optional[dict] = None):
+    def __init__(self, config: dict[str, any] | None = None):
 
         model_options = {
             "problem_type": "classification",

@@ -32,6 +32,10 @@ class Chromosome(ABC):
         """
         pass
 
+    # Comment by Jackson
+    # TODO: change this to return Tuple[object, object] where
+    # Tuple[shortest, longest]
+    # rename method to get_ordered_chromosomes
     @staticmethod
     def get_shortest_chromosome(
             chromosome_a: object, chromosome_b: object) -> Tuple[object, object]:
