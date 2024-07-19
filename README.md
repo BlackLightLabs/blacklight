@@ -1,50 +1,33 @@
 # Blacklight  
 
-[![test](https://github.com/BlackLightLabs/blacklight/actions/workflows/test.yml/badge.svg?branch=main)](https://github.com/BlackLightLabs/blacklight/actions/workflows/test.yml) [![Codacy Badge](https://app.codacy.com/project/badge/Coverage/449f7ff90fcb4340a4c90884d15f700a)](https://www.codacy.com/gh/BlackLightLabs/blacklight/dashboard?utm_source=github.com&utm_medium=referral&utm_content=BlackLightLabs/blacklight&utm_campaign=Badge_Coverage) [![Codacy Badge](https://app.codacy.com/project/badge/Grade/449f7ff90fcb4340a4c90884d15f700a)](https://www.codacy.com/gh/BlackLightLabs/blacklight/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=BlackLightLabs/blacklight&amp;utm_campaign=Badge_Grade)![PyPI - Downloads](https://img.shields.io/pypi/dm/blacklight?color=lime&label=Downloads%20from%20PyPi&logoColor=blue)[![pdm-managed](https://img.shields.io/endpoint?url=https%3A%2F%2Fcdn.jsdelivr.net%2Fgh%2Fpdm-project%2F.github%2Fbadge.json)](https://pdm-project.org)
+[![test](https://github.com/BlackLightLabs/blacklight/actions/workflows/test.yml/badge.svg?branch=main)](https://github.com/BlackLightLabs/blacklight/actions/workflows/test.yml) [![Codacy Badge](https://app.codacy.com/project/badge/Coverage/449f7ff90fcb4340a4c90884d15f700a)](https://www.codacy.com/gh/BlackLightLabs/blacklight/dashboard?utm_source=github.com&utm_medium=referral&utm_content=BlackLightLabs/blacklight&utm_campaign=Badge_Coverage) [![Codacy Badge](https://app.codacy.com/project/badge/Grade/449f7ff90fcb4340a4c90884d15f700a)](https://www.codacy.com/gh/BlackLightLabs/blacklight/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=BlackLightLabs/blacklight&amp;utm_campaign=Badge_Grade)![PyPI - Downloads](https://img.shields.io/pypi/dm/blacklight?color=lime&label=Downloads%20from%20PyPi&logoColor=blue) [![pdm-managed](https://img.shields.io/endpoint?url=https%3A%2F%2Fcdn.jsdelivr.net%2Fgh%2Fpdm-project%2F.github%2Fbadge.json)](https://pdm-project.org)
 
 ## Genetic algorithms in autoML. 
 This project aims to use Genetic Algorithms to optimize the topologies of Deep Neural Networks (DNNs) and explore new possibilities that traditional optimization techniques might overlook. The fitness function of the algorithm is the accuracy of the model, and the genes represent the individual topologies.
 
 ## Installation 
 
-Make sure you have Python 3.9 or higher installed (not greater than 3.11). 
+Make sure you have Python "*" 
 ### Windows, Linux
 
 1. Create new virtual environment:
    - ```pip install -m virtualenv```
    - ```python -m venv your_virtual_env_name```
-   - ```your_virtual_env_name\Scripts\activate```
-2. Install Tensorflow:
-   - ```pip install tensorflow```
+   - ```source your_virtual_env_name\bin\activate```
 2. Install the package:
    - ```pip install blacklight```
-
-### MacOS (Intel)
-
-1. Create new virtual environment:
-   - ```pip install -m virtualenv```
-   - ```python -m venv your_virtual_env_name```
-   - ```your_virtual_env_name\Scripts\activate```
-2. Install Tensorflow:
-   - ```pip install tensorflow-macos```
-   - ```pip install tensorflow-metal```
-2. Install the package:
-   - ```pip install blacklight```
-
-### MacOS (Apple Silicon)
-1. Download Miniconda from: https://repo.anaconda.com/miniconda/Miniconda3-latest-MacOSX-arm64.sh
-2. Install Miniconda:
-   - Navigate to downloads folder ```cd ~/Downloads```
-   - ```bash Miniconda3-latest-MacOSX-arm64.sh -b -p $HOME/miniconda```
-3. Activate Miniconda:
-   - ```source ~/miniconda/bin/activate```
-4. Install TensorFlow dependencies: 
-    - ```conda install -c apple tensorflow-deps```
-5. Install TensorFlow:
-    - ```pip install tensorflow-macos``` 
-    - ```pip install tensorflow-metal```
-6. Install the package:
-   - ```pip install blacklight```
+  
+#### For Maintainers
+- Make sure you have [PDM](https://pdm-project.org/en/latest/) installed
+- ```sh
+  git clone https://github.com/BlackLightLabs/blacklight.git
+  ```
+- ```sh
+  cd blacklight
+  pdm install
+  eval $(pdm venv activate)
+  ```
+- Happy Coding!
     
 ## Hypothesis
 
