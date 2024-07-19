@@ -17,7 +17,7 @@ Make sure you have Python "*"
 2. Install the package:
    - ```pip install blacklight```
   
-#### For Maintainers
+### For Maintainers
 - Make sure you have [PDM](https://pdm-project.org/en/latest/) installed
 - ```sh
   git clone https://github.com/BlackLightLabs/blacklight.git
