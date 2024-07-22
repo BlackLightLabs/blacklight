@@ -33,7 +33,7 @@ test = "pytest"
 [tool.basedpyright]
 venvPath = "./"
 venv = "./.venv/"
-ignore = ["./blacklight.old/"]
+ignore = ["./blacklight.old/", "./src/blacklight/engine/model_creator.py"]
 
 [tool.pdm.dev-dependencies]
 setuptools = []
