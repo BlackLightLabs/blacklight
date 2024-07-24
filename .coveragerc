@@ -1,4 +1,4 @@
 [run]
 omit =
     *.pyc
-source = ./blacklight
+source = ./src/blacklight
