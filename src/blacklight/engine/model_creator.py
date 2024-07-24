@@ -1,16 +1,27 @@
 import torch
 from torch.optim import optimizer
 from blacklight.engine.model_options import ModelConfig
+from torch.utils.data import DataLoader
 
+# the BlacklightModel class inherits nn.Module effectively making the class itself represent the neural network
 class BlacklightModel(torch.nn.Module):
-    def __init__(self, model_config: ModelConfig, genes: list[tuple[any]]):
+    # model_config: ModelConfig is a class representing the model configuration
+    # config properties are declared withing the ModelConfig constructor 
+    # these values can later be changed by model_config.item = value
+    def __init__(self, model_config: ModelConfig, genes: list[tuple[object, *tuple[int, ...], object]]):
         super(BlacklightModel, self).__init__() # pyright: ignore [reportUnknownMemberType]
         self.model_config = model_config
         self.genes = genes
         # self.model = torch.nn.Sequential()
+
+        # layers is the neural network
+        # when you call print on the model it will print the layers variable
         self.layers = torch.nn.ModuleList()
         self.input_shape = model_config.input_size
-
+        
+        # turn genes into layers
+        # TODO: Instead of gene[0] being a string, make it a module.
+        # EX: gene = (torch.nn.Linear, ...opts..., activation)
         for gene in genes:
             print(gene[0])
             if gene[0] == "Conv2D":
@@ -43,25 +54,46 @@ class BlacklightModel(torch.nn.Module):
             x = layer(x)
         return x
 
+    # return the layers that represent the model
     def get_model(self):
-        return self.model
+        return self.layers
 
     def get_model_history(self):
         return self.model_history
 
-    def train_model(self, data):
+    def train_model(self, data: DataLoader):
+        # set the model to train mode
+        # https://pytorch.org/docs/stable/generated/torch.nn.Module.html#torch.nn.Module.train
         self.train()
-        
+       
+        # pull the optimizer from the model config and pass in the parameters (optimizer)(parameters)
         optimizer = (self.model_config.optimizer)(self.parameters(), self.model_config.learning_rate)
+        # loss function
         criterion = torch.nn.CrossEntropyLoss(
             weight=self.model_config.class_weight,
         )
+        
+        # TODO: The training paradigm for this library needs to be determined
+        # The current implementation requires training for the right number of epochs to be handled elsewhere
+        # EX:
+        # ```py
+        # for e in range(config.epochs):
+        #   print(f"Epoch {e+1}\n------------------")
+        #   model.train_model(train_dataloader)
+        #   model.evaluate(real_dataloader)
+        # print("Done!")
+        # ```
+        # Alternatively, the training loop could take run for the right number of epochs right here, but that would remove the
+        # ability to train for 1 step
 
         # for epoch in range(self.model_config.model_options.epochs):
         size = len(data.dataset)
         batch_size = self.model_config.batch_size 
         self.train()
         for batch, (X, y) in enumerate(data):
+            # self(X) is the same as using model(X) after compilation
+            # EX: model = torch.load("some_model.pt")
+            # model(X)
             pred = self(X)
             loss = criterion(pred, y)
 
@@ -71,36 +103,12 @@ class BlacklightModel(torch.nn.Module):
 
             if batch % 100 == 0:
                 loss, current = loss.item(), batch * batch_size + len(X)
-                print(f"loss: {loss:>7f}  [{current:>5d}/{size:>5d}]")
+
             # TODO: Make conditional on a verbosity variable
-            # if True:
-            #     print(f"Epoch [{epoch+1}/{self.model_config.model_options.epochs}], Loss: {epoch_loss}, Accuracy: {epoch_acc}")
-            #
+                print(f"loss: {loss:>7f}  [{current:>5d}/{size:>5d}]")
+
     def evaluate(self, data):
         criterion = torch.nn.CrossEntropyLoss()
- #        self.model.eval()
- #        
- #        self.train_model(train_data)
- #        
- #        running_loss = 0.0
- #        correct = 0
- #        total = 0
- #
- #        with torch.no_grad():
- #            for inputs, labels in train_data: 
- #                outputs = self(inputs)
- #                loss = criterion(outputs, labels)
- #                _, predicted = torch.max(outputs.data, 1)
- #                total += labels.size(0)
- #                correct += (predicted == labels).sum().item()
- #                running_loss += loss.item()
- #
- #        epoch_loss = running_loss / len(test_load)
- #        epoch_acc = correct / total
- #
- #        print(f"Evaluation Loss: {epoch_loss:.4f}, Evaluation Accuracy: {epoch_acc:.2%}")
- # 
- #        return epoch_acc
         self.eval()
         size = len(data.dataset)
         num_batches = len(data)
@@ -108,7 +116,11 @@ class BlacklightModel(torch.nn.Module):
 
         with torch.no_grad():
             for X, y in data:
+                # self(X) is the same as using model(X) after compilation
+                # EX: model = torch.load("some_model.pt")
+                # model(X)
                 pred = self(X)
+                # criterion is the loss function
                 test_loss += criterion(pred, y).item()
                 correct += (pred.argmax(1) == y).type(torch.float).sum().item()
 
@@ -131,3 +143,4 @@ class BlacklightModel(torch.nn.Module):
     #     self.genes = [
     #         ("linear", )
     #     ]
+    # ^!!!THIS IS NOT HOW THE GENES ARE STRUCTURED ANYMORE!!!

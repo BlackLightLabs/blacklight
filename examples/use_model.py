@@ -28,4 +28,4 @@ img.show()
 
 with torch.no_grad():
     pred = model(real_dataloader.dataset[n][0])
-    print(torch.argmax(pred))
+    print(torch.argmax(pred).item())
