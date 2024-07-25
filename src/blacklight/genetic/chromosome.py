@@ -38,8 +38,8 @@ class Chromosome:
     def _mutate(self):
         pass
 
-    def order_chromosomes(self, chromosome0: object, chromosome1: object) -> tuple[object, object]:
-        if chromosome0.length > chromosome1.length: # pyright: ignore [reportUnknownMemberType, reportAttributeAccessIssue]
+    def order_chromosomes(self, chromosome0: 'Chromosome', chromosome1: 'Chromosome') -> tuple['Chromosome', 'Chromosome']:
+        if chromosome0.length > chromosome1.length:
             return chromosome1, chromosome0
         else:
             return chromosome0, chromosome1

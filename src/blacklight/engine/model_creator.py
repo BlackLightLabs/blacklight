@@ -23,31 +23,42 @@ class BlacklightModel(torch.nn.Module):
         # TODO: Instead of gene[0] being a string, make it a module.
         # EX: gene = (torch.nn.Linear, ...opts..., activation)
         for gene in genes:
-            print(gene[0])
-            if gene[0] == "Conv2D":
-                self.layers.append(
-                    torch.nn.Conv2d(
-                        in_channels=self.input_shape,
-                        out_channels=gene[1],
-                        kernel_size=gene[2]
-                    )
-                ) 
-            elif gene[0] == "Linear":
-                self.layers.append(
-                    torch.nn.Linear(gene[1], gene[2])
-                )
-            elif gene[0] == "Flatten":
-                self.layers.append(torch.nn.Flatten())
-            elif gene[0] == "MaxPooling2D":
-                self.layers.append(
-                    torch.nn.MaxPool2d(kernel_size=gene[1])
-                )
+            # print(gene[0])
+            # if gene[0] == "Conv2D":
+            #     self.layers.append(
+            #         torch.nn.Conv2d(
+            #             in_channels=self.input_shape,
+            #             out_channels=gene[1],
+            #             kernel_size=gene[2]
+            #         )
+            #     ) 
+            # elif gene[0] == "Linear":
+            #     self.layers.append(
+            #         torch.nn.Linear(gene[1], gene[2])
+            #     )
+            # elif gene[0] == "Flatten":
+            #     self.layers.append(torch.nn.Flatten())
+            # elif gene[0] == "MaxPooling2D":
+            #     self.layers.append(
+            #         torch.nn.MaxPool2d(kernel_size=gene[1])
+            #     )
+            # else:
+            #     raise ValueError(f"Invalid gene type: {gene[0]}")
+            opt = True if callable(gene[len(gene)-1]) else False
+            params = []
+            if opt and len(gene) > 1:
+                for p in range(1,len(gene)-1):
+                    params.append(gene[p])
+                self.layers.append(gene[0](*params))
+                self.layers.append(gene[len(gene)-1]())
             else:
-                raise ValueError(f"Invalid gene type: {gene[0]}")
-            if callable(gene[len(gene)-1]):
-                # activation = getattr(torch.nn, gene[len(gene)-1])()
-                activation = gene[len(gene)-1]()
-                self.layers.append(activation)
+                for p in range(1, len(gene)):
+                    params.append(gene[p])
+                self.layers.append(gene[0](*params))
+            # if callable(gene[len(gene)-1]):
+            #     # activation = getattr(torch.nn, gene[len(gene)-1])()
+            #     activation = gene[len(gene)-1]()
+            #     self.layers.append(activation)
 
     def forward(self, x):
         for layer in self.layers:

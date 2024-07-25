@@ -19,4 +19,4 @@ __pycache__/
 *.py[cod]
 *.pyc
 *.pyo
-./examples/data/
+poc/
