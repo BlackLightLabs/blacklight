@@ -39,3 +39,14 @@ The project utilizes a genetic algorithm to evolve the topology of the DNN. The 
 
 ## Documentation 
 Documentation can be found at https://blacklightlabs.github.io/blacklight/html/index.html
+
+## Cite
+
+```bibtext
+@software{github_blacklight_library,
+title = {Blacklight},
+author = {Cole Agard and Jackson Collins},
+year = "2024",
+url = "https://github.com/BlackLightLabs/blacklight"
+}
+```
