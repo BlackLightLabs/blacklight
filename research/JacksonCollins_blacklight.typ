@@ -1,5 +1,5 @@
 #set document(
-	title: [The Design and Architecture Choice of the Blacklight Library],
+	title: [The Design and Architecture of the Blacklight Library],
 	author: "Jackson Collins",
 	keywords: ("blacklight", "machine learning", "dnn", "topology", "python", "neural networks"),
 	date: auto
@@ -125,25 +125,81 @@
 // and then create a new paragraph
 #box[= Inspiration
 #paragraph[
-	#lorem(500)
+	The structure and functionality of Blacklight is inspired by a paper called
+	\"Evolving Neural Networks through Augmenting Topologies,\" commonly NEAT.
+	What NEAT set out to do was formulate a strong method for generating neural networks
+	by representing the network as genes and then evolving them. NEAT is state of the art
+	for generating neural networks with genetic algorithms but it does have a few shortcomings.
+	The implementation of NEAT described in the 2002 paper @stanley:ec02 assumes the network
+	to be made entirely out of dense/linear layers, or for the network to be a Multilayer
+	Perceptron @enwiki:1236853921. The other primary concern with NEAT is that of computational
+	performance in that the model has to be constantly evaluated during evolution. While methods
+	for dealing with the second problem are not concrete, Blacklight does intend to at least solve
+	the first problem. By allowing the library user to specify certain attributes about the model
+	that are then coded into _DNA_, the Blacklight library can evolve more complex networks
+	that are able to handle more complex task than a simple MLP#footnote("Multilayer Perceptron").
 ]]
-#paragraph[
-	#lorem(100)
-]
+
 // The configuration of box and paragraph combos will need be be intelligently decided
 // TODO: work out a system that gets rid of this problem
 // DO AFTER turning in and presenting project
-#box[= Genes
+= Genes
 #paragraph[
-	#lorem(400)
-]]
+	When a user defines a models parameters they can be thought of as DNA.
+	This DNA tells the library certain things about the model it will be creating,
+	such as problem type, minimum/maximum number of layers (and the layer types), and the 
+	minimum/maximum number of neurons per layer. The model's DNA is computed by the library to
+	formulate genes that define individual layers within the network. During the construction of
+	the library it was decided that it would be best to abstract away certain functionalities of
+	the chromosome into a gene class. This abstraction allows for certain things about the gene
+	to be gaureateed, such as type and size.
+	```python
+	class Gene:
+		def __init__(self, gene_type: object=None, dna: list[Any] | None=None):
+			...
+	```
+	When `gene_type` is not passed in, a random gene is initialized according to the DNA,
+	if there is not DNA, the gene is completely random.
+]
 
-#box[= Chromosomes
+= Chromosomes
 #paragraph[
-	#lorem(500)
-]]
+	Chromosomes represent individual model topologies. Chromosome inherits the `Gene` class
+	$"Gene" -> "Chromosome"$. Since certain aspects of the gene are confirmed by their existance,
+	the `Chromosome` class can use the functionalility implemented in the `Gene` without having
+	to worry about edge cases.
+	```python
+	class Chromosome(Gene)
+	```
+]
 
 #box[= Individuals and Population
 #paragraph[
-	#lorem(500)
+	The `Individual` and `Population` classes work hand in hand for evaluating and evolving
+	the neural network. While a human has 46 chromosomes, a Blacklight model only has 1. The
+	`Individual` really exists to abstract some of the functionality of `Chromosome` into
+	a way that is easier to deal with. Having the individual also helps keep up the metaphor
+	that this project stands on top of. At the end of the the model's evolution it will represent
+	one single individual.
+	
+		#align(center)[$"Chromosome" -> "Individual" -> "Population"$]
+
+	The `Population` is just as it seems, a population of `Individual` being evaluated and bred
+	with each other. The `Population` class handles certain aspects of the Blacklight library such
+	running the simulation and defining global rules for the model's to follow, for example you
+	may want to individuals to mutate a bit before mating, so you pause mating for a few cycles.
 ]]
+
+= Conclusion
+#paragraph[
+	The design and architecture of a program heaviliy influences how the program performs, likewise
+	the intended functionality of the a program will heaviliy influence its design. By representing
+	programs in terms of metaphors for what they might be analogous to, complex functionality can
+	be abstracted away into simple parts that make up the whole. Simulating a whole individual is 
+	complicated, but simulating each of that individual's parts is simple.
+]
+
+#pagebreak()
+#box[
+	#bibliography("./ref.bib", full:true)
+]
