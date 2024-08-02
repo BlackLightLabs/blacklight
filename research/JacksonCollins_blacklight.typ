@@ -55,7 +55,7 @@
 
 #box[= Introduction
 #paragraph[
-	Blacklight is python library meant to aid in the creation of topologically optimized DNNs#footnote("Deep Neural Networks") using genetic algorithms. A Blacklight model is intialized by 
+	Blacklight is a python library meant to aid in the creation of topologically optimized DNNs#footnote("Deep Neural Networks") using genetic algorithms. A Blacklight model is intialized by 
 	defining model options through the ModelConfig constructor:
 	```python
 	config = blacklight.ModelConfig(learning_rate=0.001, ...)
@@ -152,7 +152,7 @@
 	formulate genes that define individual layers within the network. During the construction of
 	the library it was decided that it would be best to abstract away certain functionalities of
 	the chromosome into a gene class. This abstraction allows for certain things about the gene
-	to be gaureateed, such as type and size.
+	to be guaranteed, such as type and size.
 	```python
 	class Gene:
 		def __init__(self, gene_type: object=None, dna: list[Any] | None=None):
@@ -164,8 +164,8 @@
 
 = Chromosomes
 #paragraph[
-	Chromosomes represent individual model topologies. Chromosome inherits the `Gene` class
-	$"Gene" -> "Chromosome"$. Since certain aspects of the gene are confirmed by their existance,
+	Chromosomes represent individual model topologies. `Chromosome` inherits the `Gene` class
+	$"Gene" -> "Chromosome"$. Since certain aspects of the gene are confirmed by their existence,
 	the `Chromosome` class can use the functionalility implemented in the `Gene` without having
 	to worry about edge cases.
 	```python
@@ -186,14 +186,14 @@
 
 	The `Population` is just as it seems, a population of `Individual` being evaluated and bred
 	with each other. The `Population` class handles certain aspects of the Blacklight library such
-	running the simulation and defining global rules for the model's to follow, for example you
-	may want to individuals to mutate a bit before mating, so you pause mating for a few cycles.
+	as running the simulation and defining global rules for the models to follow, for example you
+	may want the individuals to mutate a bit before mating, so you pause mating for a few cycles.
 ]]
 
 = Conclusion
 #paragraph[
 	The design and architecture of a program heaviliy influences how the program performs, likewise
-	the intended functionality of the a program will heaviliy influence its design. By representing
+	the intended functionality of a program will heaviliy influence its design. By representing
 	programs in terms of metaphors for what they might be analogous to, complex functionality can
 	be abstracted away into simple parts that make up the whole. Simulating a whole individual is 
 	complicated, but simulating each of that individual's parts is simple.
