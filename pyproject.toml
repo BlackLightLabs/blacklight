@@ -1,30 +1,42 @@
-[tool.poetry]
+[project]
 name = "blacklight"
-version = "0.1.10"
+version = "0.1.0"
 description = "AutoML utilizing Genetic Algorithms and Neural Networks"
-authors = ["Cole Agard <ctagard19@gmail.com>"]
+authors = [
+    {name = "Cole Agard", email = "ctagard19@gmail.com"},
+    {name = "Jackson Collins", email = "jacksoncofficial3@gmail.com"},
+]
+requires-python = ">=3.10"
 readme = "README.md"
-
-[tool.poetry.dependencies]
-python = ">=3.9,<3.11"
-numpy = "*"
-pandas = "*"
-fastparquet = "*"
-openpyxl = "*"
-matplotlib = "*"
-tqdm = "*"
-scikit-learn = "*"
-tensorflow-macos = {version = "*", markers = "platform_machine == 'arm64' and sys.platform == 'darwin'"}
-tensorflow-metal = {version = "*", markers = "platform_machine == 'arm64' and sys.platform == 'darwin'"}
-tensorflow = {version="*", markers="platform_machine != 'arm64' and sys.platform != 'darwin'"}
-
-
-[tool.poetry.group.dev.dependencies]
-pytest = "*"
-flake8 = "*"
-autopep8 = "*"
-coverage = "*"
+license = {text = "GPL-3.0-only"}
+dependencies = [
+    "numpy>=2.0.0",
+    "fastparquet>=2024.5.0",
+    "openpyxl>=3.1.5",
+    "matplotlib>=3.9.1",
+    "tqdm>=4.66.4",
+    "scikit-learn>=1.5.1",
+    "torch>=2.3.1",
+    "torchvision>=0.18.1",
+]
 
 [build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+requires = ["setuptools>=61", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.pdm]
+distribution = true
+
+[tool.pdm.scripts]
+test = "pytest"
+
+[tool.basedpyright]
+venvPath = "./"
+venv = "./.venv/"
+ignore = ["./blacklight.old/", "./src/blacklight/engine/model_creator.py"]
+
+[tool.pdm.dev-dependencies]
+setuptools = []
+dev = [
+    "pytest>=8.2.2",
+]

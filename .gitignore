@@ -1,5 +1,6 @@
 .idea/
 venv/
+.venv/
 blacklight_env/
 blacklightvenv/
 blacklightenv_macair/
@@ -12,8 +13,10 @@ blacklightenv_macair/
 .vscode/ 
 .pytest_cache/
 .coverage
+.pdm-python
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
 *.pyc
 *.pyo
+poc/
